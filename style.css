@@ -56,6 +56,16 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    padding-top: env(safe-area-inset-top, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* Base Grid */
@@ -96,7 +106,8 @@ header {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 1.5rem 0;
+    padding: clamp(1rem, 3vw, 1.5rem) 0;
+    padding-top: calc(clamp(1rem, 3vw, 1.5rem) + env(safe-area-inset-top, 0));
     transition: var(--transition-base);
 }
 
@@ -126,6 +137,11 @@ nav {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     transition: 0.3s;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-links a:hover {
@@ -141,6 +157,10 @@ nav {
     cursor: pointer;
     gap: 6px;
     z-index: 1001;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
 }
 
 .hamburger-menu span {
@@ -181,7 +201,10 @@ nav {
     overflow: hidden;
     transition: var(--transition-base);
     text-decoration: none;
-    /* Remove underline */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-cta:hover {
@@ -1205,28 +1228,54 @@ textarea.form-input {
     }
 
     .nav-links {
-        position: absolute;
-        top: 70px;
+        position: fixed;
+        top: 0;
         left: 0;
-        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(8, 8, 8, 0.98);
+        backdrop-filter: blur(20px);
         flex-direction: column;
-        gap: 1.5rem;
-        background: rgba(8, 8, 8, 0.95);
-        backdrop-filter: blur(15px);
-        padding: 2rem;
-        border-bottom: 1px solid var(--border-color);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s var(--ease-standard);
         z-index: 999;
+        padding-top: env(safe-area-inset-top, 20px);
     }
 
     .nav-links.active {
-        max-height: 500px;
+        opacity: 1;
+        visibility: visible;
     }
 
-    .nav-links a {
-        font-size: 1rem;
+    /* Hide section tags in normal flow on mobile */
+    .hero-content .section-tag,
+    #perfil .section-tag,
+    #servicios .section-tag,
+    #portfolio .section-tag,
+    #contacto .section-tag,
+    #faq .section-tag,
+    .tech-section .section-tag {
+        display: none !important;
+    }
+
+    /* Show page title/tag ONLY when menu is active */
+    .nav-links.active::before {
+        content: attr(data-page-title);
+        position: absolute;
+        top: calc(2rem + env(safe-area-inset-top, 0px));
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 700;
+        opacity: 0.8;
     }
 
     .expertise-grid .card-glass {
