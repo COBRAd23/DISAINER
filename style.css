@@ -1259,7 +1259,7 @@ textarea.form-input {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 1.2rem;
+        gap: 1rem;
         /* Tighter interlineado as requested */
         opacity: 0;
         visibility: hidden;
@@ -1269,21 +1269,19 @@ textarea.form-input {
     }
 
     .nav-links a {
-        font-size: 1.5rem;
-        /* Larger text */
+        font-size: 0.85rem;
         font-weight: 800;
-        /* Bolder text */
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
 
     .nav-links a.btn-cta {
-        margin-top: 2rem;
+        margin-top: 1.5rem;
         /* More space for the special button */
         font-size: 0.85rem;
         padding: 0.8rem 2.5rem;
-        width: 80%;
-        /* Slightly smaller than full width for more elegance */
+        width: auto;
+        min-width: 200px;
     }
 
     .nav-links.active {
@@ -1834,7 +1832,7 @@ section {
     }
 
     .logo img {
-        height: 25px !important;
+        height: 30px !important;
     }
 
     .portfolio-gallery {
@@ -1992,19 +1990,34 @@ section {
 }
 
 .form-input {
-    padding: 0.8rem 1rem !important;
-    /* Less tall inputs */
+    padding: 0.7rem 1.2rem !important;
+    /* Shorter, more elegant */
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.btn-submit {
+    padding: 0.9rem !important;
+    width: 100%;
     font-size: 0.9rem;
 }
 
+.contact-form-wrap {
+    max-width: 100%;
+    width: 100%;
+}
+
 #contacto h2 {
-    font-size: clamp(2rem, 7vw, 3.5rem) !important;
-    /* Smaller, better centered */
+    font-size: clamp(1.8rem, 6.5vw, 2.8rem) !important;
+    line-height: 1.2;
+    margin-bottom: 2.5rem;
+    text-align: center;
 }
 
 #contacto h3 {
-    font-size: clamp(1.1rem, 4.5vw, 1.8rem) !important;
-    /* Fluid subtitle scaling */
+    font-size: clamp(1rem, 4.5vw, 1.6rem) !important;
+    line-height: 1.4;
+    text-align: center;
 }
 
 /* Service Buttons */
