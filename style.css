@@ -1825,6 +1825,8 @@ section {
         width: 100%;
         /* Fill container (which has 7vw padding) */
         margin: 0 0 1.5rem 0;
+        padding: 1.5rem;
+        /* Reduced padding for more horizontal form space */
     }
 
     .expertise-grid .card-glass {
@@ -1994,17 +1996,22 @@ section {
     /* Shorter, more elegant */
     font-size: 0.9rem;
     width: 100%;
+    max-width: 100%;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .btn-submit {
     padding: 0.9rem !important;
     width: 100%;
+    max-width: 100%;
     font-size: 0.9rem;
+    box-sizing: border-box;
 }
 
 .contact-form-wrap {
-    max-width: 100%;
     width: 100%;
+    max-width: 100%;
 }
 
 #contacto h2 {
