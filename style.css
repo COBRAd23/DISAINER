@@ -583,7 +583,8 @@ section {
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.6;
     margin: 0.5rem 0 0 0;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.1rem;
+    /* Universal 5mm gap anchor */
 }
 
 
@@ -1371,7 +1372,8 @@ textarea.form-input {
     }
 
     .portfolio-btn {
-        margin-top: 1rem;
+        margin-top: 0;
+        /* Align with global 5mm gap */
         padding: 0.8rem 1.5rem;
     }
 
@@ -1513,7 +1515,7 @@ textarea.form-input {
 }
 
 .portfolio-btn {
-    margin-top: auto;
+    margin-top: 0;
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
 }
@@ -1582,7 +1584,7 @@ textarea.form-input {
     }
 
     .portfolio-btn {
-        margin-top: auto;
+        margin-top: 0;
         padding: 0.7rem 1.2rem;
         font-size: 0.85rem;
         width: 100%;
@@ -1722,7 +1724,7 @@ textarea.form-input {
 }
 
 .portfolio-btn {
-    margin-top: auto;
+    margin-top: 0;
     padding: 0.6rem 1rem;
     font-size: 0.8rem;
     width: 100%;
@@ -1918,19 +1920,19 @@ section {
     .portfolio-meta {
         display: flex;
         flex-direction: column;
-        min-height: 400px;
-        /* Force height to allow spacing */
+        /* Removed min-height to prevent excessive gaps */
     }
 
     .card-description {
-        margin-bottom: 4rem;
-        /* Large gap before button as requested */
-        flex-grow: 1;
+        margin-bottom: 1.2rem;
+        /* Exactly ~5mm distance from button */
+        flex-grow: 0;
+        /* Don't push button to the bottom */
     }
 
     .portfolio-meta .portfolio-btn {
-        margin-top: 1.25rem !important;
-        /* Exactly ~5mm distance from description */
+        margin-top: 0;
+        /* Relying on card-description margin-bottom */
     }
 }
 
