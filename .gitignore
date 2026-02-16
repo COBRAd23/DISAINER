@@ -1,0 +1,28 @@
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (in case you add dependencies later)
+node_modules/
+package-lock.json
+
+# Local env files
+.env
+.env.local
+
+# Gemini/Antigravity artifacts
+.gemini/
+brain/
+implementation_plan.md
+task.md
+walkthrough.md

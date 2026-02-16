@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Disainer</title>
+    <link rel="icon" href="img/NAVIMAG.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="portfolio-page">
+
+    <!-- Header -->
+    <header id="header" class="scrolled">
+        <div class="container nav-wrap text-white">
+            <nav>
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="img/logo.png" alt="DISAINER" style="height: 35px;">
+                    </a>
+                </div>
+                <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html#inicio">Inicio</a>
+                    <a href="index.html#perfil">Filosofía</a>
+                    <a href="index.html#servicios">Servicios</a>
+                    <a href="portfolio.html" class="active">Portfolio</a>
+                    <a href="index.html#contacto" class="btn-cta">Contacto</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="portfolio-hero">
+            <div class="container-full" style="text-align: center;">
+                <span class="section-tag reveal" style="margin-left: auto; margin-right: auto;">Mis Trabajos</span>
+                <h1 class="section-title reveal" style="text-align: center; margin-bottom: 2.5rem;">PORTFOLIO</h1>
+
+                <div class="portfolio-static-grid grid-12">
+                    <!-- Row 1 -->
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/WON PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-won')"></div>
+                        <h3 class="static-card-title">WONDER <span class="static-card-category">— BRANDING / WEB</span>
+                        </h3>
+                    </article>
+
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/ALES PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-ales')"></div>
+                        <h3 class="static-card-title">ALES <span class="static-card-category">— BRANDING / WEB</span>
+                        </h3>
+                    </article>
+
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/NS PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-ns')"></div>
+                        <h3 class="static-card-title">NICO SAYA <span class="static-card-category">— MARCA
+                                PERSONAL</span></h3>
+                    </article>
+
+                    <!-- Row 2 -->
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/QSM PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-qsm')"></div>
+                        <h3 class="static-card-title">QUE SEA MASA <span class="static-card-category">— BRANDING</span>
+                        </h3>
+                    </article>
+
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/LAU PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-lau')"></div>
+                        <h3 class="static-card-title">LAUREL ZAPATOS <span class="static-card-category">— IDENTIDAD /
+                                BRANDING</span></h3>
+                    </article>
+
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/KML PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-kml')"></div>
+                        <h3 class="static-card-title">KAMALA <span class="static-card-category">— BRANDING 360°</span>
+                        </h3>
+                    </article>
+
+                    <!-- Row 3 -->
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/HN PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-hn')"></div>
+                        <h3 class="static-card-title">HIERRO NEGRO <span class="static-card-category">— IDENTIDAD /
+                                BRANDING</span></h3>
+                    </article>
+
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/DAAB PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-daab')"></div>
+                        <h3 class="static-card-title">DAAB <span class="static-card-category">— BRANDING /
+                                DIGITAL</span></h3>
+                    </article>
+
+                    <article class="portfolio-static-item reveal" style="grid-column: span 4;">
+                        <div class="static-card-img" style="background-image: url('img/ENM PORTADA WEB.jpg');"
+                            onclick="openProjectModal('modal-enm')"></div>
+                        <h3 class="static-card-title">EL NUEVO MUCAMO <span class="static-card-category">— IDENTIDAD
+                                VISUAL</span></h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Same as index.html) -->
+    <footer id="main-footer" style="background-color: var(--accent); color: #000; padding: 4rem 0 2rem;">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo-wrapper">
+                    <img src="img/logo.png" alt="DISAINER" style="height: 30px; filter: brightness(0);">
+                </div>
+                <p style="font-size: 0.8rem; line-height: 1.5; font-weight: 500; max-width: 300px; color: #000;">
+                    Elevando marcas mediante el diseño estratégico y la tecnología. Innovación que genera resultados.
+                </p>
+            </div>
+
+            <div class="footer-links-group">
+                <h4 class="footer-header">Enlaces</h4>
+                <div class="footer-v-links">
+                    <a href="index.html#inicio">Inicio</a>
+                    <a href="index.html#perfil">Filosofía</a>
+                    <a href="index.html#servicios">Servicios</a>
+                    <a href="portfolio.html">Portfolio</a>
+                </div>
+            </div>
+
+            <div class="footer-policies-group">
+                <h4 class="footer-header">Políticas</h4>
+                <div class="footer-v-links">
+                    <a href="politicas.html#filosofia">Filosofía de Trabajo</a>
+                    <a href="politicas.html#privacidad">Política de Privacidad</a>
+                    <a href="politicas.html#terminos">Términos y Condiciones</a>
+                    <a href="politicas.html#responsabilidad">Responsabilidad Social</a>
+                </div>
+            </div>
+
+            <div class="footer-contact-group">
+                <h4 class="footer-header">Hablamos</h4>
+                <a href="index.html#contacto" class="footer-contact-link">Contacto</a>
+            </div>
+
+            <div class="footer-social-group text-right">
+                <h4 class="footer-header">Seguime</h4>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/agustingonzalezlartigue/" target="_blank"
+                        class="social-icon-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/agustin_disainer/" target="_blank" class="social-icon-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.behance.net/agustinglartigue" target="_blank" class="social-icon-box">
+                        <svg width="36" height="36" viewBox="0 0 800 800" fill="currentColor">
+                            <polygon points="590.86,260.32 456.97,260.32 456.97,291.41 590.86,291.41 " />
+                            <path
+                                d="M312.26 491.77c-7.41,3.63 -17.83,5.42 -31.19,5.42l-74.81 0 0 -82.13 75.83 0c13.26,0.14 23.5,1.87 30.8,5.22 13.08,5.98 19.63,16.99 19.63,33.01 0,18.95 -6.75,31.78 -20.26,38.48zm-106 -195.65l67.03 0c14.76,0 26.9,1.6 36.42,4.82 11.04,4.59 16.55,14.06 16.55,28.41 0,12.97 -4.18,22 -12.53,27.07 -8.32,5.09 -19.19,7.63 -32.59,7.63l-74.88 0 0 -67.93zm143.68 89.24c10.34,-5.29 18.18,-11.13 23.5,-17.55 9.5,-11.41 14.28,-26.55 14.28,-45.37 0,-18.24 -4.73,-33.92 -14.16,-47.02 -15.66,-21.31 -42.27,-32.25 -79.83,-32.81l-148.92 0 0 308.09 138.84 0c15.64,0 30.17,-1.39 43.53,-4.18 13.37,-2.77 24.99,-7.93 34.82,-15.46 8.7,-6.55 15.99,-14.62 21.82,-24.23 9.14,-14.52 13.71,-30.87 13.71,-49.15 0,-17.68 -4.01,-32.74 -12,-45.14 -8,-12.4 -19.86,-21.46 -35.59,-27.18z" />
+                            <path
+                                d="M476.39 414.2c2.17,-14.81 7.46,-26.57 15.87,-35.25 8.43,-8.67 20.27,-13.01 35.55,-13.01 14.06,0 25.85,4.1 35.35,12.27 9.49,8.18 14.79,20.2 15.87,35.99l-102.64 0zm162.51 -5.91c-2.76,-17.86 -8.82,-33.58 -18.15,-47.1 -10.34,-15.34 -23.48,-26.59 -39.39,-33.7 -15.86,-7.12 -33.73,-10.66 -53.57,-10.66 -33.37,0 -60.53,10.51 -81.45,31.58 -20.94,21.04 -31.39,51.3 -31.39,90.78 0,42.12 11.59,72.52 34.75,91.22 23.18,18.7 49.93,28.04 80.25,28.04 36.74,0 65.32,-11.07 85.71,-33.25 13.13,-13.94 20.5,-27.67 22.11,-41.17l-60.84 0c-3.54,6.68 -7.62,11.91 -12.26,15.67 -8.48,6.97 -19.52,10.46 -33.08,10.46 -12.8,0 -23.74,-2.85 -32.83,-8.58 -14.96,-9.19 -22.91,-25.22 -23.83,-48.08l165.93 0c0.3,-19.67 -0.36,-34.75 -1.96,-45.21z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <hr style="border: none; border-top: 1px solid #000; margin: 3rem 0 2rem; opacity: 0.2;" />
+        </div>
+
+        <div class="container" style="text-align: center; color: #000; font-size: 0.75rem; font-weight: 500;">
+            &copy; 2026 Agustín Disainer. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <!-- Modals (Copied from index.html for functionality) -->
+    <!-- DAAB -->
+    <div class="project-modal" id="modal-daab">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_DAAB.jpg" alt="DAAB Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Que Sea Masa -->
+    <div class="project-modal" id="modal-qsm">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_QSM.jpg" alt="Que Sea Masa Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- El Nuevo Mucamo -->
+    <div class="project-modal" id="modal-enm">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_ENM.jpg" alt="El Nuevo Mucamo Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- KAMALA -->
+    <div class="project-modal" id="modal-kml">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_KML.jpg" alt="KAMALA - Casa de Té Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Nico Saya -->
+    <div class="project-modal" id="modal-ns">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_NS.jpg" alt="Nico Saya Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Laurel Zapatos -->
+    <div class="project-modal" id="modal-lau">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_LAU.jpg" alt="Laurel Zapatos Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Hierro Negro -->
+    <div class="project-modal" id="modal-hn">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_HN.jpg" alt="Hierro Negro Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- ALES Resto -->
+    <div class="project-modal" id="modal-ales">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_ALES.jpg" alt="ALES Restorant Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Wonder English Institute -->
+    <div class="project-modal" id="modal-won">
+        <div class="modal-overlay" onclick="closeProjectModal()"></div>
+        <div class="modal-container">
+            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path
+                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+            </button>
+            <div class="modal-content">
+                <img src="img/PORTFOLIO_WON.jpg" alt="WONDER - English Institute Portfolio" class="modal-image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#inicio" id="backToTop" class="back-to-top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </a>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
