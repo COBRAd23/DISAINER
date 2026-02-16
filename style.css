@@ -850,16 +850,36 @@ section {
 }
 
 .scroll-box::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
+    display: block !important;
 }
 
 .scroll-box::-webkit-scrollbar-track {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 
 .scroll-box::-webkit-scrollbar-thumb {
     background: var(--accent);
     border-radius: 10px;
+}
+
+/* Attempt to show scrollbar buttons (arrows) */
+.scroll-box::-webkit-scrollbar-button:single-button {
+    background-color: var(--bg-secondary);
+    display: block;
+    height: 12px;
+    width: 6px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.scroll-box::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='yellow'><polygon points='50,0 0,100 100,100'/></svg>");
+}
+
+.scroll-box::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='yellow'><polygon points='50,100 0,0 100,0'/></svg>");
 }
 
 /* Back to Top Button */
@@ -1251,10 +1271,24 @@ textarea.form-input {
         visibility: visible;
     }
 
-    /* Hide section tags in normal flow on mobile */
+    /* Restore section tags for specific sections on mobile as requested */
     .hero-content .section-tag,
     #perfil .section-tag,
-    #servicios .section-tag,
+    #servicios .section-tag {
+        display: block !important;
+        margin-bottom: 0.5rem;
+    }
+
+    #perfil .section-tag {
+        text-align: left;
+    }
+
+    #servicios .section-tag {
+        text-align: center;
+        margin: 0 auto 0.5rem auto;
+    }
+
+    /* Keep others hidden or adjust as needed */
     #portfolio .section-tag,
     #contacto .section-tag,
     #faq .section-tag,
@@ -1262,20 +1296,14 @@ textarea.form-input {
         display: none !important;
     }
 
-    /* Show page title/tag ONLY when menu is active */
+    /* Remove page title overlay in menu */
     .nav-links.active::before {
-        content: attr(data-page-title);
-        position: absolute;
-        top: calc(2rem + env(safe-area-inset-top, 0px));
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: var(--font-heading);
-        font-size: 0.7rem;
-        color: var(--accent);
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        font-weight: 700;
-        opacity: 0.8;
+        display: none;
+    }
+
+    .nav-links {
+        gap: 1.5rem;
+        /* Tighter interlineado for menu */
     }
 
     .expertise-grid .card-glass {
@@ -1619,16 +1647,22 @@ textarea.form-input {
 
     .hero-btns {
         flex-direction: column !important;
-        gap: 1rem !important;
+        gap: 0.8rem !important;
+        width: 100%;
+        margin-top: 2rem;
     }
 
     .hero-btns a {
         width: 100%;
         text-align: center;
+        margin: 0;
+        /* Clear any stray margins */
     }
 
     .expertise-grid .card-glass {
         grid-column: span 12;
+        margin: 0;
+        width: 100%;
     }
 
     .portfolio-controls {
@@ -1749,9 +1783,14 @@ section {
     font-weight: 600;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+    .container {
+        padding: 0 7vw;
+        /* Consistent margin for aligning with 't' in Transformo */
+    }
+
     .nav-wrap {
-        padding: 0;
+        padding: 0 7vw;
     }
 
     .logo img {
@@ -1850,7 +1889,8 @@ section {
     }
 
     .portfolio-meta .portfolio-btn {
-        margin-top: auto;
+        margin-top: 1.5rem;
+        /* Closer space between description and button */
     }
 }
 
@@ -1907,6 +1947,22 @@ section {
 #customModal .modal-content .btn-cta {
     display: inline-block;
     margin: 0 auto;
+}
+
+.form-input {
+    padding: 0.8rem 1rem !important;
+    /* Less tall inputs */
+    font-size: 0.9rem;
+}
+
+#contacto h2 {
+    font-size: clamp(2rem, 7vw, 3.5rem) !important;
+    /* Smaller, better centered */
+}
+
+#contacto h3 {
+    font-size: clamp(1.1rem, 4.5vw, 1.8rem) !important;
+    /* Fluid subtitle scaling */
 }
 
 /* Service Buttons */
@@ -2056,11 +2112,15 @@ section {
 }
 
 @media (max-width: 600px) {
+    #perfil h2.section-title {
+        margin-bottom: 1.5rem !important;
+        /* Closer to scrollbox */
+    }
+
     .footer-grid {
         grid-template-columns: 1fr;
         gap: 2.5rem;
     }
-
 }
 
 /* --- Dedicated Portfolio Page Styles --- */
