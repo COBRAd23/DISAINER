@@ -1258,12 +1258,31 @@ textarea.form-input {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 2.5rem;
+        gap: 1.2rem;
+        /* Tighter interlineado as requested */
         opacity: 0;
         visibility: hidden;
         transition: all 0.4s var(--ease-standard);
         z-index: 999;
-        padding-top: env(safe-area-inset-top, 20px);
+        padding: env(safe-area-inset-top, 20px) 7vw 0 7vw;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+        /* Larger text */
+        font-weight: 800;
+        /* Bolder text */
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .nav-links a.btn-cta {
+        margin-top: 2rem;
+        /* More space for the special button */
+        font-size: 0.85rem;
+        padding: 0.8rem 2.5rem;
+        width: 80%;
+        /* Slightly smaller than full width for more elegance */
     }
 
     .nav-links.active {
@@ -1301,10 +1320,6 @@ textarea.form-input {
         display: none;
     }
 
-    .nav-links {
-        gap: 1.5rem;
-        /* Tighter interlineado for menu */
-    }
 
     .expertise-grid .card-glass {
         grid-column: span 6;
@@ -1784,13 +1799,36 @@ section {
 }
 
 @media (max-width: 600px) {
-    .container {
+
+    .container,
+    .container-full {
         padding: 0 7vw;
-        /* Consistent margin for aligning with 't' in Transformo */
     }
 
     .nav-wrap {
         padding: 0 7vw;
+    }
+
+    .grid-12 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        /* Container's 7vw padding will handle the margins */
+    }
+
+    .expertise-grid {
+        padding-right: 0;
+        /* Let cards handle internal container limit */
+    }
+
+    .card-glass {
+        width: 100%;
+        /* Fill container (which has 7vw padding) */
+        margin: 0 0 1.5rem 0;
+    }
+
+    .expertise-grid .card-glass {
+        margin-bottom: 2rem;
     }
 
     .logo img {
@@ -1867,7 +1905,9 @@ section {
     .hero p {
         font-size: 1rem;
         margin-bottom: 2.5rem;
-        max-width: 100%;
+        max-width: calc(100% - 7vw);
+        /* Ensure it hits the invisible right boundary */
+        text-wrap: balance;
     }
 
     .portfolio-item {
@@ -1889,8 +1929,8 @@ section {
     }
 
     .portfolio-meta .portfolio-btn {
-        margin-top: 1.5rem;
-        /* Closer space between description and button */
+        margin-top: 1.25rem !important;
+        /* Exactly ~5mm distance from description */
     }
 }
 
