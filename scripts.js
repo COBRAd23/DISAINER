@@ -94,12 +94,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scrollX >= maxOffset) {
                 scrollX = 0;
             }
-            portfolioRow.style.transform = `translateX(${-scrollX}px)`;
+            portfolioRow.style.transform = `translateX(${offset}px)`; // Offset variable fix
             rafId = requestAnimationFrame(step);
         }
 
+        // Corrected step function with local scrollX
+        function animateMarquee() {
+            scrollX += speed;
+            const maxOffset = portfolioRow.scrollWidth / 2;
+            if (scrollX >= maxOffset) scrollX = 0;
+            portfolioRow.style.transform = `translateX(${-scrollX}px)`;
+            rafId = requestAnimationFrame(animateMarquee);
+        }
+
         function startMarquee() {
-            if (rafId === null) rafId = requestAnimationFrame(step);
+            if (rafId === null) rafId = requestAnimationFrame(animateMarquee);
         }
 
         function stopMarquee() {
@@ -137,14 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.closeModal = closeProjectModal; // Alias for form modal
 
-    // Delegation for Portfolio Buttons (Works with clones)
+    // Delegation for Portfolio Cards
     document.addEventListener('click', (e) => {
-        const btn = e.target.closest('.portfolio-btn');
-        if (btn) {
-            const modalId = btn.getAttribute('data-modal');
-            if (modalId) {
-                openProjectModal(modalId);
-            }
+        const card = e.target.closest('.overlay-card');
+        if (card) {
+            const modalId = card.getAttribute('data-modal');
+            if (modalId) openProjectModal(modalId);
         }
     });
 
@@ -162,11 +169,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
             const mailtoLink = `mailto:agustin.disainer@gmail.com?subject=${subject}&body=${body}`;
 
-            // Show confirmation modal
             const customModal = document.getElementById('customModal');
-            if (customModal) {
-                customModal.classList.add('active');
-            }
+            if (customModal) customModal.classList.add('active');
 
             setTimeout(() => {
                 window.location.href = mailtoLink;
@@ -180,13 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const backToTop = document.getElementById('backToTop');
     if (backToTop) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
-            } else {
-                backToTop.classList.remove('visible');
-            }
+            if (window.scrollY > 500) backToTop.classList.add('visible');
+            else backToTop.classList.remove('visible');
         });
     }
+
     // --- Active Link Highlighting ---
     const currentPath = window.location.pathname;
     const pageName = currentPath.split('/').pop() || 'index.html';
@@ -201,43 +203,85 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- FAQ Accordion Logic ---
-
-    // Category Toggle
     const categoryToggles = document.querySelectorAll('.faq-category-toggle');
     categoryToggles.forEach(toggle => {
         toggle.addEventListener('click', () => {
             const category = toggle.parentElement;
             const isActive = category.classList.contains('active');
-
-            // Close other categories
-            document.querySelectorAll('.faq-category').forEach(otherCat => {
-                otherCat.classList.remove('active');
-            });
-
-            if (!isActive) {
-                category.classList.add('active');
-            }
+            document.querySelectorAll('.faq-category').forEach(otherCat => otherCat.classList.remove('active'));
+            if (!isActive) category.classList.add('active');
         });
     });
 
-    // Question Toggle
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
         question.addEventListener('click', () => {
             const item = question.parentElement;
             const isActive = item.classList.contains('active');
-
-            // Close others only within the same category
             const container = item.closest('.faq-accordion');
             if (container) {
-                container.querySelectorAll('.faq-item').forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                });
+                container.querySelectorAll('.faq-item').forEach(otherItem => otherItem.classList.remove('active'));
             }
-
-            if (!isActive) {
-                item.classList.add('active');
-            }
+            if (!isActive) item.classList.add('active');
         });
     });
+
+    // --- Services Carousel (Phase 7) ---
+    const servicesTrack = document.getElementById('servicesTrack');
+    const serviceSlides = document.querySelectorAll('.carousel-slide');
+    const serviceDots = document.querySelectorAll('.indicator-bar');
+    const prevSBtn = document.getElementById('prevService');
+    const nextSBtn = document.getElementById('nextService');
+
+    let currentSIndex = 0;
+    let sInterval;
+
+    function updateSCarousel(index) {
+        if (!servicesTrack || serviceSlides.length === 0) return;
+        if (index >= serviceSlides.length) currentSIndex = 0;
+        else if (index < 0) currentSIndex = serviceSlides.length - 1;
+        else currentSIndex = index;
+
+        const offset = -currentSIndex * 100;
+        servicesTrack.style.transform = `translateX(${offset}%)`;
+
+        serviceSlides.forEach((slide, i) => slide.classList.toggle('active', i === currentSIndex));
+        serviceDots.forEach((dot, i) => dot.classList.toggle('active', i === currentSIndex));
+    }
+
+    function startSAutoPlay() {
+        stopSAutoPlay();
+        sInterval = setInterval(() => updateSCarousel(currentSIndex + 1), 6000);
+    }
+
+    function stopSAutoPlay() {
+        if (sInterval) clearInterval(sInterval);
+    }
+
+    if (servicesTrack && serviceSlides.length > 0) {
+        if (prevSBtn) {
+            prevSBtn.addEventListener('click', () => {
+                updateSCarousel(currentSIndex - 1);
+                startSAutoPlay();
+            });
+        }
+        if (nextSBtn) {
+            nextSBtn.addEventListener('click', () => {
+                updateSCarousel(currentSIndex + 1);
+                startSAutoPlay();
+            });
+        }
+        serviceDots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                updateSCarousel(parseInt(e.target.dataset.index));
+                startSAutoPlay();
+            });
+        });
+
+        updateSCarousel(0);
+        startSAutoPlay();
+
+        servicesTrack.addEventListener('mouseenter', stopSAutoPlay);
+        servicesTrack.addEventListener('mouseleave', startSAutoPlay);
+    }
 });
