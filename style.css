@@ -121,6 +121,15 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 1001;
+    /* Ensure nav is above menu overlay */
+}
+
+.logo {
+    position: relative;
+    z-index: 1002;
+    /* Logo above everything */
 }
 
 .nav-links {
@@ -1264,6 +1273,8 @@ textarea.form-input {
 
     .hero-content {
         grid-column: span 12;
+        padding-top: 6rem;
+        /* More breathing room below header */
     }
 
     .hamburger-menu {
@@ -1319,8 +1330,14 @@ textarea.form-input {
     }
 
     /* Logo and Hamburger color when menu is active */
-    body.menu-open .logo img {
-        filter: brightness(0);
+    .logo {
+        position: relative;
+        z-index: 1002;
+    }
+
+    body.menu-open .logo img,
+    .nav-links.active~.logo img {
+        filter: brightness(0) !important;
         /* Turn logo black when menu is open */
     }
 
@@ -2033,6 +2050,26 @@ section {
 .contact-form-wrap {
     width: 100%;
     max-width: 100%;
+    padding: 0 0.5rem;
+    /* Minimal padding to reach near edges */
+}
+
+#contacto .container {
+    padding: 0 1rem;
+    /* Reduce container padding on mobile */
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    display: block;
 }
 
 #contacto h2 {
