@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
         });
 
         // Close menu when clicking a link
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
             });
         });
 
@@ -68,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
             }
         });
     }

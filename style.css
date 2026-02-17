@@ -1276,13 +1276,13 @@ textarea.form-input {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(8, 8, 8, 0.98);
-        backdrop-filter: blur(20px);
+        background: var(--accent);
+        /* Full yellow as requested */
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
-        /* Tighter interlineado as requested */
+        gap: 2rem;
+        /* Better vertical breathing */
         opacity: 0;
         visibility: hidden;
         transition: all 0.4s var(--ease-standard);
@@ -1291,24 +1291,42 @@ textarea.form-input {
     }
 
     .nav-links a {
-        font-size: 0.85rem;
-        font-weight: 800;
+        font-size: 1.2rem;
+        /* Larger for mobile menu as per mockup */
+        font-weight: 700;
+        color: #000;
+        /* Black text on yellow */
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.1em;
     }
 
     .nav-links a.btn-cta {
-        margin-top: 1.5rem;
-        /* More space for the special button */
-        font-size: 0.85rem;
-        padding: 0.8rem 2.5rem;
-        width: auto;
-        min-width: 200px;
+        margin-top: 3rem;
+        background: #000;
+        color: var(--accent);
+        border: none;
+        border-radius: 0;
+        /* Square as per mockup */
+        font-size: 1rem;
+        padding: 1.2rem 3rem;
+        width: 80%;
+        max-width: 300px;
     }
 
     .nav-links.active {
         opacity: 1;
         visibility: visible;
+    }
+
+    /* Logo and Hamburger color when menu is active */
+    body.menu-open .logo img {
+        filter: brightness(0);
+        /* Turn logo black when menu is open */
+    }
+
+    .hamburger-menu.active span {
+        background: #000;
+        /* Black X on yellow */
     }
 
     /* Restore section tags for specific sections on mobile as requested */
@@ -2652,12 +2670,57 @@ section {
     }
 
     .service-glass-card {
-        padding: 4rem 2rem;
-        border-radius: 30px;
+        padding: 2.5rem 1.5rem;
+        border-radius: 20px;
+        max-width: 95%;
+        max-height: 75vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .card-header-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .card-category {
+        font-size: 0.75rem;
+    }
+
+    .card-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .service-icon-box {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .service-title {
-        font-size: clamp(2.5rem, 8vw, 3.5rem) !important;
+        font-size: clamp(2.2rem, 10vw, 2.8rem) !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-description {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    .mobile-hide {
+        display: none !important;
+    }
+
+    .card-footer-action {
+        margin-top: 2rem;
+    }
+
+    .btn-service-outline {
+        width: 100%;
+        padding: 1rem;
+        font-size: 0.9rem;
     }
 
     .carousel-arrow {
@@ -2665,14 +2728,16 @@ section {
     }
 
     .carousel-external-indicators {
-        bottom: 2rem;
+        bottom: 2.5rem;
+        gap: 10px;
     }
 
     .indicator-bar {
-        width: 30px;
+        width: 35px;
+        height: 3px;
     }
 
     .indicator-bar.active {
-        width: 60px;
+        width: 70px;
     }
 }
