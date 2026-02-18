@@ -2744,8 +2744,8 @@ section {
 
     /* Contact Form Mobile Width Adjustments */
     #contacto .container {
-        padding-left: 0.25rem;
-        padding-right: 0.25rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
     }
 
     .contact-form-wrap {
