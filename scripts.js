@@ -308,7 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
     const HEADER_OFFSET = 100;
-    const MENU_CLOSE_DURATION = 600; // ms: esperar a que termine la transición del menú y el margin-top del hero en index
     function scrollToTarget(el) {
         const elTop = el.getBoundingClientRect().top;
         const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
@@ -324,20 +323,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetEl = document.getElementById(targetId);
         if (!targetEl) return;
         e.preventDefault();
-        const menuWasOpen = navLinks && navLinks.classList.contains('active');
-        if (menuWasOpen) {
+        if (navLinks && navLinks.classList.contains('active')) {
             hamburger.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.classList.remove('menu-open');
-            setTimeout(() => {
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        scrollToTarget(targetEl);
-                    });
-                });
-            }, MENU_CLOSE_DURATION);
-        } else {
-            scrollToTarget(targetEl);
         }
+        scrollToTarget(targetEl);
     });
 });

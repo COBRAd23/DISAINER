@@ -1296,8 +1296,8 @@ textarea.form-input {
         justify-content: flex-start;
         /* Enlaces más arriba */
         align-items: center;
-        gap: 0.15rem;
-        /* Muy compacto: Inicio, Filosofía, Servicios, Portfolio juntos */
+        gap: 0.12rem;
+        /* ~20% más corto: enlaces más juntos (como portfolio) */
         opacity: 0;
         visibility: hidden;
         transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
@@ -1340,18 +1340,12 @@ textarea.form-input {
         opacity: 1;
         visibility: visible;
         height: 48vh;
-        /* Menú más compacto para que el hero suba */
         transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
     }
 
-    /* Push Effect on Hero (igual al alto del menú) */
+    /* Sin empuje del contenido: menú en overlay como en portfolio, así los enlaces llevan al lugar correcto */
     body.menu-open #inicio {
-        margin-top: 48vh;
-        transition: margin-top 0.5s var(--ease-standard);
-    }
-
-    #inicio {
-        transition: margin-top 0.5s var(--ease-standard);
+        margin-top: 0;
     }
 
     /* Logo and Hamburger color when menu is active */
@@ -1407,11 +1401,15 @@ textarea.form-input {
         padding: 0.75rem 0;
     }
 
-    /* FAQ: títulos de categoría al mismo tamaño que "Herramientas" (section-tag) */
+    /* FAQ: encabezados de categoría más chicos, una línea, y en relación al título de sección */
+    #faq .section-title {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 2rem;
+    }
     .faq-category-toggle {
-        font-size: 0.8rem;
-        letter-spacing: 0.15em;
-        padding: 1rem 0;
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        padding: 0.85rem 0;
     }
 
     /* De-box Contact Form on Mobile */
