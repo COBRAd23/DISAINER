@@ -1362,12 +1362,18 @@ textarea.form-input {
         margin: 0 auto 0.5rem auto;
     }
 
-    /* Keep others hidden or adjust as needed */
+    /* Restore section tags for ALL sections on mobile */
     #portfolio .section-tag,
     #contacto .section-tag,
     #faq .section-tag,
     .tech-section .section-tag {
-        display: none !important;
+        display: block !important;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Add padding to contact tag since container has 0 padding */
+    #contacto .section-tag {
+        padding-left: 1rem;
     }
 
     /* Remove page title overlay in menu */
@@ -2738,8 +2744,8 @@ section {
 
     /* Contact Form Mobile Width Adjustments */
     #contacto .container {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
     }
 
     .contact-form-wrap {
