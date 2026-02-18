@@ -317,17 +317,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = e.target.closest('a');
         if (!link || !link.getAttribute('href')) return;
         const href = link.getAttribute('href');
+        const isInNav = navLinks && navLinks.contains(link);
+        if (isInNav && navLinks.classList.contains('active')) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
         if (href.indexOf('#') === -1) return;
         const targetId = href.split('#')[1];
         if (!targetId) return;
         const targetEl = document.getElementById(targetId);
         if (!targetEl) return;
         e.preventDefault();
-        if (navLinks && navLinks.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        }
         scrollToTarget(targetEl);
     });
 });

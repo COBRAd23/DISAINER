@@ -140,6 +140,16 @@ nav {
     align-items: center;
 }
 
+.nav-links-inner {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+}
+
+.nav-menu-social {
+    display: none;
+}
+
 .nav-links a {
     text-decoration: none;
     color: var(--text-gray);
@@ -1288,59 +1298,110 @@ textarea.form-input {
         left: 0;
         width: 100vw;
         height: 0;
-        /* Starts hidden */
         overflow: hidden;
-        background: linear-gradient(180deg, var(--accent) 0%, #000 100%);
-        /* Gradient down */
+        background: var(--accent);
+        /* Fondo amarillo sólido que baja y cubre toda la pantalla */
         flex-direction: column;
         justify-content: flex-start;
-        /* Enlaces más arriba */
+        align-items: center;
+        opacity: 1;
+        visibility: hidden;
+        transition: height 0.5s var(--ease-standard), visibility 0s linear 0.5s;
+        z-index: 999;
+        padding: calc(env(safe-area-inset-top, 20px) + 5rem) 7vw 2rem 7vw;
+        min-height: 0;
+    }
+
+    .nav-links-inner {
+        display: flex;
+        flex-direction: column;
         align-items: center;
         gap: 0.12rem;
-        /* ~20% más corto: enlaces más juntos (como portfolio) */
+        width: 100%;
+        flex: 1;
+        justify-content: flex-start;
         opacity: 0;
-        visibility: hidden;
-        transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
-        z-index: 999;
-        padding: calc(env(safe-area-inset-top, 20px) + 5rem) 7vw 0 7vw;
-        /* Más espacio entre logo e Inicio */
-        backdrop-filter: blur(10px);
+        transition: opacity 0.35s ease 0.35s;
+        /* Aparecen enlaces e iconos después de que baje el amarillo */
+    }
+
+    .nav-links.active .nav-links-inner {
+        opacity: 1;
     }
 
     .nav-links a:not(.btn-cta) {
         font-size: 0.85rem;
-        /* Items más chicos */
         font-weight: 600;
         color: #000;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        opacity: 0.8;
     }
 
     .nav-links a:hover {
-        opacity: 1;
+        opacity: 0.85;
     }
 
     .nav-links a.btn-cta {
         margin-top: 0.5rem;
-        /* Poca separación para que el bloque se vea completo */
-        background: transparent;
-        color: #fff;
-        border: 1px solid #fff;
+        background: #000;
+        color: var(--accent);
+        border: 1px solid #000;
         border-radius: 0;
         font-size: 0.9rem;
         padding: 0.6rem 2.2rem;
         width: auto;
         min-width: 160px;
         letter-spacing: 0.1em;
-        opacity: 1;
+    }
+
+    .nav-menu-social {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-top: auto;
+        padding-top: 2.5rem;
+    }
+
+    .nav-menu-social-title {
+        font-family: var(--font-heading);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: #000;
+    }
+
+    .nav-menu-social-icons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .nav-menu-social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border: 1px solid #000;
+        color: #000;
+        transition: opacity 0.2s;
+    }
+
+    .nav-menu-social-icon:hover {
+        opacity: 0.7;
+    }
+
+    .nav-menu-social-icon svg {
+        width: 20px;
+        height: 20px;
     }
 
     .nav-links.active {
-        opacity: 1;
         visibility: visible;
-        height: 48vh;
-        transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
+        height: 100vh;
+        height: 100dvh;
+        transition: height 0.5s var(--ease-standard), visibility 0s linear 0s;
     }
 
     /* Sin empuje del contenido: menú en overlay como en portfolio, así los enlaces llevan al lugar correcto */
