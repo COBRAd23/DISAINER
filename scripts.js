@@ -308,7 +308,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
     const HEADER_OFFSET = 100;
-    const MENU_CLOSE_DURATION = 520; // ms, un poco más que la transición del menú (0.5s) para que el layout del index se asiente (quita margin-top del hero)
+    const MENU_CLOSE_DURATION = 600; // ms: esperar a que termine la transición del menú y el margin-top del hero en index
+    function scrollToTarget(el) {
+        const elTop = el.getBoundingClientRect().top;
+        const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
+        window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+    }
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
         if (!link || !link.getAttribute('href')) return;
@@ -317,25 +322,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetId = href.split('#')[1];
         if (!targetId) return;
         const targetEl = document.getElementById(targetId);
-        // Si el destino está en esta página, hacer scroll con offset en lugar de salto nativo
-        if (targetEl) {
-            e.preventDefault();
-            const menuWasOpen = navLinks && navLinks.classList.contains('active');
-            // En index con menú abierto, el hero tiene margin-top: 48vh; hay que cerrar primero y esperar al cierre para calcular bien la posición (como en portfolio)
-            if (menuWasOpen) {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.classList.remove('menu-open');
-                setTimeout(() => {
-                    const elTop = targetEl.getBoundingClientRect().top;
-                    const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
-                    window.scrollTo({ top: offsetPos, behavior: 'smooth' });
-                }, MENU_CLOSE_DURATION);
-            } else {
-                const elTop = targetEl.getBoundingClientRect().top;
-                const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
-                window.scrollTo({ top: offsetPos, behavior: 'smooth' });
-            }
+        if (!targetEl) return;
+        e.preventDefault();
+        const menuWasOpen = navLinks && navLinks.classList.contains('active');
+        if (menuWasOpen) {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        scrollToTarget(targetEl);
+                    });
+                });
+            }, MENU_CLOSE_DURATION);
+        } else {
+            scrollToTarget(targetEl);
         }
     });
 });

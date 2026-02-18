@@ -1296,8 +1296,8 @@ textarea.form-input {
         justify-content: flex-start;
         /* Enlaces más arriba */
         align-items: center;
-        gap: 0.4rem;
-        /* Enlaces más unidos entre sí */
+        gap: 0.15rem;
+        /* Muy compacto: Inicio, Filosofía, Servicios, Portfolio juntos */
         opacity: 0;
         visibility: hidden;
         transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
@@ -1322,8 +1322,8 @@ textarea.form-input {
     }
 
     .nav-links a.btn-cta {
-        margin-top: 1rem;
-        /* Separación del bloque de enlaces */
+        margin-top: 0.5rem;
+        /* Poca separación para que el bloque se vea completo */
         background: transparent;
         color: #fff;
         border: 1px solid #fff;
@@ -1391,6 +1391,27 @@ textarea.form-input {
         text-align: center;
         margin: 0 auto 1rem auto;
         padding-left: 0 !important;
+    }
+
+    /* Sección Herramientas / Tecnologías más compacta en alto */
+    .tech-section {
+        padding: 2.5rem 0;
+    }
+    .tech-section .section-tag {
+        margin-bottom: 0.5rem;
+    }
+    .tech-section .section-title {
+        margin-bottom: 1.5rem;
+    }
+    .tech-marquee-container {
+        padding: 0.75rem 0;
+    }
+
+    /* FAQ: títulos de categoría al mismo tamaño que "Herramientas" (section-tag) */
+    .faq-category-toggle {
+        font-size: 0.8rem;
+        letter-spacing: 0.15em;
+        padding: 1rem 0;
     }
 
     /* De-box Contact Form on Mobile */
