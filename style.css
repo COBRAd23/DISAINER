@@ -1274,8 +1274,8 @@ textarea.form-input {
 
     .hero-content {
         grid-column: span 12;
-        padding-top: 6rem;
-        /* More breathing room below header */
+        padding-top: 3.5rem;
+        /* Contenido del header más arriba en móvil */
     }
 
     .hamburger-menu {
@@ -1293,27 +1293,25 @@ textarea.form-input {
         background: linear-gradient(180deg, var(--accent) 0%, #000 100%);
         /* Gradient down */
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+        /* Enlaces más arriba */
         align-items: center;
-        gap: 1.5rem;
-        /* Reduced gap for tighter links */
+        gap: 0.4rem;
+        /* Enlaces más unidos entre sí */
         opacity: 0;
         visibility: hidden;
         transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
         z-index: 999;
-        /* Ensure logo/burger are above this - checked separately */
-        padding: env(safe-area-inset-top, 20px) 7vw 0 7vw;
+        padding: calc(env(safe-area-inset-top, 20px) + 5rem) 7vw 0 7vw;
+        /* Más espacio entre logo e Inicio */
         backdrop-filter: blur(10px);
     }
 
-    .nav-links a {
-        font-size: 1.1rem;
-        /* Slightly smaller to fit grouping */
+    .nav-links a:not(.btn-cta) {
+        font-size: 0.85rem;
+        /* Items más chicos */
         font-weight: 600;
         color: #000;
-        /* Should likely be dark on yellow top, but gradient fades to black... */
-        /* Reference shows dark text on top part, white text on button */
-        /* Let's keep links dark for now as they are in yellow area */
         text-transform: uppercase;
         letter-spacing: 0.05em;
         opacity: 0.8;
@@ -1324,18 +1322,16 @@ textarea.form-input {
     }
 
     .nav-links a.btn-cta {
-        margin-top: 2rem;
-        /* Separation from list */
+        margin-top: 1rem;
+        /* Separación del bloque de enlaces */
         background: transparent;
         color: #fff;
-        /* White text for contrast at bottom */
         border: 1px solid #fff;
-        /* White border */
         border-radius: 0;
-        font-size: 1rem;
-        padding: 0.8rem 3rem;
+        font-size: 0.9rem;
+        padding: 0.6rem 2.2rem;
         width: auto;
-        min-width: 200px;
+        min-width: 160px;
         letter-spacing: 0.1em;
         opacity: 1;
     }
@@ -1343,14 +1339,14 @@ textarea.form-input {
     .nav-links.active {
         opacity: 1;
         visibility: visible;
-        height: 60vh;
-        /* Menu height */
+        height: 48vh;
+        /* Menú más compacto para que el hero suba */
+        transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
     }
 
-    /* Push Effect on Hero */
+    /* Push Effect on Hero (igual al alto del menú) */
     body.menu-open #inicio {
-        margin-top: 60vh;
-        /* Pushes content down equal to menu height */
+        margin-top: 48vh;
         transition: margin-top 0.5s var(--ease-standard);
     }
 
@@ -1703,7 +1699,8 @@ textarea.form-input {
     }
 
     .hero {
-        padding-top: 60px;
+        padding-top: 50px;
+        /* Hero más arriba en móvil */
     }
 
     /* Mobile Hero Background Pattern */

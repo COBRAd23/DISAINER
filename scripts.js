@@ -56,34 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.toggle('menu-open');
         });
 
-        // Close menu when clicking a link and smooth scroll
+        // Cerrar menú al hacer clic en un enlace (el scroll con offset lo maneja el listener global)
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', (e) => {
+            link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
                 document.body.classList.remove('menu-open');
-
-                // If link is on same page, handle smooth scroll manually with offset
-                const href = link.getAttribute('href');
-                if (href.includes('#')) {
-                    const targetId = href.split('#')[1];
-                    const targetElement = document.getElementById(targetId);
-
-                    if (targetElement) {
-                        e.preventDefault();
-                        // Wait for menu close transition (500ms) then scroll
-                        setTimeout(() => {
-                            const headerOffset = 100;
-                            const elementPosition = targetElement.getBoundingClientRect().top;
-                            const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                            window.scrollTo({
-                                top: offsetPosition,
-                                behavior: "smooth"
-                            });
-                        }, 300); // Small delay to let menu start closing
-                    }
-                }
             });
         });
 
@@ -309,4 +287,47 @@ document.addEventListener('DOMContentLoaded', () => {
         servicesTrack.addEventListener('mouseenter', stopSAutoPlay);
         servicesTrack.addEventListener('mouseleave', startSAutoPlay);
     }
+
+    // --- Handle Initial Hash Scroll with Offset ---
+    if (window.location.hash) {
+        const targetId = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            setTimeout(() => {
+                const headerOffset = 100;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }, 300); // Small delay to ensure layout and resources are ready
+        }
+    }
+
+    // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
+    const HEADER_OFFSET = 100;
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link || !link.getAttribute('href')) return;
+        const href = link.getAttribute('href');
+        if (href.indexOf('#') === -1) return;
+        const targetId = href.split('#')[1];
+        if (!targetId) return;
+        const targetEl = document.getElementById(targetId);
+        // Si el destino está en esta página, hacer scroll con offset en lugar de salto nativo
+        if (targetEl) {
+            e.preventDefault();
+            const elTop = targetEl.getBoundingClientRect().top;
+            const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
+            window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+            // Cerrar menú móvil si está abierto
+            if (navLinks && navLinks.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }
+        }
+    });
 });
