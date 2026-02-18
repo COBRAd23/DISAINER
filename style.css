@@ -1346,11 +1346,18 @@ textarea.form-input {
     }
 
     /* Restore section tags for specific sections on mobile as requested */
-    /* Center all section tags on mobile */
+    /* Left-aligned section tags (Original) */
     .hero-content .section-tag,
     #perfil .section-tag,
+    #portfolio .section-tag {
+        display: block !important;
+        text-align: left;
+        margin: 0 0 1rem 0;
+        padding-left: 0 !important;
+    }
+
+    /* Centered section tags */
     #servicios .section-tag,
-    #portfolio .section-tag,
     #contacto .section-tag,
     #faq .section-tag,
     .tech-section .section-tag {
@@ -1358,7 +1365,6 @@ textarea.form-input {
         text-align: center;
         margin: 0 auto 1rem auto;
         padding-left: 0 !important;
-        /* Reset any specific padding */
     }
 
     /* De-box Contact Form on Mobile */
