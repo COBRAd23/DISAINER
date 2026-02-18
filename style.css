@@ -1346,34 +1346,28 @@ textarea.form-input {
     }
 
     /* Restore section tags for specific sections on mobile as requested */
+    /* Center all section tags on mobile */
     .hero-content .section-tag,
     #perfil .section-tag,
-    #servicios .section-tag {
-        display: block !important;
-        margin-bottom: 0.5rem;
-    }
-
-    #perfil .section-tag {
-        text-align: left;
-    }
-
-    #servicios .section-tag {
-        text-align: center;
-        margin: 0 auto 0.5rem auto;
-    }
-
-    /* Restore section tags for ALL sections on mobile */
+    #servicios .section-tag,
     #portfolio .section-tag,
     #contacto .section-tag,
     #faq .section-tag,
     .tech-section .section-tag {
         display: block !important;
-        margin-bottom: 0.5rem;
+        text-align: center;
+        margin: 0 auto 1rem auto;
+        padding-left: 0 !important;
+        /* Reset any specific padding */
     }
 
-    /* Add padding to contact tag since container has 0 padding */
-    #contacto .section-tag {
-        padding-left: 1rem;
+    /* De-box Contact Form on Mobile */
+    #contacto .card-glass {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        padding: 0 !important;
     }
 
     /* Remove page title overlay in menu */
