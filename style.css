@@ -955,9 +955,7 @@ section {
 /* Contact Form */
 .contact-form-wrap {
     margin-top: 4rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
     text-align: left;
 }
 
@@ -991,6 +989,7 @@ section {
     outline: none;
     border-color: var(--accent);
     background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 0 1px var(--accent);
 }
 
 textarea.form-input {
@@ -2029,73 +2028,7 @@ section {
     margin: 0 auto;
 }
 
-.form-input {
-    padding: 1rem 1.2rem !important;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: var(--text-white);
-    border-radius: 4px;
-}
 
-textarea.form-input {
-    min-height: 180px;
-    resize: vertical;
-}
-
-.btn-submit {
-    padding: 1.2rem !important;
-    width: 100%;
-    max-width: 100%;
-    font-size: 1rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    box-sizing: border-box;
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 4px;
-}
-
-.contact-form-wrap {
-    width: 100%;
-    max-width: 100%;
-    padding: 0 0.5rem;
-    /* Minimal padding to reach near edges */
-}
-
-#contacto .container {
-    padding: 0 1rem;
-    /* Reduce container padding on mobile */
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-label {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 0.5rem;
-    display: block;
-    font-weight: 600;
-}
-
-/* Hide main contact title on mobile, keep subtitle */
-#contacto h2 {
-    display: none !important;
-}
-
-#contacto .btn-cta {
-    display: none !important;
-}
 
 #contacto h2 {
     font-size: clamp(1.8rem, 6.5vw, 2.8rem) !important;
@@ -2801,5 +2734,31 @@ label {
 
     .indicator-bar.active {
         width: 70px;
+    }
+
+    /* Contact Form Mobile Width Adjustments */
+    #contacto .container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .contact-form-wrap {
+        padding: 0;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    textarea.form-input {
+        min-height: 180px;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 1.2rem;
+        font-size: 1rem;
     }
 }
