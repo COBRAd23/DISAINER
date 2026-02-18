@@ -1285,40 +1285,40 @@ textarea.form-input {
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
-        background: var(--accent);
-        /* Full yellow as requested */
+        height: 0;
+        /* Starts hidden */
+        overflow: hidden;
+        background: linear-gradient(180deg, var(--accent) 0%, #000 100%);
+        /* Gradient down */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 2rem;
-        /* Better vertical breathing */
         opacity: 0;
         visibility: hidden;
-        transition: all 0.4s var(--ease-standard);
+        transition: height 0.5s var(--ease-standard), opacity 0.4s var(--ease-standard), visibility 0.4s;
         z-index: 999;
+        /* Ensure logo/burger are above this - checked separately */
         padding: env(safe-area-inset-top, 20px) 7vw 0 7vw;
+        backdrop-filter: blur(10px);
     }
 
     .nav-links a {
         font-size: 1.2rem;
-        /* Larger for mobile menu as per mockup */
         font-weight: 700;
         color: #000;
-        /* Black text on yellow */
         text-transform: uppercase;
         letter-spacing: 0.1em;
     }
 
     .nav-links a.btn-cta {
-        margin-top: 3rem;
-        background: #000;
-        color: var(--accent);
-        border: none;
+        margin-top: 2rem;
+        background: transparent;
+        color: #fff;
+        border: 1px solid #fff;
         border-radius: 0;
-        /* Square as per mockup */
         font-size: 1rem;
-        padding: 1.2rem 3rem;
+        padding: 1rem 3rem;
         width: 80%;
         max-width: 300px;
     }
@@ -1326,6 +1326,19 @@ textarea.form-input {
     .nav-links.active {
         opacity: 1;
         visibility: visible;
+        height: 60vh;
+        /* Menu height */
+    }
+
+    /* Push Effect on Hero */
+    body.menu-open #inicio {
+        margin-top: 60vh;
+        /* Pushes content down equal to menu height */
+        transition: margin-top 0.5s var(--ease-standard);
+    }
+
+    #inicio {
+        transition: margin-top 0.5s var(--ease-standard);
     }
 
     /* Logo and Hamburger color when menu is active */
