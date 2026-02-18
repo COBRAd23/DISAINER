@@ -36,8 +36,8 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
-    /* Offset for fixed header */
+    scroll-padding-top: 120px;
+    /* Increased offset for safe header clearance */
 }
 
 * {
