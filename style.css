@@ -1385,9 +1385,44 @@ textarea.form-input {
         color: #000;
     }
 
+   /* 1. Contenedor de los iconos */
     .nav-menu-social-icons {
         display: flex;
         gap: 0.8rem;
+        align-items: center;
+        justify-content: center; /* Para que queden bien centrados en el móvil */
+    }
+
+    /* 2. El cuadradito (Clon del Footer) */
+    .nav-menu-social-icons .social-icon-box {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1.5px solid #000;
+        border-radius: 10px;
+        background-color: transparent;
+        transition: all 0.3s ease; /* Esta es la 'reacción' suave */
+        text-decoration: none;
+    }
+
+    /* 3. El dibujo interno */
+    .nav-menu-social-icons .social-icon-box svg {
+        width: 26px !important; 
+        height: 26px !important;
+        fill: #000;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    /* 4. LA REACCIÓN AL MOUSE (Hover) */
+    .nav-menu-social-icons .social-icon-box:hover {
+        background-color: #000;
+    }
+
+    .nav-menu-social-icons .social-icon-box:hover svg {
+        fill: #d3be19; /* El logo se pone blanco cuando el fondo se pone negro */
     }
 
     /* Iconos del menú = mismos que el footer (.social-icon-box) */
@@ -1396,8 +1431,11 @@ textarea.form-input {
     }
 
     .nav-menu-social-icon svg {
-        width: 20px;
-        height: 20px;
+        /* Quitamos el ancho fijo para que mande el tamaño que pusimos en el HTML */
+        max-width: 32px; 
+        max-height: 32px;
+        fill: #000;
+        display: block;
     }
 
     .nav-links.active {
