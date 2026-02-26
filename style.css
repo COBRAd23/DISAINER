@@ -4,6 +4,7 @@
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Inter:wght@300;400;600;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');
 
 :root {
     /* Alora-Inspired Palette */
@@ -153,10 +154,11 @@ nav {
 .nav-links a {
     text-decoration: none;
     color: var(--text-gray);
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.02em;
     transition: 0.3s;
     min-width: 44px;
     min-height: 44px;
@@ -212,11 +214,11 @@ nav {
     background: transparent;
     border: 1px solid var(--accent);
     color: var(--accent);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.8rem;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     border-radius: 4px;
     cursor: pointer;
     overflow: hidden;
@@ -299,6 +301,8 @@ nav {
     margin-bottom: 2rem;
     line-height: 1;
     /* Tighter line height for the main phrase */
+    font-weight: 800;
+    letter-spacing: -0.02em;
 }
 
 .hero p {
@@ -627,7 +631,16 @@ section {
     line-height: 1.6;
     margin: 0.5rem 0 0 0;
     margin-bottom: 1.1rem;
-    /* Universal 5mm gap anchor */
+}
+
+.static-card-category {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-left: 0.5rem;
 }
 
 
@@ -640,11 +653,11 @@ section {
     color: #000;
     border: none;
     border-radius: 8px;
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 0.85rem;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     cursor: pointer;
     transition: transform 0.25s var(--ease-standard), box-shadow 0.25s var(--ease-standard);
 }
@@ -799,8 +812,9 @@ section {
     color: #000;
     padding: 0.6rem 1.2rem;
     border-radius: 50px;
-    font-size: 0.7rem;
-    font-weight: 800;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     z-index: 10;
@@ -819,7 +833,7 @@ section {
 .portfolio-card-title {
     font-family: var(--font-heading);
     font-size: 1.3rem;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
     color: var(--text-white);
     margin-bottom: 1rem;
@@ -843,11 +857,11 @@ section {
     color: #000;
     border: none;
     border-radius: 12px;
-    font-family: var(--font-heading);
-    font-weight: 800;
-    font-size: 0.85rem;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     cursor: pointer;
     transition: all 0.3s var(--ease-standard);
     will-change: background, transform;
@@ -891,6 +905,7 @@ section {
     padding-right: 1.5rem;
     scrollbar-width: thin;
     scrollbar-color: var(--accent) transparent;
+    font-family: 'Satoshi', sans-serif;
 }
 
 .scroll-box::-webkit-scrollbar {
@@ -977,6 +992,7 @@ section {
 
 .form-group label {
     display: block;
+    font-family: 'Satoshi', sans-serif;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -1015,10 +1031,11 @@ textarea.form-input {
     background: var(--accent);
     color: var(--bg-primary);
     border: none;
-    font-family: var(--font-heading);
-    font-weight: 800;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
     border-radius: 4px;
     cursor: pointer;
     transition: var(--transition-base);
@@ -1339,7 +1356,7 @@ textarea.form-input {
     .nav-links,
     .nav-links a,
     .nav-links .nav-menu-social-title {
-        font-family: 'Montserrat', var(--font-heading);
+        font-family: var(--font-heading);
     }
 
     .nav-links a:not(.btn-cta) {
@@ -1385,12 +1402,13 @@ textarea.form-input {
         color: #000;
     }
 
-   /* 1. Contenedor de los iconos */
+    /* 1. Contenedor de los iconos */
     .nav-menu-social-icons {
         display: flex;
         gap: 0.8rem;
         align-items: center;
-        justify-content: center; /* Para que queden bien centrados en el móvil */
+        justify-content: center;
+        /* Para que queden bien centrados en el móvil */
     }
 
     /* 2. El cuadradito (Clon del Footer) */
@@ -1403,13 +1421,14 @@ textarea.form-input {
         border: 1.5px solid #000;
         border-radius: 10px;
         background-color: transparent;
-        transition: all 0.3s ease; /* Esta es la 'reacción' suave */
+        transition: all 0.3s ease;
+        /* Esta es la 'reacción' suave */
         text-decoration: none;
     }
 
     /* 3. El dibujo interno */
     .nav-menu-social-icons .social-icon-box svg {
-        width: 26px !important; 
+        width: 26px !important;
         height: 26px !important;
         fill: #000;
         display: block;
@@ -1422,17 +1441,18 @@ textarea.form-input {
     }
 
     .nav-menu-social-icons .social-icon-box:hover svg {
-        fill: #d3be19; /* El logo se pone blanco cuando el fondo se pone negro */
+        fill: #d3be19;
+        /* El logo se pone blanco cuando el fondo se pone negro */
     }
 
     /* Iconos del menú = mismos que el footer (.social-icon-box) */
     .nav-menu-social-icon {
-        /* Hereda estilos de .social-icon-box: 36px, border 2px #000, border-radius 6px */
+        display: flex;
     }
 
     .nav-menu-social-icon svg {
         /* Quitamos el ancho fijo para que mande el tamaño que pusimos en el HTML */
-        max-width: 32px; 
+        max-width: 32px;
         max-height: 32px;
         fill: #000;
         display: block;
@@ -1493,12 +1513,15 @@ textarea.form-input {
     .tech-section {
         padding: 2.5rem 0;
     }
+
     .tech-section .section-tag {
         margin-bottom: 0.5rem;
     }
+
     .tech-section .section-title {
         margin-bottom: 1.5rem;
     }
+
     .tech-marquee-container {
         padding: 0.75rem 0;
     }
@@ -1508,6 +1531,7 @@ textarea.form-input {
         font-size: clamp(2rem, 8vw, 3rem);
         margin-bottom: 2rem;
     }
+
     .faq-category-toggle {
         font-size: 0.7rem;
         letter-spacing: 0.12em;
@@ -2198,19 +2222,19 @@ section {
 }
 
 /* Service Buttons */
-.service-btn {
+.btn-service-outline {
     display: inline-block;
-    margin-top: 1.5rem;
-    padding: 0.8rem 1.5rem;
+    padding: 1rem 2.8rem;
     border: 1px solid var(--accent);
     color: var(--accent);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     border-radius: 4px;
-    transition: all 0.3s var(--ease-standard);
+    /* geometric but high-end */
+    transition: all 0.4s var(--ease-standard);
 }
 
 .service-btn:hover {
@@ -2450,8 +2474,8 @@ section {
     align-items: center;
     cursor: pointer;
     color: var(--accent);
-    font-family: var(--font-heading);
-    font-weight: 800;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
     font-size: 1.25rem;
     text-transform: uppercase;
     text-align: left;
@@ -2512,8 +2536,8 @@ section {
     align-items: center;
     cursor: pointer;
     color: var(--text-white);
-    font-family: var(--font-heading);
-    font-weight: 600;
+    font-family: 'Satoshi', sans-serif;
+    font-weight: 500;
     font-size: 1.1rem;
     text-align: left;
     transition: background 0.3s ease;
@@ -2550,6 +2574,7 @@ section {
     /* Yellow text as requested */
     line-height: 1.8;
     font-size: 1rem;
+    font-family: 'Satoshi', sans-serif;
 }
 
 @media (max-width: 600px) {
