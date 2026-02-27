@@ -353,6 +353,12 @@ nav {
     display: none;
 }
 
+@media (max-width: 768px) {
+    .mobile-break {
+        display: block;
+    }
+}
+
 /* Hero Section */
 .hero {
     height: 100vh;
@@ -1419,6 +1425,47 @@ textarea.form-input {
         grid-column: span 12;
         padding-top: 3.5rem;
         /* Contenido del header más arriba en móvil */
+    }
+
+    .hero-content .section-tag {
+        background: rgba(255, 206, 0, 0.1);
+        color: var(--accent);
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        display: inline-block !important;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(3.5rem, 15vw, 6rem);
+        line-height: 0.85;
+        letter-spacing: -0.05em;
+        margin-bottom: 2rem;
+    }
+
+    .hero-desc-mobile {
+        color: var(--accent);
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 2.5rem;
+        max-width: 90%;
+    }
+
+    .hero-btns-mobile {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .hero-btns-mobile .btn-cta {
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        padding: 1.2rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
     }
 
     nav {
