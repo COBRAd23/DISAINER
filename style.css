@@ -3196,3 +3196,71 @@ section {
 [data-theme="light"] footer .social-icon-box:hover svg {
     fill: #d3be19 !important;
 }
+
+/* --- PRELOADER (CARGANDO) --- */
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #080808;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+[data-theme="light"] .preloader {
+    background-color: var(--bg-primary) !important;
+    /* Will be white in light mode */
+}
+
+.preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.preloader-video {
+    width: 50vw;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+.preloader-dark {
+    -webkit-mask-image: radial-gradient(50% 50% at 50% 50%, black 60%, transparent 100%);
+    mask-image: radial-gradient(50% 50% at 50% 50%, black 60%, transparent 100%);
+}
+
+[data-theme="light"] .preloader-dark {
+    display: none !important;
+}
+
+[data-theme="light"] .preloader-light {
+    display: block !important;
+}
+
+.preloader-counter {
+    position: absolute;
+    bottom: 3rem;
+    right: 4rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--text-white);
+    letter-spacing: -0.02em;
+    font-family: var(--font-primary);
+}
+
+@media (max-width: 768px) {
+    .preloader-video {
+        width: 80vw;
+    }
+
+    .preloader-counter {
+        bottom: 2rem;
+        right: 2rem;
+    }
+}
