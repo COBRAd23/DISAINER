@@ -6,62 +6,73 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoLight = document.getElementById('preloader-video-light');
 
     if (preloader && percentSpan) {
-        document.body.style.overflow = 'hidden';
-
-        // Determine which video is active based on theme
-        const currentTheme = localStorage.getItem('theme');
-        const activeVideo = currentTheme === 'light' ? videoLight : videoDark;
-
-        // Ensure the inactive video does not play
-        if (currentTheme === 'light') {
-            if (videoDark) videoDark.pause();
-        } else {
-            if (videoLight) videoLight.pause();
-        }
-
-        if (activeVideo) {
-            // Update percentage continuously for ultra smooth counting
-            function trackProgress() {
-                if (activeVideo.duration) {
-                    let percent = Math.round((activeVideo.currentTime / activeVideo.duration) * 100);
-                    if (percent > 100) percent = 100; // Cap at max 100
-                    percentSpan.textContent = percent;
-                }
-
-                if (!activeVideo.ended && !preloader.classList.contains('hidden')) {
-                    requestAnimationFrame(trackProgress);
-                }
-            }
-
-            // Start tracking as soon as it plays
-            activeVideo.addEventListener('play', () => {
-                requestAnimationFrame(trackProgress);
-            });
-            // If it's already playing, start tracking immediately
-            if (!activeVideo.paused) {
-                requestAnimationFrame(trackProgress);
-            }
-
-            // Hide preloader when video ends
-            activeVideo.addEventListener('ended', () => {
-                percentSpan.textContent = '100';
-                setTimeout(() => {
-                    preloader.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }, 600); // 600ms delay to clearly see 100% step
-            });
-
-            // Backup in case video fails or gets stuck
-            setTimeout(() => {
-                if (!preloader.classList.contains('hidden')) {
-                    preloader.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-            }, 8000); // 8 seconds maximum wait
-        } else {
-            // Fallback if video elements aren't found
+        // Check if preloader has already been played in this session
+        if (sessionStorage.getItem('preloaderPlayed') === 'true') {
             preloader.classList.add('hidden');
             document.body.style.overflow = '';
+            if (videoDark) videoDark.pause();
+            if (videoLight) videoLight.pause();
+        } else {
+            document.body.style.overflow = 'hidden';
+
+            // Determine which video is active based on theme
+            const currentTheme = localStorage.getItem('theme');
+            const activeVideo = currentTheme === 'light' ? videoLight : videoDark;
+
+            // Ensure the inactive video does not play
+            if (currentTheme === 'light') {
+                if (videoDark) videoDark.pause();
+            } else {
+                if (videoLight) videoLight.pause();
+            }
+
+            if (activeVideo) {
+                // Update percentage continuously for ultra smooth counting
+                function trackProgress() {
+                    if (activeVideo.duration) {
+                        let percent = Math.round((activeVideo.currentTime / activeVideo.duration) * 100);
+                        if (percent > 100) percent = 100; // Cap at max 100
+                        percentSpan.textContent = percent;
+                    }
+
+                    if (!activeVideo.ended && !preloader.classList.contains('hidden')) {
+                        requestAnimationFrame(trackProgress);
+                    }
+                }
+
+                // Start tracking as soon as it plays
+                activeVideo.addEventListener('play', () => {
+                    requestAnimationFrame(trackProgress);
+                });
+                // If it's already playing, start tracking immediately
+                if (!activeVideo.paused) {
+                    requestAnimationFrame(trackProgress);
+                }
+
+                // Hide preloader when video ends
+                activeVideo.addEventListener('ended', () => {
+                    percentSpan.textContent = '100';
+                    setTimeout(() => {
+                        preloader.classList.add('hidden');
+                        document.body.style.overflow = '';
+                        sessionStorage.setItem('preloaderPlayed', 'true'); // Flag to skip next time
+                    }, 600); // 600ms delay to clearly see 100% step
+                });
+
+                // Backup in case video fails or gets stuck
+                setTimeout(() => {
+                    if (!preloader.classList.contains('hidden')) {
+                        preloader.classList.add('hidden');
+                        document.body.style.overflow = '';
+                        sessionStorage.setItem('preloaderPlayed', 'true');
+                    }
+                }, 8000); // 8 seconds maximum wait
+            } else {
+                // Fallback if video elements aren't found
+                preloader.classList.add('hidden');
+                document.body.style.overflow = '';
+                sessionStorage.setItem('preloaderPlayed', 'true');
+            }
         }
     }
 
