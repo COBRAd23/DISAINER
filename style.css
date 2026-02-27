@@ -98,6 +98,28 @@
     background: var(--accent);
 }
 
+/* FAQ light mode: make dividers visible */
+[data-theme="light"] .faq-item {
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .faq-item:hover {
+    border-color: rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .faq-accordion {
+    border-left-color: rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="light"] .faq-category-toggle {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="light"] .faq-question {
+    color: var(--text-white);
+}
+
 /* Specific text color fixes for light mode */
 [data-theme="light"] .tech-card span,
 [data-theme="light"] .social-icon-box {
@@ -2718,7 +2740,7 @@ section {
 
 .faq-question {
     width: 100%;
-    padding: 1.5rem 2rem;
+    padding: 1.2rem 1.5rem;
     background: transparent;
     border: none;
     display: flex;
@@ -2728,7 +2750,7 @@ section {
     color: var(--text-white);
     font-family: 'Satoshi', sans-serif;
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     text-align: left;
     transition: background 0.3s ease;
 }
