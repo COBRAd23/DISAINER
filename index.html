@@ -117,8 +117,8 @@
                 <!-- Mobile Only Hero (1:1 with ASI LO QUIERO JPG) -->
                 <div class="hero-content hero-mobile reveal">
                     <span class="section-tag">ESTRATEGIA & INNOVACIÓN</span>
-                    <img src="img/headermovil.png" alt="Transformo ideas en experiencias reales"
-                        class="hero-mobile-img">
+                    <img src="img/headermovildark.png" alt="Transformo ideas en experiencias reales"
+                        class="hero-mobile-img" id="heroMobileImg">
                     <p class="hero-desc-mobile">
                         Ayudo a profesionales y emergentes a construir una marca personal que les genera clientes desde
                         el primer mes.
@@ -1100,6 +1100,8 @@
             const iconLight = themeToggle.querySelector('.theme-icon-light');
             const iconDark = themeToggle.querySelector('.theme-icon-dark');
 
+            const heroMobileImg = document.getElementById('heroMobileImg');
+
             // Check stored preference
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme) {
@@ -1107,6 +1109,7 @@
                 if (currentTheme === 'light') {
                     iconLight.style.display = 'block';
                     iconDark.style.display = 'none';
+                    if (heroMobileImg) heroMobileImg.src = 'img/headermovilwhite.png';
                 }
             }
 
@@ -1117,11 +1120,13 @@
                     localStorage.setItem('theme', 'dark');
                     iconLight.style.display = 'none';
                     iconDark.style.display = 'block';
+                    if (heroMobileImg) heroMobileImg.src = 'img/headermovildark.png';
                 } else {
                     document.documentElement.setAttribute('data-theme', 'light');
                     localStorage.setItem('theme', 'light');
                     iconLight.style.display = 'block';
                     iconDark.style.display = 'none';
+                    if (heroMobileImg) heroMobileImg.src = 'img/headermovilwhite.png';
                 }
             });
         });
