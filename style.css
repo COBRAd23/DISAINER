@@ -2597,10 +2597,127 @@ section {
 }
 
 /* --- Dedicated Portfolio Page Styles --- */
+/* --- Dedicated Portfolio Page Styles --- */
 .portfolio-hero {
     padding-top: 120px;
     padding-bottom: 60px;
     background: var(--bg-primary);
+}
+
+/* Policies Page Section */
+.policy-page {
+    padding-top: 120px;
+    padding-bottom: 0;
+    background: var(--bg-primary);
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.policy-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 4%;
+}
+
+.policy-section {
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s var(--ease-standard);
+}
+
+.policy-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.policy-section.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.policy-section h2 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.policy-section h3 {
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    color: var(--text-white);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.policy-section p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.policy-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.policy-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1.2rem;
+    color: var(--text-gray);
+    line-height: 1.7;
+}
+
+.policy-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.policy-list li strong {
+    color: var(--text-white);
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.policy-hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 4rem 0;
+    opacity: 0.25;
+}
+
+[data-theme="light"] .policy-hr {
+    border-top-color: rgba(0, 0, 0, 0.4) !important;
+    opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+    .policy-page {
+        padding-top: 100px;
+        padding-bottom: 0;
+    }
+
+    .policy-container {
+        padding: 0 7vw;
+    }
+
+    .policy-section {
+        margin-bottom: 3rem;
+    }
+
+    .policy-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .policy-section p {
+        font-size: 1rem;
+    }
 }
 
 .portfolio-static-grid {
@@ -3050,7 +3167,51 @@ section {
     }
 }
 
+.mobile-only {
+    display: none !important;
+}
+
 @media (max-width: 768px) {
+    .services-carousel-section {
+        background: #fff !important;
+    }
+
+    .carousel-overlay {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.9) 100%) !important;
+    }
+
+    .service-glass-card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        border: 1px solid rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05) !important;
+        padding: 2.5rem 1.5rem;
+        border-radius: 20px;
+        max-width: 95%;
+        max-height: 75vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .service-description,
+    .card-subtitle {
+        color: #000 !important;
+    }
+
+    .service-title {
+        font-size: 2.2rem !important;
+        margin-bottom: 1rem !important;
+        letter-spacing: -1px !important;
+    }
+
+    .indicator-bar {
+        background-color: rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .indicator-bar.active {
+        background-color: var(--accent) !important;
+    }
+
     .carousel-main-container {
         height: auto;
         min-height: 90vh;
@@ -3102,6 +3263,10 @@ section {
 
     .mobile-hide {
         display: none !important;
+    }
+
+    .mobile-only {
+        display: block !important;
     }
 
     .card-footer-action {

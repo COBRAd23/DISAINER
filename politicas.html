@@ -18,87 +18,9 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <style>
-        .policy-page {
-            padding-top: 120px;
-            padding-bottom: 80px;
-            background: var(--bg-primary);
-        }
-
-        .policy-container {
-            margin: 0 auto;
-        }
-
-        .policy-section {
-            margin-bottom: 5rem;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s var(--ease-standard);
-        }
-
-        .policy-section.appear {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .policy-section h2 {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            font-family: var(--font-heading);
-            text-transform: uppercase;
-            letter-spacing: -1px;
-        }
-
-        .policy-section h3 {
-            font-size: 1.4rem;
-            color: var(--text-white);
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-        }
-
-        .policy-section p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .policy-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .policy-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 1.2rem;
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        .policy-list li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .policy-list li strong {
-            color: var(--text-white);
-            display: block;
-            margin-bottom: 0.2rem;
-        }
-
-        .policy-page .section-tag {
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-    </style>
 </head>
 
-<body>
+<body class="portfolio-page policy-page" id="inicio">
     <!-- Header / Navbar -->
     <header id="header" class="scrolled">
         <div class="container nav-wrap text-white">
@@ -160,7 +82,7 @@
         </button>
     </header>
 
-    <main class="policy-page" id="inicio">
+    <main id="inicio">
         <div class="container policy-container">
 
             <!-- Filosofía de Trabajo -->
@@ -187,7 +109,7 @@
                 </ul>
             </section>
 
-            <hr style="border: none; border-top: 1px solid #fff; margin: 4rem 0; opacity: 0.2;">
+            <hr class="policy-hr">
 
             <!-- Política de Privacidad -->
             <section id="privacidad" class="policy-section reveal">
@@ -214,7 +136,7 @@
                 </ul>
             </section>
 
-            <hr style="border: none; border-top: 1px solid #fff; margin: 4rem 0; opacity: 0.2;">
+            <hr class="policy-hr">
 
             <!-- Términos y Condiciones -->
             <section id="terminos" class="policy-section reveal">
@@ -241,7 +163,7 @@
                 </ul>
             </section>
 
-            <hr style="border: none; border-top: 1px solid #fff; margin: 4rem 0; opacity: 0.2;">
+            <hr class="policy-hr">
 
             <!-- Responsabilidad Social -->
             <section id="responsabilidad" class="policy-section reveal">

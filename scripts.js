@@ -363,6 +363,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         servicesTrack.addEventListener('mouseenter', stopSAutoPlay);
         servicesTrack.addEventListener('mouseleave', startSAutoPlay);
+
+        // --- Touch/Swipe Support ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const SWIPE_THRESHOLD = 50;
+
+        servicesTrack.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopSAutoPlay();
+        }, { passive: true });
+
+        servicesTrack.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            startSAutoPlay();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > SWIPE_THRESHOLD) {
+                if (diff > 0) {
+                    // Swipe Left -> Next
+                    updateSCarousel(currentSIndex + 1);
+                } else {
+                    // Swipe Right -> Prev
+                    updateSCarousel(currentSIndex - 1);
+                }
+            }
+        }
     }
 
     // --- Handle Initial Hash Scroll with Offset ---
@@ -385,7 +414,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
     const HEADER_OFFSET = 100;
-    function scrollToTarget(el) {
+    function scrollToTarget(el, targetId) {
+        // Special case for scrolling to top
+        if (targetId === 'inicio') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return;
+        }
+
         const elTop = el.getBoundingClientRect().top;
         const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
         window.scrollTo({ top: offsetPos, behavior: 'smooth' });
@@ -406,6 +441,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetEl = document.getElementById(targetId);
         if (!targetEl) return;
         e.preventDefault();
-        scrollToTarget(targetEl);
+        scrollToTarget(targetEl, targetId);
     });
 });
