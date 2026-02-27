@@ -342,9 +342,9 @@ nav {
 
 @media (max-width: 768px) {
     .theme-toggle {
-        right: 60px;
-        /* Make sure it doesn't overlap the hamburger menu */
-        width: 50px;
+        right: 85px;
+        /* Increased to separate it more from the hamburger button */
+        width: 45px;
     }
 }
 
@@ -1419,6 +1419,10 @@ textarea.form-input {
         grid-column: span 12;
         padding-top: 3.5rem;
         /* Contenido del header más arriba en móvil */
+    }
+
+    nav {
+        padding-right: 0;
     }
 
     .hamburger-menu {
