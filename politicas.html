@@ -153,6 +153,11 @@
                 </div>
             </nav>
         </div>
+        <!-- Theme Toggle Button at the far right of the full header -->
+        <button id="themeToggle" class="theme-toggle" aria-label="Cambiar modo de tema">
+            <img src="img/boton_adia.png" alt="Modo Claro" class="theme-icon-light" style="display: none;">
+            <img src="img/boton_anoche.png" alt="Modo Oscuro" class="theme-icon-dark">
+        </button>
     </header>
 
     <main class="policy-page" id="inicio">
@@ -364,6 +369,40 @@
 
             document.querySelectorAll('.policy-section').forEach(section => {
                 observer.observe(section);
+            });
+        });
+
+        // Theme Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('themeToggle');
+            if (!themeToggle) return;
+
+            const iconLight = themeToggle.querySelector('.theme-icon-light');
+            const iconDark = themeToggle.querySelector('.theme-icon-dark');
+
+            // Check stored preference
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.documentElement.setAttribute('data-theme', currentTheme);
+                if (currentTheme === 'light') {
+                    iconLight.style.display = 'block';
+                    iconDark.style.display = 'none';
+                }
+            }
+
+            themeToggle.addEventListener('click', () => {
+                let theme = document.documentElement.getAttribute('data-theme');
+                if (theme === 'light') {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                    iconLight.style.display = 'none';
+                    iconDark.style.display = 'block';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    iconLight.style.display = 'block';
+                    iconDark.style.display = 'none';
+                }
             });
         });
     </script>

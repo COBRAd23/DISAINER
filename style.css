@@ -35,6 +35,75 @@
     --transition-base: 0.6s var(--ease-standard);
 }
 
+/* Light Theme Overrides */
+[data-theme="light"] {
+    --bg-primary: #f5f5f7;
+    --bg-secondary: #ffffff;
+    --bg-accent-soft: #f0f0f5;
+    --border-color: rgba(0, 0, 0, 0.1);
+
+    --text-white: #111111;
+    --text-gray: #444444;
+    --text-muted: #666666;
+
+    /* Yellow accent should stay visible, adjust if needed for contrast. Original --accent is bright yellow. */
+    --accent: #d2a700;
+    --accent-glow: rgba(210, 167, 0, 0.4);
+    --accent-dim: rgba(210, 167, 0, 0.1);
+}
+
+[data-theme="light"] .hero .glass-mask {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="light"] header.scrolled {
+    background: rgba(245, 245, 247, 0.9);
+}
+
+[data-theme="light"] .logo img {
+    filter: none;
+}
+
+[data-theme="light"] .footer-logo-wrapper img {
+    filter: invert(0) !important;
+    /* already black in dark mode due to brightness(0) filter */
+}
+
+/* Fix for Ver Trabajos button text in light mode */
+[data-theme="light"] .btn-ver-trabajos {
+    color: #111111 !important;
+}
+
+/* Custom Icons fix in light mode */
+[data-theme="light"] .tech-card img[src*="github"],
+[data-theme="light"] .tech-card img[src*="Illustrator"],
+[data-theme="light"] .tech-card img[src*="Photoshop"],
+[data-theme="light"] .tech-card img[src*="After"],
+[data-theme="light"] .tech-card img[src*="Sass"],
+[data-theme="light"] .tech-card img[src*="gemini"],
+[data-theme="light"] .tech-card img[src*="coreldraw"],
+[data-theme="light"] .tech-card img[src*="firefly"] {
+    filter: none;
+}
+
+[data-theme="light"] .card-badge {
+    background: rgba(210, 167, 0, 0.1);
+}
+
+[data-theme="light"] .progress-bar {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .gallery-progress .progress-bar.active {
+    background: var(--accent);
+}
+
+/* Specific text color fixes for light mode */
+[data-theme="light"] .tech-card span,
+[data-theme="light"] .social-icon-box {
+    color: var(--text-white);
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-top: 120px;
@@ -127,6 +196,8 @@ nav {
     position: relative;
     z-index: 1001;
     /* Ensure nav is above menu overlay */
+    padding-right: 85px;
+    /* Creates space for the absolute toggle button */
 }
 
 .logo {
@@ -236,6 +307,45 @@ nav {
     /* Yellow text visible on dark background */
     border-color: var(--accent);
     box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 65px;
+    height: auto;
+    display: block;
+    /* Removed flex setup that might collapse height */
+    transition: transform 0.3s ease;
+    padding: 0;
+
+    /* Absolute Positioning to the far right of the nav */
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1010;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.theme-toggle img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .theme-toggle {
+        right: 60px;
+        /* Make sure it doesn't overlap the hamburger menu */
+        width: 50px;
+    }
 }
 
 /* Utilities */
@@ -2940,4 +3050,149 @@ section {
         padding: 1.2rem;
         font-size: 1rem;
     }
+}
+
+/* --- LIGHT MODE REFINEMENTS (PHASE X) --- */
+
+/* 1. Carousel Images Swap */
+[data-theme="light"] .carousel-slide[style*="branding_web_serv_fondo_carrusel_1.webp"] {
+    background-image: url('img/carrusel/branding_web_serv_fondo_carrusel_1_white.webp') !important;
+}
+
+[data-theme="light"] .carousel-slide[style*="desarrollo_web_serv_fondo_carrusel_2.webp"] {
+    background-image: url('img/carrusel/desarrollo_web_serv_fondo_carrusel_2_white.webp') !important;
+}
+
+[data-theme="light"] .carousel-slide[style*="ecommerce_web_serv_fondo_carrusel_3.webp"] {
+    background-image: url('img/carrusel/ecommerce_web_serv_fondo_carrusel_3_white.webp') !important;
+}
+
+[data-theme="light"] .carousel-slide[style*="socialmedia_web_serv_fondo_carrusel_4.webp"] {
+    background-image: url('img/carrusel/socialmedia_web_serv_fondo_carrusel_4_white.webp') !important;
+}
+
+[data-theme="light"] .carousel-slide[style*="uxui_web_serv_fondo_carrusel_5.webp"] {
+    background-image: url('img/carrusel/uxui_web_serv_fondo_carrusel_5_white.webp') !important;
+}
+
+[data-theme="light"] .carousel-slide[style*="consul_serv_fondo_carrusel_6.webp"] {
+    background-image: url('img/carrusel/consul_serv_fondo_carrusel_6_white.webp') !important;
+}
+
+/* 2. Carousel Frosted Glass White Contrast */
+[data-theme="light"] .carousel-overlay {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.9) 100%) !important;
+}
+
+[data-theme="light"] .service-glass-card {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 3. Typography in Carousel (Soluciones Integrales title, Description text) */
+[data-theme="light"] .card-subtitle {
+    color: #000000 !important;
+    text-shadow: none !important;
+}
+
+[data-theme="light"] .service-description {
+    color: #000000 !important;
+    font-weight: 500 !important;
+}
+
+/* 3.5 Carousel Indicators */
+[data-theme="light"] .indicator-bar {
+    background-color: #000000 !important;
+    /* Inactive indicators in black */
+    opacity: 0.5 !important;
+}
+
+[data-theme="light"] .indicator-bar.active {
+    background-color: var(--accent) !important;
+    /* Active indicator stays yellow */
+    opacity: 1 !important;
+}
+
+/* 4. Portfolio Card Texts Black */
+[data-theme="light"] .slide-description,
+[data-theme="light"] .card-description {
+    color: #000000 !important;
+    font-weight: 500;
+}
+
+/* 5. Tech Carousel Items */
+[data-theme="light"] .tech-card {
+    border-color: #ffffff !important;
+    background-color: transparent !important;
+}
+
+[data-theme="light"] .tech-card span {
+    color: #ffffff !important;
+}
+
+[data-theme="light"] .tech-card img,
+[data-theme="light"] .tech-card svg {
+    filter: brightness(0) invert(1) !important;
+    opacity: 1 !important;
+}
+
+[data-theme="light"] .tech-card:hover {
+    border-color: var(--accent) !important;
+    background-color: rgba(255, 206, 0, 0.05) !important;
+}
+
+[data-theme="light"] .tech-card:hover span {
+    color: var(--accent) !important;
+}
+
+[data-theme="light"] .tech-card:hover img,
+[data-theme="light"] .tech-card:hover svg {
+    filter: none !important;
+    /* Back to original color */
+}
+
+/* 6. Footer Restyling (White Texts/Icons on Yellow Background) */
+[data-theme="light"] footer,
+[data-theme="light"] .footer,
+[data-theme="light"] footer.footer {
+    background-color: #d3be19 !important;
+    /* Force the exact yellow var(--accent) wasn't reliable on root */
+}
+
+/* Footer elements to White */
+[data-theme="light"] footer .footer-brand p,
+[data-theme="light"] footer .container,
+[data-theme="light"] footer .footer-header,
+[data-theme="light"] footer .footer-v-links a,
+[data-theme="light"] footer .footer-contact-link {
+    color: #ffffff !important;
+}
+
+/* Footer Logo White */
+[data-theme="light"] footer .footer-logo-wrapper img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Footer border fixes */
+[data-theme="light"] footer hr {
+    border-top: 1px solid #ffffff !important;
+}
+
+/* Footer Icons to White */
+[data-theme="light"] footer .social-icon-box {
+    border-color: #ffffff !important;
+}
+
+[data-theme="light"] footer .social-icon-box svg {
+    fill: #ffffff !important;
+}
+
+/* Footer Icons Hover (Reverse colors) */
+[data-theme="light"] footer .social-icon-box:hover {
+    background-color: #ffffff !important;
+}
+
+[data-theme="light"] footer .social-icon-box:hover svg {
+    fill: #d3be19 !important;
 }
