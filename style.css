@@ -98,22 +98,22 @@
     background: var(--accent);
 }
 
-/* FAQ light mode: make dividers visible */
+/* FAQ light mode: make dividers visible - Darker and sharper */
 [data-theme="light"] .faq-item {
-    border-color: rgba(0, 0, 0, 0.2);
-    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.05);
 }
 
 [data-theme="light"] .faq-item:hover {
-    border-color: rgba(0, 0, 0, 0.4);
+    border-color: rgba(0, 0, 0, 0.6);
 }
 
 [data-theme="light"] .faq-accordion {
-    border-left-color: rgba(0, 0, 0, 0.25);
+    border-left-color: rgba(0, 0, 0, 0.5);
 }
 
 [data-theme="light"] .faq-category-toggle {
-    border-bottom-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.35);
 }
 
 [data-theme="light"] .faq-question {
@@ -1098,7 +1098,7 @@ section {
 /* Back to Top Button */
 .back-to-top {
     position: fixed;
-    bottom: 30px;
+    bottom: calc(30px + env(safe-area-inset-bottom, 0px));
     right: 30px;
     width: 50px;
     height: 50px;
@@ -1745,9 +1745,9 @@ textarea.form-input {
     }
 
     .faq-category-toggle {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         letter-spacing: 0.12em;
-        padding: 0.85rem 0;
+        padding: 0.75rem 0;
     }
 
     /* De-box Contact Form on Mobile */
