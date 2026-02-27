@@ -1439,7 +1439,8 @@ textarea.form-input {
 
     .hero-content {
         grid-column: span 12;
-        padding-top: 1rem;
+        padding-top: 8rem;
+        /* Pushed down to avoid navbar clash */
         padding-left: 0;
         padding-right: 0;
         width: 100%;
@@ -1450,7 +1451,8 @@ textarea.form-input {
         color: var(--accent);
         font-size: 0.9rem;
         font-weight: 800;
-        margin-bottom: 2rem;
+        margin-bottom: 3.5rem;
+        /* More space below tag */
         letter-spacing: 0.1em;
         text-transform: uppercase;
         display: block;
@@ -1460,16 +1462,18 @@ textarea.form-input {
         width: 100%;
         height: auto;
         display: block;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
     }
 
     .hero-desc-mobile {
         color: var(--accent);
-        font-size: 0.85rem;
+        font-size: 0.78rem;
+        /* Smaller to fit button on screen */
         font-style: italic;
         font-weight: 500;
-        line-height: 1.5;
-        margin-bottom: 3.5rem;
+        line-height: 1.4;
+        margin-bottom: 2.5rem;
+        /* Tightened space to pull button up */
         width: 100%;
         max-width: 100%;
         text-align: left;
