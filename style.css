@@ -22,8 +22,10 @@
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Inter', sans-serif;
     --text-white: #FFFFFF;
+    --text-white-rgb: 255, 255, 255;
     --text-gray: #a0a0a0;
     --text-muted: #555555;
+    --text-black-rgb: 0, 0, 0;
 
     /* Grid & Spacing */
     --container-max: 1400px;
@@ -43,8 +45,10 @@
     --border-color: rgba(0, 0, 0, 0.1);
 
     --text-white: #111111;
+    --text-white-rgb: 17, 17, 17;
     --text-gray: #444444;
     --text-muted: #666666;
+    --text-black-rgb: 255, 255, 255;
 
     /* Yellow accent should stay visible, adjust if needed for contrast. Original --accent is bright yellow. */
     --accent: #FFCC00;
@@ -2911,6 +2915,22 @@ section {
     font-family: 'Satoshi', sans-serif;
 }
 
+/* FAQ CTA Button */
+.btn-faq-cta {
+    color: var(--text-white) !important;
+    border-color: rgba(var(--text-white-rgb), 0.3) !important;
+}
+
+[data-theme="light"] .btn-faq-cta {
+    color: #000000 !important;
+    border-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="light"] .btn-faq-cta:hover {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2) !important;
+}
+
 @media (max-width: 600px) {
     .portfolio-static-grid .portfolio-static-item {
         grid-column: span 12 !important;
@@ -3173,66 +3193,67 @@ section {
 
 @media (max-width: 768px) {
     .services-carousel-section {
-        background: #fff !important;
+        background: var(--bg-primary) !important;
     }
 
     .carousel-overlay {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.9) 100%) !important;
+        background: linear-gradient(180deg,
+                rgba(var(--text-white-rgb), 0.1) 0%,
+                rgba(var(--text-white-rgb), 0.05) 50%,
+                rgba(var(--text-white-rgb), 0.2) 100%) !important;
     }
 
     .service-glass-card {
-        background: rgba(255, 255, 255, 0.8) !important;
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05) !important;
+        background: var(--bg-accent-soft) !important;
+        border: 1px solid var(--border-color) !important;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2) !important;
         padding: 2.5rem 1.5rem;
         border-radius: 20px;
         max-width: 95%;
-        max-height: 75vh;
+        max-height: 80vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: flex-start;
+    }
+
+    .service-title {
+        font-size: 1.4rem !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        width: 100% !important;
+        margin-bottom: 1.2rem !important;
+        letter-spacing: -0.5px !important;
     }
 
     .service-description,
     .card-subtitle {
-        color: #000 !important;
-    }
-
-    .service-title {
-        font-size: 2.2rem !important;
-        margin-bottom: 1rem !important;
-        letter-spacing: -1px !important;
+        color: var(--text-gray) !important;
     }
 
     .indicator-bar {
-        background-color: rgba(0, 0, 0, 0.2) !important;
+        background-color: rgba(var(--text-white-rgb), 0.2) !important;
+        width: 35px;
+        height: 3px;
     }
 
     .indicator-bar.active {
         background-color: var(--accent) !important;
+        width: 70px;
     }
 
     .carousel-main-container {
         height: auto;
-        min-height: 90vh;
+        min-height: 85vh;
     }
 
     .carousel-flex {
         padding: 4rem 1.5rem;
     }
 
-    .service-glass-card {
-        padding: 2.5rem 1.5rem;
-        border-radius: 20px;
-        max-width: 95%;
-        max-height: 75vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
     .card-header-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
     }
 
     .card-category {
@@ -3247,17 +3268,12 @@ section {
         width: 50px;
         height: 50px;
         font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-
-    .service-title {
-        font-size: clamp(2.2rem, 10vw, 2.8rem) !important;
         margin-bottom: 1.5rem;
     }
 
     .service-description {
         font-size: 1rem;
-        line-height: 1.5;
+        line-height: 1.6;
         margin-bottom: 0;
     }
 
@@ -3270,11 +3286,13 @@ section {
     }
 
     .card-footer-action {
-        margin-top: 2rem;
+        margin-top: 2.5rem;
+        width: 100%;
     }
 
     .btn-service-outline {
         width: 100%;
+        text-align: center;
         padding: 1rem;
         font-size: 0.9rem;
     }
@@ -3285,16 +3303,7 @@ section {
 
     .carousel-external-indicators {
         bottom: 2.5rem;
-        gap: 10px;
-    }
-
-    .indicator-bar {
-        width: 35px;
-        height: 3px;
-    }
-
-    .indicator-bar.active {
-        width: 70px;
+        gap: 12px;
     }
 
     /* Contact Form Mobile Width Adjustments */

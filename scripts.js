@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Hero Interactive Reveal (Glass Mask) ---
     const glassMask = document.getElementById('glassMask');
-    const heroSection = document.getElementById('inicio');
+    const heroSection = document.querySelector('.hero');
 
     if (glassMask && heroSection) {
         heroSection.addEventListener('mousemove', (e) => {
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (scrollX >= maxOffset) {
                 scrollX = 0;
             }
-            portfolioRow.style.transform = `translateX(${offset}px)`; // Offset variable fix
+            portfolioRow.style.transform = `translateX(${-scrollX}px)`;
             rafId = requestAnimationFrame(step);
         }
 
