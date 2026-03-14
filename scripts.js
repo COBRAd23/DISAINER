@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
             if (videoDark) videoDark.pause();
             if (videoLight) videoLight.pause();
+            document.body.classList.add('is-loaded');
         } else {
             document.body.style.overflow = 'hidden';
 
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     setTimeout(() => {
                         preloader.classList.add('hidden');
                         document.body.style.overflow = '';
+                        document.body.classList.add('is-loaded');
                         sessionStorage.setItem('preloaderPlayed', 'true'); // Flag to skip next time
                     }, 600); // 600ms delay to clearly see 100% step
                 });
@@ -64,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!preloader.classList.contains('hidden')) {
                         preloader.classList.add('hidden');
                         document.body.style.overflow = '';
+                        document.body.classList.add('is-loaded');
                         sessionStorage.setItem('preloaderPlayed', 'true');
                     }
                 }, 8000); // 8 seconds maximum wait
@@ -71,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Fallback if video elements aren't found
                 preloader.classList.add('hidden');
                 document.body.style.overflow = '';
+                document.body.classList.add('is-loaded');
                 sessionStorage.setItem('preloaderPlayed', 'true');
             }
         }
@@ -88,24 +92,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // --- Hero Interactive Reveal (Glass Mask) ---
+    // --- FAQ Interactive Reveal (Glass Mask) ---
     const glassMask = document.getElementById('glassMask');
-    const heroSection = document.querySelector('.hero');
+    const faqSection = document.getElementById('faq');
 
-    if (glassMask && heroSection) {
-        heroSection.addEventListener('mousemove', (e) => {
-            const rect = heroSection.getBoundingClientRect();
+    if (glassMask && faqSection) {
+        faqSection.addEventListener('mousemove', (e) => {
+            const rect = faqSection.getBoundingClientRect();
             const x = ((e.clientX - rect.left) / rect.width) * 100;
             const y = ((e.clientY - rect.top) / rect.height) * 100;
 
+            // Updated with 150px size on move
             const maskValue = `radial-gradient(circle 150px at ${x}% ${y}%, transparent 0%, black 80%)`;
             glassMask.style.webkitMaskImage = maskValue;
             glassMask.style.maskImage = maskValue;
         });
 
-        // Reset to center on mouse leave
-        heroSection.addEventListener('mouseleave', () => {
-            const maskValue = `radial-gradient(circle 150px at 50% 50%, transparent 0%, black 80%)`;
+        // Reset to 0 size on mouse leave to hide the "preset" ring
+        faqSection.addEventListener('mouseleave', () => {
+            const maskValue = `radial-gradient(circle 0px at 50% 50%, transparent 0%, black 100%)`;
             glassMask.style.webkitMaskImage = maskValue;
             glassMask.style.maskImage = maskValue;
         });
@@ -306,93 +311,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Services Carousel (Phase 7) ---
-    const servicesTrack = document.getElementById('servicesTrack');
-    const serviceSlides = document.querySelectorAll('.carousel-slide');
-    const serviceDots = document.querySelectorAll('.indicator-bar');
-    const prevSBtn = document.getElementById('prevService');
-    const nextSBtn = document.getElementById('nextService');
+    // --- Interactive Services Accordion (Refined) ---
+    const accordionItems = document.querySelectorAll('.accordion-item');
 
-    let currentSIndex = 0;
-    let sInterval;
+    accordionItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            // If clicking the button, don't trigger accordion toggle again (though it works fine)
+            if (e.target.classList.contains('btn-me-interesa')) return;
 
-    function updateSCarousel(index) {
-        if (!servicesTrack || serviceSlides.length === 0) return;
-        if (index >= serviceSlides.length) currentSIndex = 0;
-        else if (index < 0) currentSIndex = serviceSlides.length - 1;
-        else currentSIndex = index;
+            const isActive = item.classList.contains('active');
 
-        const offset = -currentSIndex * 100;
-        servicesTrack.style.transform = `translateX(${offset}%)`;
+            // Close all items
+            accordionItems.forEach(i => i.classList.remove('active'));
 
-        serviceSlides.forEach((slide, i) => slide.classList.toggle('active', i === currentSIndex));
-        serviceDots.forEach((dot, i) => dot.classList.toggle('active', i === currentSIndex));
-    }
-
-    function startSAutoPlay() {
-        stopSAutoPlay();
-        sInterval = setInterval(() => updateSCarousel(currentSIndex + 1), 6000);
-    }
-
-    function stopSAutoPlay() {
-        if (sInterval) clearInterval(sInterval);
-    }
-
-    if (servicesTrack && serviceSlides.length > 0) {
-        if (prevSBtn) {
-            prevSBtn.addEventListener('click', () => {
-                updateSCarousel(currentSIndex - 1);
-                startSAutoPlay();
-            });
-        }
-        if (nextSBtn) {
-            nextSBtn.addEventListener('click', () => {
-                updateSCarousel(currentSIndex + 1);
-                startSAutoPlay();
-            });
-        }
-        serviceDots.forEach(dot => {
-            dot.addEventListener('click', (e) => {
-                updateSCarousel(parseInt(e.target.dataset.index));
-                startSAutoPlay();
-            });
-        });
-
-        updateSCarousel(0);
-        startSAutoPlay();
-
-        servicesTrack.addEventListener('mouseenter', stopSAutoPlay);
-        servicesTrack.addEventListener('mouseleave', startSAutoPlay);
-
-        // --- Touch/Swipe Support ---
-        let touchStartX = 0;
-        let touchEndX = 0;
-        const SWIPE_THRESHOLD = 50;
-
-        servicesTrack.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-            stopSAutoPlay();
-        }, { passive: true });
-
-        servicesTrack.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-            startSAutoPlay();
-        }, { passive: true });
-
-        function handleSwipe() {
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > SWIPE_THRESHOLD) {
-                if (diff > 0) {
-                    // Swipe Left -> Next
-                    updateSCarousel(currentSIndex + 1);
-                } else {
-                    // Swipe Right -> Prev
-                    updateSCarousel(currentSIndex - 1);
-                }
+            // If the clicked item wasn't active, open it
+            if (!isActive) {
+                item.classList.add('active');
             }
-        }
-    }
+        });
+    });
 
     // --- Handle Initial Hash Scroll with Offset ---
     if (window.location.hash) {
@@ -400,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
             setTimeout(() => {
-                const headerOffset = 100;
+                const headerOffset = 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -413,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
-    const HEADER_OFFSET = 100;
+    const HEADER_OFFSET = 80;
     function scrollToTarget(el, targetId) {
         // Special case for scrolling to top
         if (targetId === 'inicio') {
@@ -427,20 +364,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
-        if (!link || !link.getAttribute('href')) return;
+        if (!link) return;
+
         const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Si el menú móvil está abierto, cerrarlo independientemente del tipo de link
         const isInNav = navLinks && navLinks.contains(link);
         if (isInNav && navLinks.classList.contains('active')) {
             hamburger.classList.remove('active');
             navLinks.classList.remove('active');
             document.body.classList.remove('menu-open');
         }
+
+        // Solo interceptar si el link tiene un hash
         if (href.indexOf('#') === -1) return;
-        const targetId = href.split('#')[1];
-        if (!targetId) return;
-        const targetEl = document.getElementById(targetId);
-        if (!targetEl) return;
-        e.preventDefault();
-        scrollToTarget(targetEl, targetId);
+
+        // Obtener la ruta del archivo (sin el hash)
+        const linkPath = href.split('#')[0];
+        const currentPathName = window.location.pathname.split('/').pop() || 'index.html';
+        const targetPathName = linkPath.split('/').pop() || 'index.html';
+
+        // Solo prevenir el comportamiento por defecto si estamos en la misma página
+        // O si el link es solo un hash (e.g. href="#contacto")
+        if (linkPath === '' || targetPathName === currentPathName) {
+            const targetId = href.split('#')[1];
+            if (!targetId) return;
+            const targetEl = document.getElementById(targetId);
+            if (!targetEl) return;
+
+            e.preventDefault();
+            scrollToTarget(targetEl, targetId);
+        }
     });
 });
