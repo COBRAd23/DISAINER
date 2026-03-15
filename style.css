@@ -2032,6 +2032,7 @@ textarea.form-input {
             justify-content: center;
             width: 100%;
             margin-bottom: 2rem;
+            margin-top: 1.5rem;
         }
 
         .btn-outline-gold-v4 {
@@ -2058,23 +2059,23 @@ textarea.form-input {
             display: none;
         }
 
-        /* Busto: animación de caída visible; posición final más abajo */
+        /* Busto: un poco más abajo y más grande (como referencia) */
         .is-loaded .hero-anim-busto {
-            width: 85vw;
-            max-width: 450px;
-            bottom: 5%;
+            width: 92vw;
+            max-width: 500px;
+            bottom: 2%;
             left: 50%;
             transform-origin: bottom center;
-            /* No sobreescribir transform para que bustoFall se ejecute */
             animation:
                 bustoFall 0.7s cubic-bezier(0.55, 0.055, 0.675, 0.19) 0s forwards,
                 bustoCompression 0.18s ease-out 0.7s forwards,
                 bustoBreath 8s ease-in-out 1s infinite;
         }
 
+        /* DISAINER detrás del busto, más arriba */
         .is-loaded .hero-anim-logo {
             width: 150vw;
-            top: 35%;
+            top: 26%;
             left: 50% !important;
             transform: translate(-50%, -50%) !important;
         }
