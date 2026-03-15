@@ -74,6 +74,22 @@
                 </button>
             </nav>
         </div>
+        <!-- Music Toggle Button -->
+        <button id="musicToggle" class="music-toggle" aria-label="Activar música de fondo">
+            <div class="eq-bars">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+            </div>
+        </button>
+
+        <!-- Background Audio -->
+        <audio id="bgMusic" loop preload="none">
+            <source src="sound/sound-web.mp3" type="audio/mpeg">
+        </audio>
+
         <button id="themeToggle" class="theme-toggle" aria-label="Cambiar modo de tema">
             <img src="img/boton_adia.png" alt="Modo Claro" class="theme-icon-light" style="display: none;">
             <img src="img/boton_anoche.png" alt="Modo Oscuro" class="theme-icon-dark">

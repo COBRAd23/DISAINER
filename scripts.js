@@ -397,4 +397,25 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollToTarget(targetEl, targetId);
         }
     });
+
+    // --- Background Music Toggle ---
+    const musicToggle = document.getElementById('musicToggle');
+    const bgMusic = document.getElementById('bgMusic');
+
+    if (musicToggle && bgMusic) {
+        musicToggle.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    musicToggle.classList.add('is-playing');
+                    musicToggle.setAttribute('aria-label', 'Pausar música de fondo');
+                }).catch(() => {
+                    // Autoplay blocked by browser, silently ignore
+                });
+            } else {
+                bgMusic.pause();
+                musicToggle.classList.remove('is-playing');
+                musicToggle.setAttribute('aria-label', 'Activar música de fondo');
+            }
+        });
+    }
 });
