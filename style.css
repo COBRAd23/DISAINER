@@ -3668,6 +3668,12 @@ section {
 
 [data-theme="light"] .service-name,
 [data-theme="light"] .service-number {
+    color: #fff;
+}
+
+/* Tema claro: al expandir (barra corrida) los títulos en negro para verse sobre el fondo claro */
+[data-theme="light"] .accordion-item.active .service-name,
+[data-theme="light"] .accordion-item.active .service-number {
     color: #000;
 }
 
@@ -3801,7 +3807,7 @@ section {
     }
 }
 
-/* Servicios acordeón mobile: títulos más chicos y barras contenedoras más bajas */
+/* Servicios acordeón mobile: títulos más chicos, barras más bajas y más aire al desplegar */
 @media (max-width: 768px) {
     .accordion-header {
         padding: 0.75rem 6%;
@@ -3809,6 +3815,10 @@ section {
 
     .accordion-header .service-name {
         font-size: clamp(1.1rem, 4.5vw, 1.45rem);
+    }
+
+    .accordion-item.active .accordion-body {
+        padding-top: 1.75rem;
     }
 }
 
