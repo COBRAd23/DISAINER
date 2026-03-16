@@ -3801,8 +3801,12 @@ section {
     }
 }
 
-/* Servicios acordeón mobile: solo los títulos (BRANDING, Desarrollo Web...) más chicos; los números conservan su tamaño */
+/* Servicios acordeón mobile: títulos más chicos y barras contenedoras más bajas */
 @media (max-width: 768px) {
+    .accordion-header {
+        padding: 0.75rem 6%;
+    }
+
     .accordion-header .service-name {
         font-size: clamp(1.1rem, 4.5vw, 1.45rem);
     }
