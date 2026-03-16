@@ -549,20 +549,35 @@ main {
 
 /* ========== HEADER MOBILE (max-width: 768px) ========== */
 @media (max-width: 768px) {
+    /* Header siempre fijo al hacer scroll (no se desplaza con la web) */
+    #header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 1000;
+    }
+
+    /* Contenedores del header sin transform para que fixed funcione respecto al viewport */
+    #header .nav-wrap,
+    #header .nav-layout-v4 {
+        transform: none !important;
+    }
+
     /* Solo burger visible en la barra: ocultar logo y pill CONTACTO (el overlay .nav-links debe seguir en DOM) */
     .nav-left-content .logo,
     .nav-left-content .btn-contacto-pill {
         display: none !important;
     }
 
-    /* Burger centrado arriba, fijo al hacer scroll */
+    /* Burger centrado arriba, fijo al viewport: no baja con el scroll, igual que el header */
     .hamburger-menu {
-        position: fixed;
-        top: calc(clamp(1rem, 3vw, 1.5rem) + env(safe-area-inset-top, 0));
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
-        z-index: 1010;
+        position: fixed !important;
+        top: calc(clamp(1rem, 3vw, 1.5rem) + env(safe-area-inset-top, 0)) !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        right: auto !important;
+        z-index: 1010 !important;
         display: flex !important;
     }
 
