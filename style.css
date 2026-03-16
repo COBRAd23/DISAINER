@@ -555,9 +555,9 @@ main {
         display: none !important;
     }
 
-    /* Burger centrado arriba, color amarillo de marca */
+    /* Burger centrado arriba, fijo al hacer scroll */
     .hamburger-menu {
-        position: absolute;
+        position: fixed;
         top: calc(clamp(1rem, 3vw, 1.5rem) + env(safe-area-inset-top, 0));
         left: 50%;
         transform: translateX(-50%);
@@ -2021,6 +2021,7 @@ textarea.form-input {
             width: 100%;
             font-weight: 800;
             text-transform: uppercase;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.35);
         }
 
         .hero-subtitle-yellow {
@@ -2059,11 +2060,11 @@ textarea.form-input {
             display: none;
         }
 
-        /* Busto: un poco más abajo y más grande (como referencia) */
+        /* Busto: un poco más abajo y un poco más grande */
         .is-loaded .hero-anim-busto {
-            width: 92vw;
-            max-width: 500px;
-            bottom: 2%;
+            width: 96vw;
+            max-width: 540px;
+            bottom: -1%;
             left: 50%;
             transform-origin: bottom center;
             animation:
