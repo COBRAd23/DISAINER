@@ -3801,6 +3801,13 @@ section {
     }
 }
 
+/* Servicios acordeón mobile: solo los títulos (BRANDING, Desarrollo Web...) más chicos; los números conservan su tamaño */
+@media (max-width: 768px) {
+    .accordion-header .service-name {
+        font-size: clamp(1.1rem, 4.5vw, 1.45rem);
+    }
+}
+
 /* Nav Arrows */
 .carousel-arrow {
     position: absolute;
