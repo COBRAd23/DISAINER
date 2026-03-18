@@ -764,15 +764,21 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 105vw;
-    /* Adjusted to match span shown in user screenshot */
     max-width: none;
     opacity: 0;
     z-index: -9;
-    /* Sweep reveal (0.8s starting at 0.5s) + Impact dip (0.35s starting at 0.7s) */
     animation:
         logoSweep 0.8s ease-out 0.5s forwards,
-        logoImpact 0.35s ease-out 0.7s forwards;
+        logoImpact 0.35s ease-out 0.7s forwards,
+        logoErase 0.9s cubic-bezier(0.4, 0, 1, 1) 1.1s forwards;
     pointer-events: none;
+    /* Máscara suave para el barrido de desaparición (--logo-erase animado) */
+    -webkit-mask-image: linear-gradient(to right,
+        transparent var(--logo-erase),
+        black calc(var(--logo-erase) + 22%));
+    mask-image: linear-gradient(to right,
+        transparent var(--logo-erase),
+        black calc(var(--logo-erase) + 22%));
 }
 
 .hero-anim-logo picture,
@@ -803,6 +809,70 @@ main {
         bustoCompression 0.18s ease-out 0.7s forwards,
         bustoBreath 8s ease-in-out 1s infinite;
     pointer-events: none;
+}
+
+/* Animated background text lines (between background and bust) */
+.hero-anim-lines {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0px;
+    z-index: -9;
+    opacity: 0;
+    pointer-events: none;
+    animation: linesFadeIn 0.7s ease-out 1.3s forwards;
+    overflow: visible;
+    /* Empujar el bloque hacia abajo para q la virgulilla de la 1ª línea
+       no choque con el borde superior del hero (overflow:hidden del padre) */
+    padding-top: clamp(1rem, 2vw, 3rem);
+}
+
+.hero-anim-line {
+    /* IMPORTANTE: overflow-x:hidden + overflow-y:visible no funciona en CSS
+       (el spec obliga a overflow-y:auto cuando overflow-x != visible).
+       La única solución real: clip-path con inset negativo en el top,
+       que clipea los lados del marquee PERO deja salir 7vw hacia arriba
+       para q la virgulilla de la Ñ sea completamente visible. */
+    overflow: visible;
+    clip-path: inset(-7vw 0px 0.08em 0px);
+}
+
+.hero-anim-line-track {
+    display: inline-flex;
+    min-width: 200%;
+    white-space: nowrap;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(6rem, 20vw, 22rem);
+    letter-spacing: -0.01em;
+    mix-blend-mode: normal;
+    /* line-height ajustado para q las 3 líneas se superpongan y la virgulilla
+       de la Ñ pise la línea de arriba naturalmente */
+    line-height: 0.82;
+}
+
+.hero-anim-line-track span {
+    padding-right: 2rem;
+}
+
+/* Opacidades variadas por línea */
+.hero-anim-line--top .hero-anim-line-track {
+    color: rgba(255, 255, 255, 0.14);
+    /* Más lento = loop menos brusco y más contemplativo */
+    animation: heroLineMarqueeLTR 55s linear infinite;
+}
+
+.hero-anim-line--middle .hero-anim-line-track {
+    color: rgba(255, 255, 255, 0.28);
+    animation: heroLineMarqueeRTL 75s linear infinite;
+}
+
+.hero-anim-line--bottom .hero-anim-line-track {
+    color: rgba(255, 255, 255, 0.08);
+    animation: heroLineMarqueeLTR 95s linear infinite;
 }
 
 /* --- Keyframes --- */
@@ -887,6 +957,51 @@ main {
         /* 20% more transparent than previous 0.38 */
         clip-path: inset(0 0 0 0);
         filter: blur(0px);
+    }
+}
+
+/* @property permite animar valores dentro de gradientes (Chrome 85+, Firefox 128+) */
+@property --logo-erase {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: -25%;  /* valor inicial = máscara mostrando todo */
+}
+
+/* Logo erase: barrido suave de izquierda → derecha (D primero, R al final) */
+@keyframes logoErase {
+    0%   { --logo-erase: -25%; opacity: 0.18; } /* totalmente visible */
+    100% { --logo-erase: 115%; opacity: 0.18; } /* totalmente oculto */
+}
+
+/* Background text lines fade-in */
+@keyframes linesFadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Infinite marquee for hero background lines */
+@keyframes heroLineMarqueeLTR {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes heroLineMarqueeRTL {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
     }
 }
 
@@ -4252,6 +4367,162 @@ section {
 /* 7. Hero Section Light Mode Refinements */
 [data-theme="light"] .hero-subtitle-yellow {
     color: #000000 !important;
+}
+
+/* =========================================================
+   DESKTOP RESPONSIVE TUNING (ONLY > 1024px)
+   - 1600px+: base desktop (sin cambios)
+   - 1440px: ajustar escala del hero y navegación
+   - 1280px: compactar más sin romper layout
+   - 1025–1280px: límite inferior de escritorio
+   Importante: NO tocar nada por debajo de 1024px.
+   ========================================================= */
+
+/* 1) 1441px–1600px: ligera compactación del hero */
+@media (max-width: 1600px) and (min-width: 1441px) {
+    .hero-container-v4 {
+        padding: 0 5%;
+    }
+
+    .hero-bottom-left {
+        max-width: 780px;
+    }
+
+    .hero-title-v4 {
+        font-size: clamp(2.4rem, 3.5vw, 3.1rem);
+    }
+
+    .hero-subtitle-yellow {
+        font-size: 0.95rem;
+    }
+
+    .is-loaded .hero-anim-busto {
+        width: clamp(380px, 48vw, 860px);
+    }
+}
+
+/* 2) 1281px–1440px: asegurar busto completo y header estable */
+@media (max-width: 1440px) and (min-width: 1281px) {
+    header {
+        padding: clamp(0.9rem, 2.5vw, 1.3rem) 0;
+    }
+
+    .nav-layout-v4 {
+        padding: 0 4%;
+        gap: 2.5rem;
+    }
+
+    .nav-left-content {
+        gap: 2rem;
+    }
+
+    .nav-links-inner {
+        gap: 1.5rem;
+    }
+
+    .nav-links a {
+        font-size: 10px;
+        letter-spacing: 0.06em;
+    }
+
+    .btn-contacto-pill {
+        padding: 0.55rem 1.2rem;
+        font-size: 10px;
+    }
+
+    .hero-v4 {
+        padding-bottom: 4vh;
+    }
+
+    .hero-container-v4 {
+        padding: 0 5%;
+    }
+
+    .hero-bottom-left {
+        max-width: 720px;
+    }
+
+    .hero-title-v4 {
+        font-size: clamp(2.1rem, 3.1vw, 2.7rem);
+    }
+
+    .hero-subtitle-yellow {
+        font-size: 0.9rem;
+    }
+
+    .is-loaded .hero-anim-logo {
+        width: 105vw;
+        top: 40%;
+    }
+
+    /* Busto algo más contenido para que no se recorte */
+    .is-loaded .hero-anim-busto {
+        width: clamp(360px, 52vw, 780px);
+    }
+}
+
+/* 3) 1025px–1280px: escritorio mínimo, todo más compacto sin tocar tablet */
+@media (max-width: 1280px) and (min-width: 1025px) {
+    header {
+        padding: clamp(0.7rem, 2vw, 1.1rem) 0;
+    }
+
+    .nav-layout-v4 {
+        padding: 0 3%;
+        gap: 2rem;
+    }
+
+    .nav-left-content {
+        gap: 1.5rem;
+    }
+
+    .nav-links-inner {
+        gap: 1.2rem;
+    }
+
+    .nav-links a {
+        font-size: 9px;
+        letter-spacing: 0.06em;
+    }
+
+    .btn-contacto-pill {
+        padding: 0.5rem 1.05rem;
+        font-size: 9px;
+    }
+
+    .hero-v4 {
+        padding-bottom: 3vh;
+    }
+
+    .hero-container-v4 {
+        padding: 0 3%;
+    }
+
+    .hero-bottom-left {
+        max-width: 640px;
+    }
+
+    .hero-title-v4 {
+        font-size: clamp(1.9rem, 2.8vw, 2.4rem);
+    }
+
+    .hero-subtitle-yellow {
+        font-size: 0.85rem;
+    }
+
+    .hero-bottom-right {
+        max-width: 420px;
+    }
+
+    /* Ajustar logo de fondo y busto para que quepan completos en alturas menores */
+    .is-loaded .hero-anim-logo {
+        width: 110vw;
+        top: 38%;
+    }
+
+    .is-loaded .hero-anim-busto {
+        width: clamp(320px, 50vw, 720px);
+    }
 }
 
 [data-theme="light"] .btn-outline-gold-v4 {
