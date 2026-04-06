@@ -1,85 +1,33 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // --- Preloader Logic ---
-    const preloader = document.getElementById('preloader');
-    const percentSpan = document.getElementById('preloader-percent');
-    const videoDark = document.getElementById('preloader-video-dark');
-    const videoLight = document.getElementById('preloader-video-light');
-
-    if (preloader && percentSpan) {
-        // Check if preloader has already been played in this session
-        if (sessionStorage.getItem('preloaderPlayed') === 'true') {
-            preloader.classList.add('hidden');
-            document.body.style.overflow = '';
-            if (videoDark) videoDark.pause();
-            if (videoLight) videoLight.pause();
-            document.body.classList.add('is-loaded');
-        } else {
-            document.body.style.overflow = 'hidden';
-
-            // Determine which video is active based on theme
-            const currentTheme = localStorage.getItem('theme');
-            const activeVideo = currentTheme === 'light' ? videoLight : videoDark;
-
-            // Ensure the inactive video does not play
-            if (currentTheme === 'light') {
-                if (videoDark) videoDark.pause();
-            } else {
-                if (videoLight) videoLight.pause();
-            }
-
-            if (activeVideo) {
-                // Update percentage continuously for ultra smooth counting
-                function trackProgress() {
-                    if (activeVideo.duration) {
-                        let percent = Math.round((activeVideo.currentTime / activeVideo.duration) * 100);
-                        if (percent > 100) percent = 100; // Cap at max 100
-                        percentSpan.textContent = percent;
-                    }
-
-                    if (!activeVideo.ended && !preloader.classList.contains('hidden')) {
-                        requestAnimationFrame(trackProgress);
-                    }
-                }
-
-                // Start tracking as soon as it plays
-                activeVideo.addEventListener('play', () => {
-                    requestAnimationFrame(trackProgress);
-                });
-                // If it's already playing, start tracking immediately
-                if (!activeVideo.paused) {
-                    requestAnimationFrame(trackProgress);
-                }
-
-                // Hide preloader when video ends
-                activeVideo.addEventListener('ended', () => {
-                    percentSpan.textContent = '100';
-                    setTimeout(() => {
-                        preloader.classList.add('hidden');
-                        document.body.style.overflow = '';
-                        document.body.classList.add('is-loaded');
-                        sessionStorage.setItem('preloaderPlayed', 'true'); // Flag to skip next time
-                    }, 600); // 600ms delay to clearly see 100% step
-                });
-
-                // Backup in case video fails or gets stuck
-                setTimeout(() => {
-                    if (!preloader.classList.contains('hidden')) {
-                        preloader.classList.add('hidden');
-                        document.body.style.overflow = '';
-                        document.body.classList.add('is-loaded');
-                        sessionStorage.setItem('preloaderPlayed', 'true');
-                    }
-                }, 8000); // 8 seconds maximum wait
-            } else {
-                // Fallback if video elements aren't found
-                preloader.classList.add('hidden');
-                document.body.style.overflow = '';
-                document.body.classList.add('is-loaded');
-                sessionStorage.setItem('preloaderPlayed', 'true');
-            }
+// Global Theme Logic - Execute immediately to prevent FOUC (Flash of Unstyled Content)
+function applyGlobalTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (themeToggle) {
+            const iconLight = themeToggle.querySelector('.theme-icon-light');
+            const iconDark = themeToggle.querySelector('.theme-icon-dark');
+            if (iconLight) iconLight.style.display = 'block';
+            if (iconDark) iconDark.style.display = 'none';
+        }
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (themeToggle) {
+            const iconLight = themeToggle.querySelector('.theme-icon-light');
+            const iconDark = themeToggle.querySelector('.theme-icon-dark');
+            if (iconLight) iconLight.style.display = 'none';
+            if (iconDark) iconDark.style.display = 'block';
         }
     }
+}
 
+// Initial immediate call
+applyGlobalTheme();
+
+// Add Barba.js library link through CDN: https://unpkg.com/@barba/core
+
+function initPage() {
     // --- Reveal on Scroll Logic ---
     const revealElements = document.querySelectorAll('.reveal');
     const revealObserver = new IntersectionObserver((entries) => {
@@ -173,17 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         let rafId = null;
         let speed = 0.6;
 
-        function step() {
-            scrollX += speed;
-            const maxOffset = portfolioRow.scrollWidth / 2;
-            if (scrollX >= maxOffset) {
-                scrollX = 0;
-            }
-            portfolioRow.style.transform = `translateX(${-scrollX}px)`;
-            rafId = requestAnimationFrame(step);
-        }
-
-        // Corrected step function with local scrollX
         function animateMarquee() {
             scrollX += speed;
             const maxOffset = portfolioRow.scrollWidth / 2;
@@ -362,60 +299,183 @@ document.addEventListener('DOMContentLoaded', () => {
         const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
         window.scrollTo({ top: offsetPos, behavior: 'smooth' });
     }
-    document.addEventListener('click', (e) => {
-        const link = e.target.closest('a');
-        if (!link) return;
+    
+    // Smooth Scroll Listener (updated for SPA/Barba)
+    document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href.indexOf('#') === -1) return;
+            const linkPath = href.split('#')[0];
+            const currentPathName = window.location.pathname.split('/').pop() || 'index.html';
+            const targetPathName = linkPath.split('/').pop() || 'index.html';
+            
+            if (linkPath === '' || targetPathName === currentPathName) {
+                const targetId = href.split('#')[1];
+                if (!targetId) return;
+                const targetEl = document.getElementById(targetId);
+                if (!targetEl) return;
+                e.preventDefault();
+                scrollToTarget(targetEl, targetId);
+            }
+        });
+    });
 
-        const href = link.getAttribute('href');
-        if (!href) return;
+    // --- Portfolio Hero Parallax ---
+    const parallaxTitle = document.getElementById('parallax-title');
+    if (parallaxTitle) {
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY;
+            parallaxTitle.style.transform = `translateY(${scrollY * 0.4}px)`;
+        }, { passive: true });
+    }
 
-        // Si el menú móvil está abierto, cerrarlo independientemente del tipo de link
-        const isInNav = navLinks && navLinks.contains(link);
-        if (isInNav && navLinks.classList.contains('active')) {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.classList.remove('menu-open');
-        }
+    // --- Portfolio Bento Stagger Reveal ---
+    const bentoElements = document.querySelectorAll('.bento-reveal');
+    if (bentoElements.length > 0) {
+        const bentoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-inview');
+                    bentoObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        
+        bentoElements.forEach(el => bentoObserver.observe(el));
+    }
 
-        // Solo interceptar si el link tiene un hash
-        if (href.indexOf('#') === -1) return;
-
-        // Obtener la ruta del archivo (sin el hash)
-        const linkPath = href.split('#')[0];
-        const currentPathName = window.location.pathname.split('/').pop() || 'index.html';
-        const targetPathName = linkPath.split('/').pop() || 'index.html';
-
-        // Solo prevenir el comportamiento por defecto si estamos en la misma página
-        // O si el link es solo un hash (e.g. href="#contacto")
-        if (linkPath === '' || targetPathName === currentPathName) {
-            const targetId = href.split('#')[1];
-            if (!targetId) return;
-            const targetEl = document.getElementById(targetId);
-            if (!targetEl) return;
-
-            e.preventDefault();
-            scrollToTarget(targetEl, targetId);
+    // --- Portfolio Bento Hover Cursor Parallax ---
+    const bentoCards = document.querySelectorAll('.bento-card');
+    bentoCards.forEach(card => {
+        const img = card.querySelector('.bento-img');
+        if (img) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                const moveX = (x / rect.width) * 6; 
+                const moveY = (y / rect.height) * 6;
+                
+                img.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                img.style.transform = `translate(0px, 0px)`;
+            });
         }
     });
 
-    // --- Background Music Toggle ---
+    // --- Theme Icon Visibility Check ---
+    applyGlobalTheme();
+}
+
+// Global Music Handlers (Persist Outside Barba)
+function initGlobalMusic() {
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
 
     if (musicToggle && bgMusic) {
+        // Prevent multiple listeners if navigation occurs
+        if (musicToggle.dataset.listenerAttached) return;
+        
         musicToggle.addEventListener('click', () => {
             if (bgMusic.paused) {
                 bgMusic.play().then(() => {
                     musicToggle.classList.add('is-playing');
                     musicToggle.setAttribute('aria-label', 'Pausar música de fondo');
-                }).catch(() => {
-                    // Autoplay blocked by browser, silently ignore
-                });
+                }).catch(() => {});
             } else {
                 bgMusic.pause();
                 musicToggle.classList.remove('is-playing');
                 musicToggle.setAttribute('aria-label', 'Activar música de fondo');
             }
         });
+        
+        musicToggle.dataset.listenerAttached = "true";
+    }
+}
+
+// Initial Call
+document.addEventListener('DOMContentLoaded', () => {
+    // --- Preloader Logic ---
+    const preloader = document.getElementById('preloader');
+    const percentSpan = document.getElementById('preloader-percent');
+    if (preloader && percentSpan) {
+        if (sessionStorage.getItem('preloaderPlayed') === 'true') {
+            preloader.classList.add('hidden');
+            document.body.style.overflow = '';
+            document.body.classList.add('is-loaded');
+        } else {
+            const videoDark = document.getElementById('preloader-video-dark');
+            const videoLight = document.getElementById('preloader-video-light');
+            const savedTheme = localStorage.getItem('theme');
+            const activeVideo = savedTheme === 'light' ? videoLight : videoDark;
+            
+            if (activeVideo) {
+                activeVideo.addEventListener('timeupdate', () => {
+                    let percent = Math.round((activeVideo.currentTime / activeVideo.duration) * 100);
+                    percentSpan.textContent = percent;
+                });
+                activeVideo.addEventListener('ended', () => {
+                    preloader.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    document.body.classList.add('is-loaded');
+                    sessionStorage.setItem('preloaderPlayed', 'true');
+                });
+            } else {
+                preloader.classList.add('hidden');
+            }
+        }
+    }
+
+    initPage();
+    initGlobalMusic();
+    
+    // Barba Initialization
+    if (typeof barba !== "undefined") {
+        barba.init({
+            transitions: [{
+                name: 'opacity-transition',
+                leave(data) {
+                    return gsap.to(data.current.container, {
+                        opacity: 0,
+                        duration: 0.5
+                    });
+                },
+                enter(data) {
+                    return gsap.from(data.next.container, {
+                        opacity: 0,
+                        duration: 0.5
+                    });
+                },
+                afterEnter(data) {
+                    initPage();
+                    window.scrollTo(0,0);
+                }
+            }]
+        });
+    }
+});
+
+// Single handle for theme toggle across transitions
+document.addEventListener('click', (e) => {
+    const toggle = e.target.closest('#themeToggle');
+    if (toggle) {
+        const iconLight = toggle.querySelector('.theme-icon-light');
+        const iconDark = toggle.querySelector('.theme-icon-dark');
+        let theme = document.documentElement.getAttribute('data-theme');
+        
+        if (theme === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'dark');
+            if (iconLight) iconLight.style.display = 'none';
+            if (iconDark) iconDark.style.display = 'block';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            if (iconLight) iconLight.style.display = 'block';
+            if (iconDark) iconDark.style.display = 'none';
+        }
     }
 });

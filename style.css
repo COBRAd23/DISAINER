@@ -8,9 +8,9 @@
 
 :root {
     /* Alora-Inspired Palette */
-    --bg-primary: #080808;
-    --bg-secondary: #0f0f0f;
-    --bg-accent-soft: #141414;
+    --bg-primary: #000000;
+    --bg-secondary: #080808;
+    --bg-accent-soft: #0f0f0f;
     --border-color: rgba(255, 255, 255, 0.08);
 
     /* Branding */
@@ -39,9 +39,9 @@
 
 /* Light Theme Overrides */
 [data-theme="light"] {
-    --bg-primary: #f5f5f7;
-    --bg-secondary: #ffffff;
-    --bg-accent-soft: #f0f0f5;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f2f2f2;
+    --bg-accent-soft: #f9f9f9;
     --border-color: rgba(0, 0, 0, 0.1);
 
     --text-white: #111111;
@@ -172,8 +172,11 @@
 
 /* Specific text color fixes for light mode */
 [data-theme="light"] .tech-card span,
-[data-theme="light"] .social-icon-box {
-    color: var(--text-white);
+[data-theme="light"] .social-icon-box,
+[data-theme="light"] .policy-section h3,
+[data-theme="light"] .policy-section p,
+[data-theme="light"] .policy-list li {
+    color: #111111;
 }
 
 html {
@@ -309,7 +312,7 @@ main {
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 0.05em;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     transition: 0.3s;
@@ -417,29 +420,83 @@ main {
    Music Equalizer Toggle Button
    ============================== */
 @keyframes eq-bounce-1 {
-    0%, 100% { height: 4px; }
-    50%       { height: 18px; }
+
+    0%,
+    100% {
+        height: 4px;
+    }
+
+    50% {
+        height: 18px;
+    }
 }
+
 @keyframes eq-bounce-2 {
-    0%, 100% { height: 12px; }
-    35%       { height: 22px; }
-    70%       { height: 5px; }
+
+    0%,
+    100% {
+        height: 12px;
+    }
+
+    35% {
+        height: 22px;
+    }
+
+    70% {
+        height: 5px;
+    }
 }
+
 @keyframes eq-bounce-3 {
-    0%, 100% { height: 8px; }
-    25%       { height: 20px; }
-    60%       { height: 3px; }
-    80%       { height: 16px; }
+
+    0%,
+    100% {
+        height: 8px;
+    }
+
+    25% {
+        height: 20px;
+    }
+
+    60% {
+        height: 3px;
+    }
+
+    80% {
+        height: 16px;
+    }
 }
+
 @keyframes eq-bounce-4 {
-    0%, 100% { height: 6px; }
-    40%       { height: 24px; }
-    75%       { height: 9px; }
+
+    0%,
+    100% {
+        height: 6px;
+    }
+
+    40% {
+        height: 24px;
+    }
+
+    75% {
+        height: 9px;
+    }
 }
+
 @keyframes eq-bounce-5 {
-    0%, 100% { height: 14px; }
-    30%       { height: 4px; }
-    65%       { height: 20px; }
+
+    0%,
+    100% {
+        height: 14px;
+    }
+
+    30% {
+        height: 4px;
+    }
+
+    65% {
+        height: 20px;
+    }
 }
 
 .music-toggle {
@@ -448,7 +505,8 @@ main {
     cursor: pointer;
     position: fixed;
     top: clamp(1rem, 3vw, 1.5rem);
-    right: calc(6% + 52px); /* 52px gap from the theme toggle */
+    right: calc(6% + 52px);
+    /* 52px gap from the theme toggle */
     width: 36px;
     height: 35px;
     display: flex;
@@ -490,15 +548,19 @@ main {
 .music-toggle.is-playing .eq-bar:nth-child(1) {
     animation: eq-bounce-1 0.9s ease-in-out infinite;
 }
+
 .music-toggle.is-playing .eq-bar:nth-child(2) {
     animation: eq-bounce-2 0.7s ease-in-out infinite 0.15s;
 }
+
 .music-toggle.is-playing .eq-bar:nth-child(3) {
     animation: eq-bounce-3 0.8s ease-in-out infinite 0.05s;
 }
+
 .music-toggle.is-playing .eq-bar:nth-child(4) {
     animation: eq-bounce-4 0.6s ease-in-out infinite 0.25s;
 }
+
 .music-toggle.is-playing .eq-bar:nth-child(5) {
     animation: eq-bounce-5 1.0s ease-in-out infinite 0.1s;
 }
@@ -528,7 +590,8 @@ main {
     top: clamp(1rem, 3vw, 1.5rem);
     right: 6%;
     width: 35px;
-    height: 35px; /* Same height as music-toggle for alignment */
+    height: 35px;
+    /* Same height as music-toggle for alignment */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -549,6 +612,7 @@ main {
 
 /* ========== HEADER MOBILE (max-width: 768px) ========== */
 @media (max-width: 768px) {
+
     /* Header siempre fijo al hacer scroll (no se desplaza con la web) */
     #header {
         position: fixed !important;
@@ -774,11 +838,11 @@ main {
     pointer-events: none;
     /* Máscara suave para el barrido de desaparición (--logo-erase animado) */
     -webkit-mask-image: linear-gradient(to right,
-        transparent var(--logo-erase),
-        black calc(var(--logo-erase) + 22%));
+            transparent var(--logo-erase),
+            black calc(var(--logo-erase) + 22%));
     mask-image: linear-gradient(to right,
-        transparent var(--logo-erase),
-        black calc(var(--logo-erase) + 22%));
+            transparent var(--logo-erase),
+            black calc(var(--logo-erase) + 22%));
 }
 
 .hero-anim-logo picture,
@@ -964,13 +1028,24 @@ main {
 @property --logo-erase {
     syntax: '<percentage>';
     inherits: false;
-    initial-value: -25%;  /* valor inicial = máscara mostrando todo */
+    initial-value: -25%;
+    /* valor inicial = máscara mostrando todo */
 }
 
 /* Logo erase: barrido suave de izquierda → derecha (D primero, R al final) */
 @keyframes logoErase {
-    0%   { --logo-erase: -25%; opacity: 0.18; } /* totalmente visible */
-    100% { --logo-erase: 115%; opacity: 0.18; } /* totalmente oculto */
+    0% {
+        --logo-erase: -25%;
+        opacity: 0.18;
+    }
+
+    /* totalmente visible */
+    100% {
+        --logo-erase: 115%;
+        opacity: 0.18;
+    }
+
+    /* totalmente oculto */
 }
 
 /* Background text lines fade-in */
@@ -4303,7 +4378,7 @@ section {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: #080808;
+    background-color: #000000;
     z-index: 999999;
     display: flex;
     justify-content: center;
@@ -4533,4 +4608,796 @@ section {
 
 [data-theme="light"] .btn-outline-gold-v4:hover {
     filter: brightness(0.9);
+}
+
+/* =========================================================
+   PORTFOLIO BENTO GRID RE-DESIGN (HIERRO NEGRO STYLE)
+   ========================================================= */
+body.portfolio-page {
+    background-color: #000000 !important;
+}
+
+[data-theme="light"] body.portfolio-page {
+    background-color: #ffffff !important;
+}
+
+.portfolio-giant-hero {
+    position: relative;
+    width: 100%;
+    min-height: 35vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #000000;
+    padding-top: 15vh;
+    padding-bottom: 5vh;
+}
+
+[data-theme="light"] .portfolio-giant-hero {
+    background-color: #ffffff;
+}
+
+.hero-title-wrapper {
+    text-align: center;
+    will-change: transform;
+    z-index: 1;
+    position: relative;
+}
+
+.hero-solid-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.hero-bajada {
+    font-family: 'Arial', sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: var(--hn-accent);
+    margin: 0;
+    font-weight: normal;
+}
+
+:root {
+    --hn-accent: #FFB800;
+}
+
+.portfolio-bento-section {
+    background-color: #000000;
+    padding: 2rem 5% 8rem 5%;
+    position: relative;
+    z-index: 2;
+}
+
+.portfolio-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    max-width: 1750px;
+    margin: 0 auto;
+}
+
+.bento-card {
+    background-color: #000000;
+    border-radius: 32px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(50px);
+    aspect-ratio: 1 / 1;
+    /* Hacer la tarjeta perfectamente cuadrada */
+}
+
+.bento-card:hover {
+    border-color: var(--hn-accent);
+    box-shadow: 0 10px 40px rgba(255, 184, 0, 0.08);
+    z-index: 10;
+}
+
+.bento-img-wrap {
+    width: 100%;
+    flex-grow: 1;
+    /* Ocupar el resto del cuadrado */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.bento-img {
+    width: 110%;
+    height: 110%;
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    transition: transform 0.2s cubic-bezier(0.0, 0.0, 0.2, 1);
+}
+
+.bento-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+    z-index: 10;
+}
+
+.bento-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.bento-card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    color: #fff;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.bento-card-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #888;
+    margin: 0;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
+.bento-arrow {
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    color: var(--hn-accent);
+    border: 1px solid var(--hn-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translate(-10px, 0);
+    transition: all 0.4s ease;
+    flex-shrink: 0;
+}
+
+.bento-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+.bento-card:hover .bento-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+    background: var(--hn-accent);
+    color: #000;
+}
+
+/* Initial state for elements with bento-reveal animation */
+.bento-reveal {
+    opacity: 0;
+    will-change: opacity, transform, clip-path;
+}
+
+.bento-reveal.is-inview {
+    animation: maskReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--stagger, 0) * 0.15s); /* Increased stagger for more elegance */
+}
+
+@keyframes maskReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+        clip-path: inset(100% 0 0 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+/* Light mode overrides for Portfolio */
+[data-theme="light"] .portfolio-bento-section {
+    background-color: var(--bg-primary, #ffffff) !important;
+}
+
+[data-theme="light"] .hero-solid-title {
+    color: var(--text-dark, #000000) !important;
+}
+
+[data-theme="light"] .hero-bajada {
+    color: #444444 !important;
+}
+
+[data-theme="light"] .bento-card {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .bento-card:hover {
+    border: 1px solid var(--hn-accent) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .bento-card-title {
+    color: var(--text-dark, #000000) !important;
+    text-shadow: none !important;
+}
+
+[data-theme="light"] .bento-card-subtitle {
+    color: #666666 !important;
+    text-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+    .portfolio-bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bento-card {
+        aspect-ratio: 1/1;
+    }
+
+    .hero-solid-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+}
+
+/* Portfolio-specific Contact Background */
+.portfolio-page #contacto {
+    background-color: var(--bg-secondary) !important;
+}
+
+/* =========================================================
+   PROJECT INDIVIDUAL PAGE (MAGIC MOTION / BENTO)
+   ========================================================= */
+
+/* Individual Project Layout */
+.project-page {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+[data-theme="light"] .project-page {
+    background-color: #ffffff !important;
+    color: #000000;
+}
+
+/* Style override for the return button at the bottom of project pages */
+.btn-volver-proyectos {
+    padding: 1rem 2rem !important;
+    font-size: 0.9rem !important;
+    display: inline-flex !important;
+    width: fit-content !important;
+    margin: 0 auto;
+}
+
+/* Specific elements for Hierro Negro transition */
+/* (View transitions removed in favor of CSS animation) */
+
+/* Hero for individual project */
+.project-hero {
+    position: relative;
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10vh;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #000;
+    /* Reverted transition yellow to black or handle it via animation */
+}
+
+.project-hero.bento-reveal.is-inview {
+    animation: maskReveal 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    /* Slower animation (2.5s) */
+}
+
+.project-hero-img-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: #000;
+    /* Black background behind image */
+}
+
+.project-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Gradiente oscurecedor para dar lectura al texto */
+.project-hero-img-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+}
+
+[data-theme="light"] .project-hero-img-wrap::after {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.project-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    margin-top: auto;
+    padding-bottom: 3vh;
+}
+
+.project-hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+[data-theme="light"] .project-hero-title {
+    color: #000000;
+}
+
+.project-hero-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--hn-accent);
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Intro Text Section Refinement */
+.project-intro-section {
+    max-width: 1750px;
+    margin: 6rem auto;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    text-align: left;
+    background-color: #000000;
+}
+
+[data-theme="light"] .project-intro-section {
+    background-color: #ffffff;
+}
+
+.intro-col-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+.intro-col-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.intro-text-highlight {
+    color: var(--hn-accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.intro-description {
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--hn-accent);
+}
+
+.intro-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.intro-list li {
+    font-family: 'Arial', sans-serif;
+    font-size: 0.95rem;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.intro-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--hn-accent);
+}
+
+.intro-col-testimonial {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+    gap: 1.5rem;
+    padding-top: 0;
+}
+
+.testimonial-stars {
+    color: var(--hn-accent);
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.testimonial-quote {
+    font-family: 'Arial', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ffffff;
+    font-style: italic;
+    opacity: 0.9;
+    max-width: 250px;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+[data-theme="light"] .intro-col-label,
+[data-theme="light"] .intro-list li,
+[data-theme="light"] .testimonial-quote,
+[data-theme="light"] .author-name {
+    color: #111111;
+}
+
+.author-role {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    color: var(--hn-accent);
+}
+
+.author-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--hn-accent);
+}
+
+/* Masonry Body Title */
+.project-body-title-wrap {
+    text-align: center;
+    margin: 6rem auto 4rem;
+}
+
+@media (max-width: 1100px) {
+    .project-intro-section {
+        grid-template-columns: 1fr 1.5fr;
+    }
+
+    .intro-col-testimonial {
+        grid-column: span 2;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-intro-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .intro-col-testimonial {
+        grid-column: span 1;
+    }
+}
+
+/* Masonry Body using Flex/Grid Bento */
+.project-body {
+    padding: 2rem 5% 5rem 5%;
+    max-width: 1750px;
+    margin: 0 auto;
+}
+
+.project-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+    gap: 1.5rem;
+}
+
+.project-bento-item {
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #000000;
+    /* Pure black matching the page */
+    border: none;
+    /* Removed border as requested for seamless look */
+    position: relative;
+}
+
+.project-bento-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.project-bento-item:hover img {
+    transform: scale(1.02);
+}
+
+[data-theme="light"] .project-bento-item {
+    background-color: #f7f7f7;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Tipos de proporciones según el mockup para la grilla Masonry */
+.bento-span-1 {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.bento-span-2 {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.bento-span-2-cols {
+    grid-column: span 2;
+    grid-row: span 1;
+}
+
+.bento-span-4-cols-large {
+    grid-column: span 4;
+    grid-row: span 2;
+}
+
+@media (max-width: 1024px) {
+    .project-bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bento-span-4-cols-large {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-bento-item {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+}
+
+@media (min-width: 992px) {
+    #contacto {
+        text-align: center;
+    }
+
+    #contacto .container {
+        max-width: 1750px !important;
+        padding: 0 5%;
+        /* Para igualar los margenes del grid si los tuviera */
+    }
+
+    #contacto .contact-block {
+        background: #000000 !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        padding: 5rem 6rem;
+        border-radius: 20px;
+        box-shadow: none;
+        max-width: 100%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #contacto .section-tag {
+        color: var(--hn-accent) !important;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 1rem;
+    }
+
+    #contacto h2 {
+        text-transform: uppercase !important;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        font-size: 2.5rem !important;
+        line-height: 1.2;
+        margin-bottom: 2rem !important;
+    }
+
+    #contacto .btn-cta {
+        background: transparent !important;
+        border: 1px solid var(--hn-accent) !important;
+        color: var(--hn-accent) !important;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 0.8rem;
+        padding: 1rem 3rem;
+        text-transform: uppercase;
+        display: inline-block;
+        border-radius: 4px !important;
+    }
+
+    #contacto h3 {
+        font-size: 1.1rem !important;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500 !important;
+        margin-top: 4rem !important;
+        margin-bottom: 3rem !important;
+        color: #ddd !important;
+    }
+
+    #contacto .form-group {
+        text-align: left;
+        margin-bottom: 1.5rem;
+    }
+
+    #contacto label {
+        font-family: 'Montserrat', sans-serif;
+        text-transform: uppercase;
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        color: #888;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    #contacto .form-input {
+        background: #0f0f0f !important;
+        border: 1px solid #1a1a1a !important;
+        color: #fff !important;
+        padding: 1.2rem !important;
+        border-radius: 8px !important;
+        font-family: 'Arial', sans-serif;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #contacto .btn-submit {
+        background: var(--hn-accent) !important;
+        color: #000 !important;
+        width: 100%;
+        padding: 1.2rem !important;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: none;
+        border-radius: 4px;
+        margin-top: 1rem;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    #contacto .btn-submit:hover {
+        opacity: 0.9;
+    }
+}
+
+#contacto .contact-block {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#contacto .contact-block:hover {
+    border-color: var(--hn-accent) !important;
+    box-shadow: 0 10px 40px rgba(255, 184, 0, 0.08) !important;
+}
+
+/* Contact Section Light Mode Overrides */
+[data-theme="light"] #contacto .contact-block {
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03) !important;
+    color: #000000 !important;
+}
+
+[data-theme="light"] #contacto .contact-block:hover {
+    border: 1px solid var(--hn-accent) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] #contacto h2 {
+    color: #000000 !important;
+}
+
+[data-theme="light"] #contacto h3 {
+    color: #444444 !important;
+}
+
+[data-theme="light"] #contacto label {
+    color: #666666 !important;
+}
+
+[data-theme="light"] #contacto .form-input {
+    background: #fcfcfc !important;
+    border: 1px solid #e0e0e0 !important;
+    color: #000000 !important;
+}
+
+[data-theme="light"] #contacto .form-input:focus {
+    border-color: var(--hn-accent) !important;
+    background: #ffffff !important;
+}
+
+/* --- Barba.js Transition Styles --- */
+[data-barba="wrapper"] {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+}
+
+[data-barba="container"] {
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-primary); /* Ensures consistent background during swap */
+}
+
+/* Optional: Fallback Fade (though we use GSAP in scripts.js) */
+.barba-leave-active, .barba-enter-active {
+    transition: opacity 0.5s ease;
+}
+
+.barba-leave-to, .barba-enter-from {
+    opacity: 0;
 }

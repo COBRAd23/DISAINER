@@ -7,1137 +7,1173 @@
     <title>Disainer | Freelancer</title>
     <link rel="icon" href="img/navimag.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css">
+    <!-- Seamless Transitions Libraries -->
+    <script src="https://unpkg.com/@barba/core"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
 
 <body id="inicio">
+    <div data-barba="wrapper">
 
-    <!-- Preloader -->
-    <div id="preloader" class="preloader">
-        <video autoplay muted playsinline class="preloader-video preloader-dark" id="preloader-video-dark">
-            <source src="img/disainer_cargando_black.mp4" type="video/mp4">
-        </video>
-        <video autoplay muted playsinline class="preloader-video preloader-light" id="preloader-video-light"
-            style="display: none;">
-            <source src="img/disainer_cargando_withe.mp4" type="video/mp4">
-        </video>
-        <div class="preloader-counter"><span id="preloader-percent">0</span>%</div>
-    </div>
+        <!-- Preloader -->
+        <div id="preloader" class="preloader">
+            <video autoplay muted playsinline class="preloader-video preloader-dark" id="preloader-video-dark">
+                <source src="img/disainer_cargando_black.mp4" type="video/mp4">
+            </video>
+            <video autoplay muted playsinline class="preloader-video preloader-light" id="preloader-video-light"
+                style="display: none;">
+                <source src="img/disainer_cargando_withe.mp4" type="video/mp4">
+            </video>
+            <div class="preloader-counter"><span id="preloader-percent">0</span>%</div>
+        </div>
 
-    <!-- Header 1:1 Alora Menu -->
-    <header id="header">
-        <div class="nav-wrap text-white">
-            <nav class="nav-layout-v4">
-                <div class="nav-left-content">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="img/logo.png" alt="DISAINER" style="height: 28px;">
+        <!-- Header 1:1 Alora Menu -->
+        <header id="header">
+            <div class="nav-wrap text-white">
+                <nav class="nav-layout-v4">
+                    <div class="nav-left-content">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="img/logo.png" alt="DISAINER" style="height: 28px;">
+                            </a>
+                        </div>
+                        <div class="nav-links" id="navLinks">
+                            <div class="nav-links-inner">
+                                <a href="index.html#inicio">INICIO</a>
+                                <a href="index.html#perfil">FILOSOFÍA</a>
+                                <a href="index.html#servicios">SERVICIOS</a>
+                                <a href="portfolio.html">PORTFOLIO</a>
+                                <!-- Botón CONTACTO justo debajo de PORTFOLIO -->
+                                <a href="index.html#contacto" class="btn-contacto-mobile">CONTACTO <span
+                                        class="arrow">↗</span></a>
+                            </div>
+
+                            <!-- Mobile-only Social Footer -->
+                            <div class="mobile-menu-footer">
+                                <p class="mobile-footer-tag">SIGUEME</p>
+                                <div class="mobile-social-icons">
+                                    <a href="https://www.linkedin.com/in/agustingonzalezlartigue/" target="_blank">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                                        </svg>
+                                    </a>
+                                    <a href="https://www.instagram.com/agustin_disainer/" target="_blank"
+                                        aria-label="Instagram">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <path
+                                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                                        </svg>
+                                    </a>
+                                    <a href="https://www.behance.net/agustinglartigue" target="_blank"
+                                        aria-label="Behance">
+                                        <svg width="32" height="32" viewBox="0 0 800 800" fill="currentColor">
+                                            <polygon
+                                                points="590.86,260.32 456.97,260.32 456.97,291.41 590.86,291.41 " />
+                                            <path
+                                                d="M312.26 491.77c-7.41,3.63 -17.83,5.42 -31.19,5.42l-74.81 0 0 -82.13 75.83 0c13.26,0.14 23.5,1.87 30.8,5.22 13.08,5.98 19.63,16.99 19.63,33.01 0,18.95 -6.75,31.78 -20.26,38.48zm-106 -195.65l67.03 0c14.76,0 26.9,1.6 36.42,4.82 11.04,4.59 16.55,14.06 16.55,28.41 0,12.97 -4.18,22 -12.53,27.07 -8.32,5.09 -19.19,7.63 -32.59,7.63l-74.88 0 0 -67.93zm143.68 89.24c10.34,-5.29 18.18,-11.13 23.5,-17.55 9.5,-11.41 14.28,-26.55 14.28,-45.37 0,-18.24 -4.73,-33.92 -14.16,-47.02 -15.66,-21.31 -42.27,-32.25 -79.83,-32.81l-148.92 0 0 308.09 138.84 0c15.64,0 30.17,-1.39 43.53,-4.18 13.37,-2.77 24.99,-7.93 34.82,-15.46 8.7,-6.55 15.99,-14.62 21.82,-24.23 9.14,-14.52 13.71,-30.87 13.71,-49.15 0,-17.68 -4.01,-32.74 -12,-45.14 -8,-12.4 -19.86,-21.46 -35.59,-27.18z" />
+                                            <path
+                                                d="M476.39 414.2c2.17,-14.81 7.46,-26.57 15.87,-35.25 8.43,-8.67 20.27,-13.01 35.55,-13.01 14.06,0 25.85,4.1 35.35,12.27 9.49,8.18 14.79,20.2 15.87,35.99l-102.64 0zm162.51 -5.91c-2.76,-17.86 -8.82,-33.58 -18.15,-47.1 -10.34,-15.34 -23.48,-26.59 -39.39,-33.7 -15.86,-7.12 -33.73,-10.66 -53.57,-10.66 -33.37,0 -60.53,10.51 -81.45,31.58 -20.94,21.04 -31.39,51.3 -31.39,90.78 0,42.12 11.59,72.52 34.75,91.22 23.18,18.7 49.93,28.04 80.25,28.04 36.74,0 65.32,-11.07 85.71,-33.25 13.13,-13.94 20.5,-27.67 22.11,-41.17l-60.84 0c-3.54,6.68 -7.62,11.91 -12.26,15.67 -8.48,6.97 -19.52,10.46 -33.08,10.46 -12.8,0 -23.74,-2.85 -32.83,-8.58 -14.96,-9.19 -22.91,-25.22 -23.83,-48.08l165.93 0c0.3,-19.67 -0.36,-34.75 -1.96,-45.21z" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html#contacto" class="btn-contacto-pill">CONTACTO <span
+                                class="arrow">↗</span></a>
+                    </div>
+
+                    <!-- Hamburger Menu Button -->
+                    <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </nav>
+            </div>
+            <!-- Music Toggle Button -->
+            <button id="musicToggle" class="music-toggle" aria-label="Activar música de fondo">
+                <div class="eq-bars">
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                    <span class="eq-bar"></span>
+                </div>
+            </button>
+
+            <!-- Background Audio -->
+            <audio id="bgMusic" loop preload="none">
+                <source src="sound/sound-web.mp3" type="audio/mpeg">
+            </audio>
+
+            <button id="themeToggle" class="theme-toggle" aria-label="Cambiar modo de tema">
+                <img src="img/boton_adia.png" alt="Modo Claro" class="theme-icon-light" style="display: none;">
+                <img src="img/boton_anoche.png" alt="Modo Oscuro" class="theme-icon-dark">
+            </button>
+        </header>
+
+        <main data-barba="container" data-barba-namespace="home">
+            <!-- Hero 1:1 Alora Structure with Interactive Logo Background -->
+            <section class="hero-v4">
+                <!-- Cinematic Animation Layers -->
+                <div class="hero-anim-background"></div>
+                <div class="hero-anim-logo">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="img/portfolio_landigpage_versionmovil.png">
+                        <img src="img/portfolio_landigpage.png" alt="DISAINER Logo Background">
+                    </picture>
+                </div>
+
+                <!-- Animated background text lines (between background and bust) -->
+                <div class="hero-anim-lines" aria-hidden="true">
+                    <div class="hero-anim-line hero-anim-line--top">
+                        <div class="hero-anim-line-track">
+                            <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                            <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="hero-anim-line hero-anim-line--middle">
+                        <div class="hero-anim-line-track">
+                            <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                            <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="hero-anim-line hero-anim-line--bottom">
+                        <div class="hero-anim-line-track">
+                            <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                            <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-anim-busto">
+                    <picture>
+                        <source media="(max-width: 768px)" srcset="img/yo_busto_versionmovil.png">
+                        <img src="img/yo_busto.png" alt="DISAINER Busto">
+                    </picture>
+                </div>
+
+                <div class="hero-container-v4">
+                    <div class="hero-bottom-content">
+                        <div class="hero-bottom-left">
+                            <h1 class="hero-title-v4">TRANSFORMO IDEAS<br>EN EXPERIENCIAS REALES</h1>
+                            <p class="hero-subtitle-yellow">Combo: creatividad, emoción e innovación <br> para crear
+                                mundos
+                                digitales con los que tu audiencia pueda conectar.</p>
+                            <div class="hero-btns-v4">
+                                <a href="index.html#contacto" class="btn-outline-gold-v4">HABLEMOS AHORA</a>
+                                <a href="#portfolio" class="btn-pill-white-v4">VER TRABAJOS <span
+                                        class="arrow">↗</span></a>
+                            </div>
+                        </div>
+                        <div class="hero-bottom-right">
+                            <p class="hero-description-v4">
+                                A través de diseños visuales sistemáticos,<br>
+                                interfaces intuitivas, 3D inmersivo o narraciones visuales audaces,<br>
+                                diseño momentos que las personas no solo ven, sino que sienten.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile / Perfil 1:1 Alora Style -->
+            <section id="perfil" style="background: var(--bg-secondary);">
+                <div class="container grid-12">
+                    <div style="grid-column: span 6;" class="reveal">
+                        <span class="section-tag">Mi Filosofía</span>
+                        <h2 class="section-title">Diseñar es decidir. <br>Lo demás sobra.</h2>
+                    </div>
+                    <div style="grid-column: span 6;" class="reveal">
+                        <div class="scroll-box">
+                            <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 1.5rem;">
+                                Tener 20 años de trayectoria me enseñó que el diseño no es decoración; es una
+                                herramienta de
+                                negocio. Mi trabajo es filtrar el ruido para que lo importante de tu marca se vea, se
+                                entienda y, sobre todo, funcione.
+                            </p>
+                            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                                No busco "hacer algo lindo". Busco que tu marca sea el referente y no parte del paisaje.
+                                Mi
+                                enfoque es técnico y estratégico: entiendo tu negocio, decido el camino visual y ejecuto
+                                con
+                                precisión.
+                            </p>
+                            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">LO QUE HAGO POR
+                                VOS:
+                            </h4>
+                            <ul style="color: var(--text-muted); margin-bottom: 1.5rem; list-style: none; padding: 0;">
+                                <li style="margin-bottom: 0.5rem;"><strong
+                                        style="color: var(--text-white);">Branding:</strong>
+                                    Identidades con peso que imponen autoridad.</li>
+                                <li style="margin-bottom: 0.5rem;"><strong style="color: var(--text-white);">Web &
+                                        E-commerce:</strong> Herramientas de venta de alto rendimiento, no simples
+                                    sitios.
+                                </li>
+                                <li style="margin-bottom: 0.5rem;"><strong
+                                        style="color: var(--text-white);">UX/UI:</strong>
+                                    Interfaces pensadas para que el usuario no tenga que pensar.</li>
+                            </ul>
+
+                            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">¿QUÉ?</h4>
+                            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                                Te ayudo a generar confianza, lealtad y crecimiento para tu marca. Ofrezco una
+                                combinación
+                                de análisis y planificación estratégica a fondo, ideación y narrativa con propósito,
+                                diseño
+                                de vanguardia y soluciones promocionales precisas.
+                            </p>
+
+                            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">¿POR QUÉ?</h4>
+                            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                                En todo lo que hago, creo en crear resultados valiosos para las marcas, para que tengan
+                                el
+                                mayor impacto posible en las personas, las comunidades y el mundo.
+                            </p>
+
+                            <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">¿CÓMO?</h4>
+                            <p style="color: var(--text-muted);">
+                                Como profesional de diseño, abro camino, creando un puente entre las marcas y el mundo.
+                                Desarrollo la identidad y la personificación de una marca que evoca valores emocionales
+                                más
+                                profundos y conecta con los corazones de los clientes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Services Section (Luxury Accordion) -->
+            <section id="servicios" class="services-interactive-section">
+                <div class="container" style="text-align: center; margin-bottom: 5rem;">
+                    <span class="section-tag reveal">SOLUCIONES INTEGRALES</span>
+                    <h2 class="section-title reveal"
+                        style="font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase;">
+                        SERVICIOS</h2>
+                    <p class="section-description reveal"
+                        style="max-width: 800px; margin: 0 auto 0; color: var(--text-gray); font-family: 'Satoshi', sans-serif; font-size: 1.1rem; line-height: 1.6;">
+                        Mis servicios están diseñados para ayudar a los fundadores a crecer de forma más
+                        inteligente,<br>avanzar con mayor rapidez y construir con claridad.
+                    </p>
+                </div>
+
+                <div class="services-accordion-wrapper reveal">
+                    <!-- Servicio 01: Brand Estratégico -->
+                    <div class="accordion-item" data-service="1" style="--row-bg: #2d240d;">
+                        <div class="accordion-header">
+                            <h2 class="service-name">BRANDING</h2>
+                            <span class="service-number">01</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="service-info">
+                                    <h3 class="service-subtitle">Building strong and memorable brands.</h3>
+                                    <p class="info-description">
+                                        Construyendo marcas fuertes y memorables.<br>
+                                        Creo identidades visuales que transforman ideas en marcas con carácter.<br>
+                                        Estrategia, concepto y diseño se integran para construir sistemas visuales
+                                        sólidos.
+                                    </p>
+                                    <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
+                                </div>
+                                <ul class="service-bullets">
+                                    <li>Posicionamiento</li>
+                                    <li>Personalidad de marca</li>
+                                    <li>Audiencia</li>
+                                    <li>Concepto creativo</li>
+                                    <li>Dirección visual</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 02: Desarrollo Web -->
+                    <div class="accordion-item" data-service="2" style="--row-bg: #4a3b16;">
+                        <div class="accordion-header">
+                            <h2 class="service-name">Desarrollo Web</h2>
+                            <span class="service-number">02</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="service-info">
+                                    <h3 class="service-subtitle">Designing and building modern websites.</h3>
+                                    <p class="info-description">
+                                        Diseño y desarrollo sitios web modernos, rápidos y funcionales.<br>
+                                        Cada proyecto combina estética, estructura y tecnología para crear experiencias
+                                        digitales claras, atractivas y eficientes.
+                                    </p>
+                                    <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
+                                </div>
+                                <ul class="service-bullets">
+                                    <li>Desarrollo front-end</li>
+                                    <li>Implementación responsive</li>
+                                    <li>Optimización de performance</li>
+                                    <li>Integración con CMS</li>
+                                    <li>Implementación SEO básica</li>
+                                    <li>Integración de formularios y herramientas</li>
+                                    <li>Publicación y puesta online</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 03: Diseño UX/UI -->
+                    <div class="accordion-item" data-service="3" style="--row-bg: #7a6125;">
+                        <div class="accordion-header">
+                            <h2 class="service-name">Diseño UX/UI</h2>
+                            <span class="service-number">03</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="service-info">
+                                    <h3 class="service-subtitle">Creating intuitive digital experiences.</h3>
+                                    <p class="info-description">
+                                        Diseño experiencias digitales centradas en el usuario.<br>
+                                        Trabajo la arquitectura, navegación y estética de cada interfaz para lograr
+                                        productos intuitivos, usables y visualmente consistentes.
+                                    </p>
+                                    <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
+                                </div>
+                                <ul class="service-bullets">
+                                    <li>Investigación de usuario</li>
+                                    <li>Arquitectura de información</li>
+                                    <li>User flows (flujo de navegación)</li>
+                                    <li>Wireframes</li>
+                                    <li>Diseño de interfaces (UI)</li>
+                                    <li>Prototipos interactivos</li>
+                                    <li>Diseño responsive (desktop / tablet / mobile)</li>
+                                    <li>Sistemas de diseño y componentes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 04: Comercio electrónico -->
+                    <div class="accordion-item" data-service="4" style="--row-bg: #a68432;">
+                        <div class="accordion-header">
+                            <h2 class="service-name">E-COMMERCE</h2>
+                            <span class="service-number">04</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="service-info">
+                                    <h3 class="service-subtitle">Designing conversion-focused online stores.</h3>
+                                    <p class="info-description">
+                                        Desarrollo tiendas online pensadas para vender.<br>
+                                        Optimizo estructura, experiencia de compra y presentación de productos para
+                                        generar
+                                        plataformas claras, confiables y orientadas a conversión.
+                                    </p>
+                                    <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
+                                </div>
+                                <ul class="service-bullets">
+                                    <li>Diseño de tienda</li>
+                                    <li>Experiencia de compra</li>
+                                    <li>Optimización de conversión</li>
+                                    <li>Integración de pagos</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 05: Redes sociales -->
+                    <div class="accordion-item" data-service="5" style="--row-bg: #d4af37;">
+                        <div class="accordion-header">
+                            <h2 class="service-name">SOCIAL MEDIA</h2>
+                            <span class="service-number">05</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="service-info">
+                                    <h3 class="service-subtitle">Visual content systems for digital presence.</h3>
+                                    <p class="info-description">
+                                        Diseño contenido visual y estrategias para fortalecer la presencia de marca en
+                                        redes
+                                        sociales. Cada pieza se crea para comunicar con claridad, coherencia visual e
+                                        impacto.
+                                    </p>
+                                    <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
+                                </div>
+                                <ul class="service-bullets">
+                                    <li>Diseño de redes</li>
+                                    <li>Estrategia de contenido</li>
+                                    <li>Templates</li>
+                                    <li>Reels / motion</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Servicio 06: Consultoría -->
+                    <div class="accordion-item" data-service="6" style="--row-bg: #FFCC00;">
+                        <div class="accordion-header">
+                            <h2 class="service-name">Consultoría</h2>
+                            <span class="service-number">06</span>
+                        </div>
+                        <div class="accordion-body">
+                            <div class="accordion-content">
+                                <div class="service-info">
+                                    <h3 class="service-subtitle">Strategic design guidance.</h3>
+                                    <p class="info-description">
+                                        Analizo marcas, proyectos y productos digitales para detectar oportunidades de
+                                        mejora. Aporto visión estratégica y soluciones de diseño que ayudan a ordenar,
+                                        potenciar y escalar cada proyecto.
+                                    </p>
+                                    <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
+                                </div>
+                                <ul class="service-bullets">
+                                    <li>Auditoría de marca</li>
+                                    <li>Auditoría de UX</li>
+                                    <li>Estrategia digital</li>
+                                    <li>Roadmap de crecimiento</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Portfolio Premium Cards Section -->
+            <section id="portfolio" style="background: var(--bg-secondary);">
+                <div class="container">
+                    <span class="section-tag reveal">Casos de Éxito</span>
+                    <h2 class="section-title reveal">Portfolio Disainer</h2>
+                </div>
+
+                <!-- Portfolio Grid Container - Horizontal Marquee a ancho completo -->
+                <div class="portfolio-grid-wrapper reveal">
+                    <div class="portfolio-overlay-grid">
+
+                        <!-- Card 1 - DAAB -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/daab_portada_web.webp');"
+                                onclick="window.location.href='portfolio-daab.html'" style="--stagger: 7;"
+                                data-project="daab"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">BRANDING</span>
+                                <h3 class="card-title">DAAB - Identidad Visual</h3>
+                                <p class="card-description">Desarrollo de marca disruptiva para eventos en CABA. Fusión
+                                    de
+                                    estética 3D y conceptos orgánicos.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 2 - Que Sea Masa -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/qsm_portada_web.webp');"
+                                onclick="window.location.href='portfolio-queseamasa.html'" style="--stagger: 4;"
+                                data-project="queseamasa"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">BRANDING</span>
+                                <h3 class="card-title">Que Sea Masa</h3>
+                                <p class="card-description">Sistema de identidad para panadería artesanal. Diseño
+                                    moderno
+                                    con toque orgánico y comestible.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 3 - El Nuevo Mucamo -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/enm_portada_web.webp');"
+                                onclick="window.location.href='portfolio-mucamo.html'" style="--stagger: 8;"
+                                data-project="mucamo"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">IDENTIDAD VISUAL</span>
+                                <h3 class="card-title">El Nuevo Mucamo</h3>
+                                <p class="card-description">Sistema de identidad para productos de limpieza. Diseño
+                                    dinámico
+                                    con paleta de alto contraste.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 4 - Kamala -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/kml_portada_web.webp');"
+                                onclick="window.location.href='portfolio-kamala.html'" style="--stagger: 6;"
+                                data-project="kamala"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">BRANDING 360°</span>
+                                <h3 class="card-title">KAMALA - CASA DE TÉ</h3>
+                                <p class="card-description">Identidad integral para marca boutique. Fusión de estética
+                                    orgánica y minimalista aplicada a packaging, redes sociales y plataformas digitales.
+                                </p>
+                            </div>
+                        </article>
+
+                        <!-- Card 5 - Nico Saya -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/ns_portada_web.webp');"
+                                onclick="window.location.href='portfolio-nico.html'" style="--stagger: 3;"
+                                data-project="nicosaya"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">MARCA PERSONAL</span>
+                                <h3 class="card-title">NICO SAYA – Bartender</h3>
+                                <p class="card-description">Identidad visual estratégica para bartender profesional.
+                                    Diseño
+                                    de marca personal enfocado en la sofisticación y el arte de la coctelería de autor.
+                                </p>
+                            </div>
+                        </article>
+
+                        <!-- Card 6 - Laurel Zapatos -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/lau_portada_web.webp');"
+                                onclick="window.location.href='portfolio-laurel.html'" style="--stagger: 5;"
+                                data-project="laurel"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">Identidad y Branding</span>
+                                <h3 class="card-title">Laurel - Zapatos</h3>
+                                <p class="card-description">Identidad visual para marca de autor y vendedor de marcas
+                                    reconocidas en el ambiente del diseño de calzado. Un enfoque minimalista y
+                                    sofisticado
+                                    diseñado para posicionar la marca en el segmento de lujo accesible.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 7 - Hierro Negro -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/hn_portada_web.webp');"
+                                onclick="window.location.href='portfolio-hierro-negro.html'" style="--stagger: 0;"
+                                data-project="hierro-negro"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">Identidad Visual – Branding</span>
+                                <h3 class="card-title">Hierro Negro</h3>
+                                <p class="card-description">Identidad visual para taller de herrería artesanal. Un
+                                    sistema
+                                    de marca sólido que refleja la fuerza del material y la precisión del oficio,
+                                    diseñado
+                                    para destacar en el sector de la arquitectura y decoración.</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 8 - ALES Resto -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/ales_portada_web.webp');"
+                                onclick="window.location.href='portfolio-ales.html'" style="--stagger: 2;"
+                                data-project="ales"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">Identidad – Branding</span>
+                                <h3 class="card-title">ALES Restaurant</h3>
+                                <p class="card-description">Identidad visual integral para restaurante de alta cocina.
+                                    Un
+                                    sistema de marca que captura la esencia del fuego y la materia prima, aplicado desde
+                                    el
+                                    interiorismo hasta el packaging y la presencia digital</p>
+                            </div>
+                        </article>
+
+                        <!-- Card 9 - Wonder English Institute -->
+                        <article class="portfolio-item">
+                            <div class="overlay-card" style="background-image: url('img/won_portada_web.webp');"
+                                onclick="window.location.href='portfolio-wonder.html'" style="--stagger: 1;"
+                                data-project="wonder"></div>
+                            <div class="portfolio-meta">
+                                <span class="card-badge">IDENTIDAD – BRANDING/WEB/E-COMMERCE</span>
+                                <h3 class="card-title">WONDER – English Institute</h3>
+                                <p class="card-description">Desarrollo de identidad corporativa sistémica para
+                                    institución
+                                    de idiomas. La propuesta resuelve la arquitectura de marca mediante un lenguaje
+                                    visual
+                                    minimalista y funcional, garantizando una transición impecable entre la señalética
+                                    del
+                                    espacio arquitectónico y el ecosistema de interfaces digitales</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact & Footer 1:1 Alora -->
+            <section id="contacto">
+                <div class="container">
+                    <div class="contact-block card-glass reveal">
+                        <span class="section-tag">Contacto</span>
+                        <h2 style="font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 2rem;">¿Listo para vivir la
+                            experiencia <br>Disainer?</h2>
+                        <a href="https://wa.me/5491161030981" class="btn-cta">Hablemos por WhatsApp</a>
+
+                        <h3
+                            style="font-size: 1.8rem; margin-top: 4rem; margin-bottom: 2rem; font-weight: 600; color: var(--text-white); text-transform: none;">
+                            Hablemos de tu idea y llevémosla al siguiente nivel.</h3>
+
+                        <div class="contact-form-wrap">
+                            <form id="contactForm">
+                                <div class="form-group">
+                                    <label for="name">Nombre Completo</label>
+                                    <input type="text" id="name" name="name" class="form-input"
+                                        placeholder="Ej. Juan Pérez" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Corporativo</label>
+                                    <input type="email" id="email" name="email" class="form-input"
+                                        placeholder="juan@empresa.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Tu Proyecto</label>
+                                    <textarea id="message" name="message" class="form-input"
+                                        placeholder="Cuéntame brevemente qué necesitas..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn-submit">Enviar Mensaje</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" style="background: var(--bg-primary); position: relative; overflow: hidden;">
+                <!-- Background Logo Layer relocated from Hero -->
+                <div class="bg-logo-blur" style="background-image: url('img/logo.png');"></div>
+
+                <!-- Glass Mask Layer with Interactive Reveal relocated from Hero -->
+                <div class="glass-mask" id="glassMask"></div>
+
+                <div class="container" style="position: relative; z-index: 5;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <h2 class="section-title reveal" style="font-size: clamp(1.3rem, 4.5vw, 2.2rem);">Preguntas
+                            Frecuentes.</h2>
+                    </div>
+
+                    <div class="faq-container reveal">
+                        <div class="faq-category">
+                            <button class="faq-category-toggle">
+                                <span>Proceso y Tiempos</span>
+                                <span class="category-icon">↓</span>
+                            </button>
+                            <div class="faq-category-content">
+                                <div class="faq-accordion">
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿Cómo es el proceso de trabajo una vez que contrato el
+                                                servicio?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>Comienzo con un briefing para conocer tu marca y objetivos. Luego paso a
+                                                la
+                                                investigación, diseño conceptual, desarrollo y entrega final.</p>
+                                        </div>
+                                    </div>
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿Cuánto tiempo tarda en completarse un proyecto?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>Los tiempos varían según la complejidad. Un diseño de logotipo suele
+                                                tardar
+                                                entre
+                                                1 y 2 semanas, mientras que una identidad visual completa o una web
+                                                puede
+                                                llevar
+                                                de 3 a 5 semanas. Siempre acordaremos un cronograma antes de empezar.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <button class="faq-category-toggle">
+                                <span>Pagos y Presupuestos</span>
+                                <span class="category-icon">↓</span>
+                            </button>
+                            <div class="faq-category-content">
+                                <div class="faq-accordion">
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿Cómo se realizan los pagos?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>Como <strong>diseñador freelance</strong>, solicito un anticipo del 50%
+                                                para
+                                                reservar tu cupo y
+                                                comenzar con el <strong>presupuesto de logo</strong>. El 50% restante se
+                                                abona
+                                                antes de
+                                                entregar los archivos finales.</p>
+                                        </div>
+                                    </div>
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿Qué métodos de pago aceptan?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>Acepto transferencia bancaria, Mercado Pago y PayPal para el exterior.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <button class="faq-category-toggle">
+                                <span>Entregables y Revisiones</span>
+                                <span class="category-icon">↓</span>
+                            </button>
+                            <div class="faq-category-content">
+                                <div class="faq-accordion">
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿En qué formatos recibiré mi diseño?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>Te entregaré una carpeta con archivos vectoriales (AI, EPS o PDF) que no
+                                                pierden
+                                                calidad al ampliarlos, y archivos de imagen (PNG con fondo transparente
+                                                y
+                                                JPG)
+                                                para uso en redes sociales y web.</p>
+                                        </div>
+                                    </div>
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿Qué pasa si no me gusta la propuesta inicial?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>El briefing de <strong>diseño gráfico</strong> inicial evita esto, pero
+                                                el
+                                                presupuesto
+                                                incluye [3] rondas de ajustes. Cambios radicales extra se presupuestarán
+                                                por
+                                                separado.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-category">
+                            <button class="faq-category-toggle">
+                                <span>Dudas Técnicas</span>
+                                <span class="category-icon">↓</span>
+                            </button>
+                            <div class="faq-category-content">
+                                <div class="faq-accordion">
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>Ya tengo un logo pero se ve borroso, ¿pueden arreglarlo?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>¡Claro! Realizo servicios de vectorización o rebranding de ser necesario,
+                                                siempre evaluando el estado actual de tu identidad visual.</p>
+                                        </div>
+                                    </div>
+                                    <div class="faq-item">
+                                        <button class="faq-question">
+                                            <span>¿El presupuesto incluye la impresión?</span>
+                                            <span class="faq-icon">+</span>
+                                        </button>
+                                        <div class="faq-answer">
+                                            <p>Mi servicio es exclusivamente de diseño. Te entrego los archivos
+                                                finales listos para que los envíes a la imprenta de tu confianza.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Final FAQ -->
+                    <div style="text-align: center; margin-top: 5rem;">
+                        <a href="index.html#contacto" class="btn-cta btn-faq-cta">¿Tienes otra duda? Escríbeme</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Stack - Marquee Below FAQ -->
+            <!-- Tech Stack - Marquee Below Contact -->
+            <section class="tech-section">
+                <div class="container" style="text-align: center; margin-bottom: 1.5rem;">
+                    <span class="section-tag reveal">Herramientas</span>
+                    <h2 class="section-title reveal">Tecnologías.</h2>
+                </div>
+
+                <div class="tech-marquee-container">
+                    <div class="tech-marquee">
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
+                                alt="Photoshop">
+                            <span>Photoshop</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"
+                                alt="Illustrator">
+                            <span>Illustrator</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg"
+                                alt="After Effects">
+                            <span>After Effects</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">
+                            <span>Figma</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
+                                alt="VS Code">
+                            <span>VS Code</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
+                                alt="HTML5">
+                            <span>HTML5</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg"
+                                alt="JavaScript">
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React">
+                            <span>React</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/sass-logo.png" alt="Sass">
+                            <span>Sass</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                                alt="GitHub">
+                            <span>GitHub</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/gemini-logo.png" alt="Gemini">
+                            <span>Gemini AI</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/coreldraw-logo.png" alt="CorelDraw">
+                            <span>CorelDraw</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/firefly-logo.png" alt="Firefly">
+                            <span>Adobe Firefly</span>
+                        </div>
+                    </div>
+                    <!-- Secondary loop for infinite effect -->
+                    <div class="tech-marquee">
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
+                                alt="Photoshop">
+                            <span>Photoshop</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"
+                                alt="Illustrator">
+                            <span>Illustrator</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg"
+                                alt="After Effects">
+                            <span>After Effects</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">
+                            <span>Figma</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
+                                alt="VS Code">
+                            <span>VS Code</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
+                                alt="HTML5">
+                            <span>HTML5</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg"
+                                alt="JavaScript">
+                            <span>JavaScript</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React">
+                            <span>React</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/sass-logo.png" alt="Sass">
+                            <span>Sass</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                                alt="GitHub">
+                            <span>GitHub</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/gemini-logo.png" alt="Gemini">
+                            <span>Gemini AI</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/coreldraw-logo.png" alt="CorelDraw">
+                            <span>CorelDraw</span>
+                        </div>
+                        <div class="tech-card">
+                            <img src="img/firefly-logo.png" alt="Firefly">
+                            <span>Adobe Firefly</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="main-footer"
+            style="background-color: var(--accent); color: #000; padding: 4rem 0 0; overflow: hidden; position: relative;">
+            <div class="container footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo-wrapper">
+                        <img src="img/logo.png" alt="DISAINER" style="height: 30px; filter: brightness(0);">
+                    </div>
+                    <p style="font-size: 0.8rem; line-height: 1.5; font-weight: 500; max-width: 300px; color: #000;">
+                        Elevando marcas mediante el diseño estratégico y la tecnología. Innovación que genera
+                        resultados.
+                    </p>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4 class="footer-header">Enlaces</h4>
+                    <div class="footer-v-links">
+                        <a href="index.html#inicio">Inicio</a>
+                        <a href="index.html#perfil">Filosofía</a>
+                        <a href="index.html#servicios">Servicios</a>
+                        <a href="portfolio.html">Portfolio</a>
+                    </div>
+                </div>
+
+                <div class="footer-policies-group">
+                    <h4 class="footer-header">Políticas</h4>
+                    <div class="footer-v-links">
+                        <a href="politicas.html#filosofia">Filosofía de Trabajo</a>
+                        <a href="politicas.html#privacidad">Política de Privacidad</a>
+                        <a href="politicas.html#terminos">Términos y Condiciones</a>
+                        <a href="politicas.html#responsabilidad">Responsabilidad Social</a>
+                    </div>
+                </div>
+
+                <div class="footer-contact-group">
+                    <h4 class="footer-header">Hablamos</h4>
+                    <a href="index.html#contacto" class="footer-contact-link">Contacto</a>
+                </div>
+
+                <div class="footer-social-group text-right">
+                    <h4 class="footer-header">Seguime</h4>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/agustingonzalezlartigue/" target="_blank"
+                            class="social-icon-box">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/agustin_disainer/" target="_blank" class="social-icon-box">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.behance.net/agustinglartigue" target="_blank" class="social-icon-box">
+                            <svg width="36" height="36" viewBox="0 0 800 800" fill="currentColor">
+                                <polygon points="590.86,260.32 456.97,260.32 456.97,291.41 590.86,291.41 " />
+                                <path
+                                    d="M312.26 491.77c-7.41,3.63 -17.83,5.42 -31.19,5.42l-74.81 0 0 -82.13 75.83 0c13.26,0.14 23.5,1.87 30.8,5.22 13.08,5.98 19.63,16.99 19.63,33.01 0,18.95 -6.75,31.78 -20.26,38.48zm-106 -195.65l67.03 0c14.76,0 26.9,1.6 36.42,4.82 11.04,4.59 16.55,14.06 16.55,28.41 0,12.97 -4.18,22 -12.53,27.07 -8.32,5.09 -19.19,7.63 -32.59,7.63l-74.88 0 0 -67.93zm143.68 89.24c10.34,-5.29 18.18,-11.13 23.5,-17.55 9.5,-11.41 14.28,-26.55 14.28,-45.37 0,-18.24 -4.73,-33.92 -14.16,-47.02 -15.66,-21.31 -42.27,-32.25 -79.83,-32.81l-148.92 0 0 308.09 138.84 0c15.64,0 30.17,-1.39 43.53,-4.18 13.37,-2.77 24.99,-7.93 34.82,-15.46 8.7,-6.55 15.99,-14.62 21.82,-24.23 9.14,-14.52 13.71,-30.87 13.71,-49.15 0,-17.68 -4.01,-32.74 -12,-45.14 -8,-12.4 -19.86,-21.46 -35.59,-27.18z" />
+                                <path
+                                    d="M476.39 414.2c2.17,-14.81 7.46,-26.57 15.87,-35.25 8.43,-8.67 20.27,-13.01 35.55,-13.01 14.06,0 25.85,4.1 35.35,12.27 9.49,8.18 14.79,20.2 15.87,35.99l-102.64 0zm162.51 -5.91c-2.76,-17.86 -8.82,-33.58 -18.15,-47.1 -10.34,-15.34 -23.48,-26.59 -39.39,-33.7 -15.86,-7.12 -33.73,-10.66 -53.57,-10.66 -33.37,0 -60.53,10.51 -81.45,31.58 -20.94,21.04 -31.39,51.3 -31.39,90.78 0,42.12 11.59,72.52 34.75,91.22 23.18,18.7 49.93,28.04 80.25,28.04 36.74,0 65.32,-11.07 85.71,-33.25 13.13,-13.94 20.5,-27.67 22.11,-41.17l-60.84 0c-3.54,6.68 -7.62,11.91 -12.26,15.67 -8.48,6.97 -19.52,10.46 -33.08,10.46 -12.8,0 -23.74,-2.85 -32.83,-8.58 -14.96,-9.19 -22.91,-25.22 -23.83,-48.08l165.93 0c0.3,-19.67 -0.36,-34.75 -1.96,-45.21z" />
+                            </svg>
                         </a>
                     </div>
-                    <div class="nav-links" id="navLinks">
-                        <div class="nav-links-inner">
-                            <a href="index.html#inicio">INICIO</a>
-                            <a href="index.html#perfil">FILOSOFÍA</a>
-                            <a href="index.html#servicios">SERVICIOS</a>
-                            <a href="portfolio.html">PORTFOLIO</a>
-                            <!-- Botón CONTACTO justo debajo de PORTFOLIO -->
-                            <a href="index.html#contacto" class="btn-contacto-mobile">CONTACTO <span class="arrow">↗</span></a>
-                        </div>
-                        
-                        <!-- Mobile-only Social Footer -->
-                        <div class="mobile-menu-footer">
-                            <p class="mobile-footer-tag">SIGUEME</p>
-                            <div class="mobile-social-icons">
-                                <a href="https://www.linkedin.com/in/agustingonzalezlartigue/" target="_blank">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
-                                </a>
-                                <a href="https://www.instagram.com/agustin_disainer/" target="_blank" aria-label="Instagram">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
-                                </a>
-                                <a href="https://www.behance.net/agustinglartigue" target="_blank" aria-label="Behance">
-                                    <svg width="32" height="32" viewBox="0 0 800 800" fill="currentColor"><polygon points="590.86,260.32 456.97,260.32 456.97,291.41 590.86,291.41 " /><path d="M312.26 491.77c-7.41,3.63 -17.83,5.42 -31.19,5.42l-74.81 0 0 -82.13 75.83 0c13.26,0.14 23.5,1.87 30.8,5.22 13.08,5.98 19.63,16.99 19.63,33.01 0,18.95 -6.75,31.78 -20.26,38.48zm-106 -195.65l67.03 0c14.76,0 26.9,1.6 36.42,4.82 11.04,4.59 16.55,14.06 16.55,28.41 0,12.97 -4.18,22 -12.53,27.07 -8.32,5.09 -19.19,7.63 -32.59,7.63l-74.88 0 0 -67.93zm143.68 89.24c10.34,-5.29 18.18,-11.13 23.5,-17.55 9.5,-11.41 14.28,-26.55 14.28,-45.37 0,-18.24 -4.73,-33.92 -14.16,-47.02 -15.66,-21.31 -42.27,-32.25 -79.83,-32.81l-148.92 0 0 308.09 138.84 0c15.64,0 30.17,-1.39 43.53,-4.18 13.37,-2.77 24.99,-7.93 34.82,-15.46 8.7,-6.55 15.99,-14.62 21.82,-24.23 9.14,-14.52 13.71,-30.87 13.71,-49.15 0,-17.68 -4.01,-32.74 -12,-45.14 -8,-12.4 -19.86,-21.46 -35.59,-27.18z" /><path d="M476.39 414.2c2.17,-14.81 7.46,-26.57 15.87,-35.25 8.43,-8.67 20.27,-13.01 35.55,-13.01 14.06,0 25.85,4.1 35.35,12.27 9.49,8.18 14.79,20.2 15.87,35.99l-102.64 0zm162.51 -5.91c-2.76,-17.86 -8.82,-33.58 -18.15,-47.1 -10.34,-15.34 -23.48,-26.59 -39.39,-33.7 -15.86,-7.12 -33.73,-10.66 -53.57,-10.66 -33.37,0 -60.53,10.51 -81.45,31.58 -20.94,21.04 -31.39,51.3 -31.39,90.78 0,42.12 11.59,72.52 34.75,91.22 23.18,18.7 49.93,28.04 80.25,28.04 36.74,0 65.32,-11.07 85.71,-33.25 13.13,-13.94 20.5,-27.67 22.11,-41.17l-60.84 0c-3.54,6.68 -7.62,11.91 -12.26,15.67 -8.48,6.97 -19.52,10.46 -33.08,10.46 -12.8,0 -23.74,-2.85 -32.83,-8.58 -14.96,-9.19 -22.91,-25.22 -23.83,-48.08l165.93 0c0.3,-19.67 -0.36,-34.75 -1.96,-45.21z" /></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="index.html#contacto" class="btn-contacto-pill">CONTACTO <span class="arrow">↗</span></a>
                 </div>
+            </div>
 
-                <!-- Hamburger Menu Button -->
-                <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            <!-- Divider Line -->
+            <div class="container">
+                <hr class="footer-divider" />
+            </div>
+
+            <div class="container"
+                style="text-align: center; color: #000; font-size: 0.75rem; font-weight: 500; position: relative; z-index: 2;">
+                &copy; 2026 IMDisainer. Todos los derechos reservados.
+            </div>
+
+            <!-- Huge Background Logo -->
+            <div class="footer-huge-logo">
+                <img src="img/logo_footerfooter_dark.svg" alt="DISAINER" class="logo-footer-dark">
+                <img src="img/logo_footerfooter_white.svg" alt="DISAINER" class="logo-footer-light">
+            </div>
+        </footer>
+
+
+        <!-- Project Modal Lightbox - DAAB -->
+        <!--<div class="project-modal" id="modal-daab">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
                 </button>
-            </nav>
-        </div>
-        <!-- Music Toggle Button -->
-        <button id="musicToggle" class="music-toggle" aria-label="Activar música de fondo">
-            <div class="eq-bars">
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-                <span class="eq-bar"></span>
-            </div>
-        </button>
-
-        <!-- Background Audio -->
-        <audio id="bgMusic" loop preload="none">
-            <source src="sound/sound-web.mp3" type="audio/mpeg">
-        </audio>
-
-        <button id="themeToggle" class="theme-toggle" aria-label="Cambiar modo de tema">
-            <img src="img/boton_adia.png" alt="Modo Claro" class="theme-icon-light" style="display: none;">
-            <img src="img/boton_anoche.png" alt="Modo Oscuro" class="theme-icon-dark">
-        </button>
-    </header>
-
-    <main>
-        <!-- Hero 1:1 Alora Structure with Interactive Logo Background -->
-        <section class="hero-v4">
-            <!-- Cinematic Animation Layers -->
-            <div class="hero-anim-background"></div>
-            <div class="hero-anim-logo">
-                <picture>
-                    <source media="(max-width: 768px)" srcset="img/portfolio_landigpage_versionmovil.png">
-                    <img src="img/portfolio_landigpage.png" alt="DISAINER Logo Background">
-                </picture>
-            </div>
-
-            <!-- Animated background text lines (between background and bust) -->
-            <div class="hero-anim-lines" aria-hidden="true">
-                <div class="hero-anim-line hero-anim-line--top">
-                    <div class="hero-anim-line-track">
-                        <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
-                        <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
-                    </div>
-                </div>
-                <div class="hero-anim-line hero-anim-line--middle">
-                    <div class="hero-anim-line-track">
-                        <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
-                        <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
-                    </div>
-                </div>
-                <div class="hero-anim-line hero-anim-line--bottom">
-                    <div class="hero-anim-line-track">
-                        <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
-                        <span>DISAINER DESIGN DISEÑO DESIGNER STRATEGIST BRANDING&nbsp;</span>
-                    </div>
+                <div class="modal-content">
+                    <img src="img/portfolio_daab.webp" alt="DAAB Portfolio" class="modal-image">
                 </div>
             </div>
+        </div>-->
 
-            <div class="hero-anim-busto">
-                <picture>
-                    <source media="(max-width: 768px)" srcset="img/yo_busto_versionmovil.png">
-                    <img src="img/yo_busto.png" alt="DISAINER Busto">
-                </picture>
-            </div>
-
-            <div class="hero-container-v4">
-                <div class="hero-bottom-content">
-                    <div class="hero-bottom-left">
-                        <h1 class="hero-title-v4">TRANSFORMO IDEAS<br>EN EXPERIENCIAS REALES</h1>
-                        <p class="hero-subtitle-yellow">Combo: creatividad, emoción e innovación <br> para crear mundos
-                            digitales con los que tu audiencia pueda conectar.</p>
-                        <div class="hero-btns-v4">
-                            <a href="index.html#contacto" class="btn-outline-gold-v4">HABLEMOS AHORA</a>
-                            <a href="#portfolio" class="btn-pill-white-v4">VER TRABAJOS <span class="arrow">↗</span></a>
-                        </div>
-                    </div>
-                    <div class="hero-bottom-right">
-                        <p class="hero-description-v4">
-                            A través de diseños visuales sistemáticos,<br>
-                            interfaces intuitivas, 3D inmersivo o narraciones visuales audaces,<br>
-                            diseño momentos que las personas no solo ven, sino que sienten.
-                        </p>
-                    </div>
+        <!-- Project Modal Lightbox - Que Sea Masa -->
+        <!--<div class="project-modal" id="modal-qsm">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/portfolio_qsm.webp" alt="Que Sea Masa Portfolio" class="modal-image">
                 </div>
             </div>
-        </section>
+        </div>-->
 
-        <!-- Profile / Perfil 1:1 Alora Style -->
-        <section id="perfil" style="background: var(--bg-secondary);">
-            <div class="container grid-12">
-                <div style="grid-column: span 6;" class="reveal">
-                    <span class="section-tag">Mi Filosofía</span>
-                    <h2 class="section-title">Diseñar es decidir. <br>Lo demás sobra.</h2>
-                </div>
-                <div style="grid-column: span 6;" class="reveal">
-                    <div class="scroll-box">
-                        <p style="font-size: 1.1rem; color: var(--text-gray); margin-bottom: 1.5rem;">
-                            Tener 20 años de trayectoria me enseñó que el diseño no es decoración; es una herramienta de
-                            negocio. Mi trabajo es filtrar el ruido para que lo importante de tu marca se vea, se
-                            entienda y, sobre todo, funcione.
-                        </p>
-                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                            No busco "hacer algo lindo". Busco que tu marca sea el referente y no parte del paisaje. Mi
-                            enfoque es técnico y estratégico: entiendo tu negocio, decido el camino visual y ejecuto con
-                            precisión.
-                        </p>
-                        <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">LO QUE HAGO POR VOS:
-                        </h4>
-                        <ul style="color: var(--text-muted); margin-bottom: 1.5rem; list-style: none; padding: 0;">
-                            <li style="margin-bottom: 0.5rem;"><strong
-                                    style="color: var(--text-white);">Branding:</strong>
-                                Identidades con peso que imponen autoridad.</li>
-                            <li style="margin-bottom: 0.5rem;"><strong style="color: var(--text-white);">Web &
-                                    E-commerce:</strong> Herramientas de venta de alto rendimiento, no simples sitios.
-                            </li>
-                            <li style="margin-bottom: 0.5rem;"><strong style="color: var(--text-white);">UX/UI:</strong>
-                                Interfaces pensadas para que el usuario no tenga que pensar.</li>
-                        </ul>
-
-                        <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">¿QUÉ?</h4>
-                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                            Te ayudo a generar confianza, lealtad y crecimiento para tu marca. Ofrezco una combinación
-                            de análisis y planificación estratégica a fondo, ideación y narrativa con propósito, diseño
-                            de vanguardia y soluciones promocionales precisas.
-                        </p>
-
-                        <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">¿POR QUÉ?</h4>
-                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                            En todo lo que hago, creo en crear resultados valiosos para las marcas, para que tengan el
-                            mayor impacto posible en las personas, las comunidades y el mundo.
-                        </p>
-
-                        <h4 style="color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem;">¿CÓMO?</h4>
-                        <p style="color: var(--text-muted);">
-                            Como profesional de diseño, abro camino, creando un puente entre las marcas y el mundo.
-                            Desarrollo la identidad y la personificación de una marca que evoca valores emocionales más
-                            profundos y conecta con los corazones de los clientes.
-                        </p>
-                    </div>
+        <!-- Project Modal Lightbox - El Nuevo Mucamo -->
+        <!--<div class="project-modal" id="modal-enm">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/portfolio_enm.webp" alt="El Nuevo Mucamo Portfolio" class="modal-image">
                 </div>
             </div>
-        </section>
+        </div>-->
 
-        <!-- Interactive Services Section (Luxury Accordion) -->
-        <section id="servicios" class="services-interactive-section">
-            <div class="container" style="text-align: center; margin-bottom: 5rem;">
-                <span class="section-tag reveal">SOLUCIONES INTEGRALES</span>
-                <h2 class="section-title reveal" style="font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase;">SERVICIOS</h2>
-                <p class="section-description reveal" style="max-width: 800px; margin: 0 auto 0; color: var(--text-gray); font-family: 'Satoshi', sans-serif; font-size: 1.1rem; line-height: 1.6;">
-                    Mis servicios están diseñados para ayudar a los fundadores a crecer de forma más inteligente,<br>avanzar con mayor rapidez y construir con claridad.
-                </p>
-            </div>
-
-            <div class="services-accordion-wrapper reveal">
-                <!-- Servicio 01: Brand Estratégico -->
-                <div class="accordion-item" data-service="1" style="--row-bg: #2d240d;">
-                    <div class="accordion-header">
-                        <h2 class="service-name">BRANDING</h2>
-                        <span class="service-number">01</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            <div class="service-info">
-                                <h3 class="service-subtitle">Building strong and memorable brands.</h3>
-                                <p class="info-description">
-                                    Construyendo marcas fuertes y memorables.<br>
-                                    Creo identidades visuales que transforman ideas en marcas con carácter.<br>
-                                    Estrategia, concepto y diseño se integran para construir sistemas visuales sólidos.
-                                </p>
-                                <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
-                            </div>
-                            <ul class="service-bullets">
-                                <li>Posicionamiento</li>
-                                <li>Personalidad de marca</li>
-                                <li>Audiencia</li>
-                                <li>Concepto creativo</li>
-                                <li>Dirección visual</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Servicio 02: Desarrollo Web -->
-                <div class="accordion-item" data-service="2" style="--row-bg: #4a3b16;">
-                    <div class="accordion-header">
-                        <h2 class="service-name">Desarrollo Web</h2>
-                        <span class="service-number">02</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            <div class="service-info">
-                                <h3 class="service-subtitle">Designing and building modern websites.</h3>
-                                <p class="info-description">
-                                    Diseño y desarrollo sitios web modernos, rápidos y funcionales.<br>
-                                    Cada proyecto combina estética, estructura y tecnología para crear experiencias digitales claras, atractivas y eficientes.
-                                </p>
-                                <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
-                            </div>
-                            <ul class="service-bullets">
-                                <li>Desarrollo front-end</li>
-                                <li>Implementación responsive</li>
-                                <li>Optimización de performance</li>
-                                <li>Integración con CMS</li>
-                                <li>Implementación SEO básica</li>
-                                <li>Integración de formularios y herramientas</li>
-                                <li>Publicación y puesta online</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Servicio 03: Diseño UX/UI -->
-                <div class="accordion-item" data-service="3" style="--row-bg: #7a6125;">
-                    <div class="accordion-header">
-                        <h2 class="service-name">Diseño UX/UI</h2>
-                        <span class="service-number">03</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            <div class="service-info">
-                                <h3 class="service-subtitle">Creating intuitive digital experiences.</h3>
-                                <p class="info-description">
-                                    Diseño experiencias digitales centradas en el usuario.<br>
-                                    Trabajo la arquitectura, navegación y estética de cada interfaz para lograr productos intuitivos, usables y visualmente consistentes.
-                                </p>
-                                <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
-                            </div>
-                            <ul class="service-bullets">
-                                <li>Investigación de usuario</li>
-                                <li>Arquitectura de información</li>
-                                <li>User flows (flujo de navegación)</li>
-                                <li>Wireframes</li>
-                                <li>Diseño de interfaces (UI)</li>
-                                <li>Prototipos interactivos</li>
-                                <li>Diseño responsive (desktop / tablet / mobile)</li>
-                                <li>Sistemas de diseño y componentes</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Servicio 04: Comercio electrónico -->
-                <div class="accordion-item" data-service="4" style="--row-bg: #a68432;">
-                    <div class="accordion-header">
-                        <h2 class="service-name">E-COMMERCE</h2>
-                        <span class="service-number">04</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            <div class="service-info">
-                                <h3 class="service-subtitle">Designing conversion-focused online stores.</h3>
-                                <p class="info-description">
-                                    Desarrollo tiendas online pensadas para vender.<br>
-                                    Optimizo estructura, experiencia de compra y presentación de productos para generar plataformas claras, confiables y orientadas a conversión.
-                                </p>
-                                <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
-                            </div>
-                            <ul class="service-bullets">
-                                <li>Diseño de tienda</li>
-                                <li>Experiencia de compra</li>
-                                <li>Optimización de conversión</li>
-                                <li>Integración de pagos</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Servicio 05: Redes sociales -->
-                <div class="accordion-item" data-service="5" style="--row-bg: #d4af37;">
-                    <div class="accordion-header">
-                        <h2 class="service-name">SOCIAL MEDIA</h2>
-                        <span class="service-number">05</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            <div class="service-info">
-                                <h3 class="service-subtitle">Visual content systems for digital presence.</h3>
-                                <p class="info-description">
-                                    Diseño contenido visual y estrategias para fortalecer la presencia de marca en redes sociales. Cada pieza se crea para comunicar con claridad, coherencia visual e impacto.
-                                </p>
-                                <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
-                            </div>
-                            <ul class="service-bullets">
-                                <li>Diseño de redes</li>
-                                <li>Estrategia de contenido</li>
-                                <li>Templates</li>
-                                <li>Reels / motion</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Servicio 06: Consultoría -->
-                <div class="accordion-item" data-service="6" style="--row-bg: #FFCC00;">
-                    <div class="accordion-header">
-                        <h2 class="service-name">Consultoría</h2>
-                        <span class="service-number">06</span>
-                    </div>
-                    <div class="accordion-body">
-                        <div class="accordion-content">
-                            <div class="service-info">
-                                <h3 class="service-subtitle">Strategic design guidance.</h3>
-                                <p class="info-description">
-                                    Analizo marcas, proyectos y productos digitales para detectar oportunidades de mejora. Aporto visión estratégica y soluciones de diseño que ayudan a ordenar, potenciar y escalar cada proyecto.
-                                </p>
-                                <a href="index.html#contacto" class="btn-me-interesa">ME INTERESA</a>
-                            </div>
-                            <ul class="service-bullets">
-                                <li>Auditoría de marca</li>
-                                <li>Auditoría de UX</li>
-                                <li>Estrategia digital</li>
-                                <li>Roadmap de crecimiento</li>
-                            </ul>
-                        </div>
-                    </div>
+        <!-- Project Modal Lightbox - KAMALA -->
+        <!--<div class="project-modal" id="modal-kml">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/porfolio_kml.webp" alt="KAMALA - Casa de Té Portfolio" class="modal-image">
                 </div>
             </div>
-        </section>
+        </div>-->
 
-
-        <!-- Portfolio Premium Cards Section -->
-        <section id="portfolio" style="background: var(--bg-secondary);">
-            <div class="container">
-                <span class="section-tag reveal">Casos de Éxito</span>
-                <h2 class="section-title reveal">Portfolio Disainer</h2>
-            </div>
-
-            <!-- Portfolio Grid Container - Horizontal Marquee a ancho completo -->
-            <div class="portfolio-grid-wrapper reveal">
-                <div class="portfolio-overlay-grid">
-
-                    <!-- Card 1 - DAAB -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/daab_portada_web.webp');"
-                            data-modal="modal-daab"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">BRANDING</span>
-                            <h3 class="card-title">DAAB - Identidad Visual</h3>
-                            <p class="card-description">Desarrollo de marca disruptiva para eventos en CABA. Fusión de
-                                estética 3D y conceptos orgánicos.</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 2 - Que Sea Masa -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/qsm_portada_web.webp');"
-                            data-modal="modal-qsm"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">BRANDING</span>
-                            <h3 class="card-title">Que Sea Masa</h3>
-                            <p class="card-description">Sistema de identidad para panadería artesanal. Diseño moderno
-                                con toque orgánico y comestible.</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 3 - El Nuevo Mucamo -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/enm_portada_web.webp');"
-                            data-modal="modal-enm"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">IDENTIDAD VISUAL</span>
-                            <h3 class="card-title">El Nuevo Mucamo</h3>
-                            <p class="card-description">Sistema de identidad para productos de limpieza. Diseño dinámico
-                                con paleta de alto contraste.</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 4 - Kamala -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/kml_portada_web.webp');"
-                            data-modal="modal-kml"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">BRANDING 360°</span>
-                            <h3 class="card-title">KAMALA - CASA DE TÉ</h3>
-                            <p class="card-description">Identidad integral para marca boutique. Fusión de estética
-                                orgánica y minimalista aplicada a packaging, redes sociales y plataformas digitales.</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 5 - Nico Saya -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/ns_portada_web.webp');"
-                            data-modal="modal-ns"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">MARCA PERSONAL</span>
-                            <h3 class="card-title">NICO SAYA – Bartender</h3>
-                            <p class="card-description">Identidad visual estratégica para bartender profesional. Diseño
-                                de marca personal enfocado en la sofisticación y el arte de la coctelería de autor.</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 6 - Laurel Zapatos -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/lau_portada_web.webp');"
-                            data-modal="modal-lau"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">Identidad y Branding</span>
-                            <h3 class="card-title">Laurel - Zapatos</h3>
-                            <p class="card-description">Identidad visual para marca de autor y vendedor de marcas
-                                reconocidas en el ambiente del diseño de calzado. Un enfoque minimalista y sofisticado
-                                diseñado para posicionar la marca en el segmento de lujo accesible.</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 7 - Hierro Negro -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/hn_portada_web.webp');"
-                            data-modal="modal-hn"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">Identidad Visual – Branding</span>
-                            <h3 class="card-title">Hierro Negro</h3>
-                            <p class="card-description">Identidad visual para taller de herrería artesanal. Un sistema
-                                de marca sólido que refleja la fuerza del material y la precisión del oficio, diseñado
-                                para destacar en el sector de la arquitectura y decoración.</p>
-                        </div>
-                    </article>
-
-
-
-                    <!-- Card 8 - ALES Resto -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/ales_portada_web.webp');"
-                            data-modal="modal-ales"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">Identidad – Branding</span>
-                            <h3 class="card-title">ALES Restaurant</h3>
-                            <p class="card-description">Identidad visual integral para restaurante de alta cocina. Un
-                                sistema de marca que captura la esencia del fuego y la materia prima, aplicado desde el
-                                interiorismo hasta el packaging y la presencia digital</p>
-                        </div>
-                    </article>
-
-                    <!-- Card 9 - Wonder English Institute -->
-                    <article class="portfolio-item">
-                        <div class="overlay-card" style="background-image: url('img/won_portada_web.webp');"
-                            data-modal="modal-won"></div>
-                        <div class="portfolio-meta">
-                            <span class="card-badge">IDENTIDAD – BRANDING/WEB/E-COMMERCE</span>
-                            <h3 class="card-title">WONDER – English Institute</h3>
-                            <p class="card-description">Desarrollo de identidad corporativa sistémica para institución
-                                de idiomas. La propuesta resuelve la arquitectura de marca mediante un lenguaje visual
-                                minimalista y funcional, garantizando una transición impecable entre la señalética del
-                                espacio arquitectónico y el ecosistema de interfaces digitales</p>
-                        </div>
-                    </article>
-
+        <!-- Project Modal Lightbox - Nico Saya -->
+        <!--<div class="project-modal" id="modal-ns">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/porfolio_ns.webp" alt="Nico Saya Portfolio" class="modal-image">
                 </div>
             </div>
+        </div>-->
 
-
-        </section>
-
-        <!-- Contact & Footer 1:1 Alora -->
-        <section id="contacto">
-            <div class="container">
-                <div class="contact-block card-glass reveal">
-                    <span class="section-tag">Contacto</span>
-                    <h2 style="font-size: clamp(2.5rem, 8vw, 6rem); margin-bottom: 2rem;">¿Listo para vivir la
-                        experiencia <br>Disainer?</h2>
-                    <a href="https://wa.me/5491161030981" class="btn-cta">Hablemos por WhatsApp</a>
-
-                    <h3
-                        style="font-size: 1.8rem; margin-top: 4rem; margin-bottom: 2rem; font-weight: 600; color: var(--text-white); text-transform: none;">
-                        Hablemos de tu idea y llevémosla al siguiente nivel.</h3>
-
-                    <div class="contact-form-wrap">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Nombre Completo</label>
-                                <input type="text" id="name" name="name" class="form-input" placeholder="Ej. Juan Pérez"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Corporativo</label>
-                                <input type="email" id="email" name="email" class="form-input"
-                                    placeholder="juan@empresa.com" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Tu Proyecto</label>
-                                <textarea id="message" name="message" class="form-input"
-                                    placeholder="Cuéntame brevemente qué necesitas..." required></textarea>
-                            </div>
-                            <button type="submit" class="btn-submit">Enviar Mensaje</button>
-                        </form>
-                    </div>
+        <!-- Project Modal Lightbox - Laurel Zapatos -->
+        <!-- <div class="project-modal" id="modal-lau">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/portfolio_lau.webp" alt="Laurel Zapatos Portfolio" class="modal-image">
                 </div>
             </div>
-        </section>
+        </div>-->
 
-        <!-- FAQ Section -->
-        <section id="faq" style="background: var(--bg-primary); position: relative; overflow: hidden;">
-            <!-- Background Logo Layer relocated from Hero -->
-            <div class="bg-logo-blur" style="background-image: url('img/logo.png');"></div>
-
-            <!-- Glass Mask Layer with Interactive Reveal relocated from Hero -->
-            <div class="glass-mask" id="glassMask"></div>
-
-            <div class="container" style="position: relative; z-index: 5;">
-                <div style="text-align: center; margin-bottom: 2rem;">
-                    <h2 class="section-title reveal" style="font-size: clamp(1.3rem, 4.5vw, 2.2rem);">Preguntas
-                        Frecuentes.</h2>
-                </div>
-
-                <div class="faq-container reveal">
-                    <div class="faq-category">
-                        <button class="faq-category-toggle">
-                            <span>Proceso y Tiempos</span>
-                            <span class="category-icon">↓</span>
-                        </button>
-                        <div class="faq-category-content">
-                            <div class="faq-accordion">
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿Cómo es el proceso de trabajo una vez que contrato el servicio?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>Comienzo con un briefing para conocer tu marca y objetivos. Luego paso a la
-                                            investigación, diseño conceptual, desarrollo y entrega final.</p>
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿Cuánto tiempo tarda en completarse un proyecto?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>Los tiempos varían según la complejidad. Un diseño de logotipo suele tardar
-                                            entre
-                                            1 y 2 semanas, mientras que una identidad visual completa o una web puede
-                                            llevar
-                                            de 3 a 5 semanas. Siempre acordaremos un cronograma antes de empezar.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-category">
-                        <button class="faq-category-toggle">
-                            <span>Pagos y Presupuestos</span>
-                            <span class="category-icon">↓</span>
-                        </button>
-                        <div class="faq-category-content">
-                            <div class="faq-accordion">
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿Cómo se realizan los pagos?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>Como <strong>diseñador freelance</strong>, solicito un anticipo del 50% para
-                                            reservar tu cupo y
-                                            comenzar con el <strong>presupuesto de logo</strong>. El 50% restante se
-                                            abona
-                                            antes de
-                                            entregar los archivos finales.</p>
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿Qué métodos de pago aceptan?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>Acepto transferencia bancaria, Mercado Pago y PayPal para el exterior.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-category">
-                        <button class="faq-category-toggle">
-                            <span>Entregables y Revisiones</span>
-                            <span class="category-icon">↓</span>
-                        </button>
-                        <div class="faq-category-content">
-                            <div class="faq-accordion">
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿En qué formatos recibiré mi diseño?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>Te entregaré una carpeta con archivos vectoriales (AI, EPS o PDF) que no
-                                            pierden
-                                            calidad al ampliarlos, y archivos de imagen (PNG con fondo transparente y
-                                            JPG)
-                                            para uso en redes sociales y web.</p>
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿Qué pasa si no me gusta la propuesta inicial?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>El briefing de <strong>diseño gráfico</strong> inicial evita esto, pero el
-                                            presupuesto
-                                            incluye [3] rondas de ajustes. Cambios radicales extra se presupuestarán por
-                                            separado.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="faq-category">
-                        <button class="faq-category-toggle">
-                            <span>Dudas Técnicas</span>
-                            <span class="category-icon">↓</span>
-                        </button>
-                        <div class="faq-category-content">
-                            <div class="faq-accordion">
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>Ya tengo un logo pero se ve borroso, ¿pueden arreglarlo?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>¡Claro! Realizo servicios de vectorización o rebranding de ser necesario,
-                                            siempre evaluando el estado actual de tu identidad visual.</p>
-                                    </div>
-                                </div>
-                                <div class="faq-item">
-                                    <button class="faq-question">
-                                        <span>¿El presupuesto incluye la impresión?</span>
-                                        <span class="faq-icon">+</span>
-                                    </button>
-                                    <div class="faq-answer">
-                                        <p>Mi servicio es exclusivamente de diseño. Te entrego los archivos
-                                            finales listos para que los envíes a la imprenta de tu confianza.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- CTA Final FAQ -->
-                <div style="text-align: center; margin-top: 5rem;">
-                    <a href="index.html#contacto" class="btn-cta btn-faq-cta">¿Tienes otra duda? Escríbeme</a>
+        <!-- Project Modal Lightbox - Hierro Negro -->
+        <!--<div class="project-modal" id="modal-hn">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/portfolio_hn.webp" alt="Hierro Negro Portfolio" class="modal-image">
                 </div>
             </div>
-        </section>
+        </div>-->
 
-        <!-- Tech Stack - Marquee Below FAQ -->
-        <!-- Tech Stack - Marquee Below Contact -->
-        <section class="tech-section">
-            <div class="container" style="text-align: center; margin-bottom: 1.5rem;">
-                <span class="section-tag reveal">Herramientas</span>
-                <h2 class="section-title reveal">Tecnologías.</h2>
-            </div>
-
-            <div class="tech-marquee-container">
-                <div class="tech-marquee">
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
-                            alt="Photoshop">
-                        <span>Photoshop</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"
-                            alt="Illustrator">
-                        <span>Illustrator</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg"
-                            alt="After Effects">
-                        <span>After Effects</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">
-                        <span>Figma</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
-                            alt="VS Code">
-                        <span>VS Code</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
-                            alt="HTML5">
-                        <span>HTML5</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg"
-                            alt="JavaScript">
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React">
-                        <span>React</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/sass-logo.png" alt="Sass">
-                        <span>Sass</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-                            alt="GitHub">
-                        <span>GitHub</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/gemini-logo.png" alt="Gemini">
-                        <span>Gemini AI</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/coreldraw-logo.png" alt="CorelDraw">
-                        <span>CorelDraw</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/firefly-logo.png" alt="Firefly">
-                        <span>Adobe Firefly</span>
-                    </div>
-                </div>
-                <!-- Secondary loop for infinite effect -->
-                <div class="tech-marquee">
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg"
-                            alt="Photoshop">
-                        <span>Photoshop</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Adobe_Illustrator_CC_icon.svg"
-                            alt="Illustrator">
-                        <span>Illustrator</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg"
-                            alt="After Effects">
-                        <span>After Effects</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">
-                        <span>Figma</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
-                            alt="VS Code">
-                        <span>VS Code</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg"
-                            alt="HTML5">
-                        <span>HTML5</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg"
-                            alt="JavaScript">
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" alt="React">
-                        <span>React</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/sass-logo.png" alt="Sass">
-                        <span>Sass</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
-                            alt="GitHub">
-                        <span>GitHub</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/gemini-logo.png" alt="Gemini">
-                        <span>Gemini AI</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/coreldraw-logo.png" alt="CorelDraw">
-                        <span>CorelDraw</span>
-                    </div>
-                    <div class="tech-card">
-                        <img src="img/firefly-logo.png" alt="Firefly">
-                        <span>Adobe Firefly</span>
-                    </div>
+        <!-- Project Modal Lightbox - ALES Resto -->
+        <!--<div class="project-modal" id="modal-ales">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/portfolio_ales.webp" alt="ALES Restorant Portfolio" class="modal-image">
                 </div>
             </div>
-        </section>
-    </main>
+        </div>-->
 
-    <footer id="main-footer"
-        style="background-color: var(--accent); color: #000; padding: 4rem 0 0; overflow: hidden; position: relative;">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <div class="footer-logo-wrapper">
-                    <img src="img/logo.png" alt="DISAINER" style="height: 30px; filter: brightness(0);">
-                </div>
-                <p style="font-size: 0.8rem; line-height: 1.5; font-weight: 500; max-width: 300px; color: #000;">
-                    Elevando marcas mediante el diseño estratégico y la tecnología. Innovación que genera resultados.
-                </p>
-            </div>
-
-            <div class="footer-links-group">
-                <h4 class="footer-header">Enlaces</h4>
-                <div class="footer-v-links">
-                    <a href="index.html#inicio">Inicio</a>
-                    <a href="index.html#perfil">Filosofía</a>
-                    <a href="index.html#servicios">Servicios</a>
-                    <a href="portfolio.html">Portfolio</a>
+        <!-- Project Modal Lightbox - Wonder English Institute -->
+        <!--<div class="project-modal" id="modal-won">
+            <div class="modal-overlay" onclick="closeProjectModal()"></div>
+            <div class="modal-container">
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                    </svg>
+                </button>
+                <div class="modal-content">
+                    <img src="img/portfolio_won.webp" alt="WONDER - English Institute Portfolio" class="modal-image">
                 </div>
             </div>
+        </div>-->
 
-            <div class="footer-policies-group">
-                <h4 class="footer-header">Políticas</h4>
-                <div class="footer-v-links">
-                    <a href="politicas.html#filosofia">Filosofía de Trabajo</a>
-                    <a href="politicas.html#privacidad">Política de Privacidad</a>
-                    <a href="politicas.html#terminos">Términos y Condiciones</a>
-                    <a href="politicas.html#responsabilidad">Responsabilidad Social</a>
-                </div>
-            </div>
-
-            <div class="footer-contact-group">
-                <h4 class="footer-header">Hablamos</h4>
-                <a href="index.html#contacto" class="footer-contact-link">Contacto</a>
-            </div>
-
-            <div class="footer-social-group text-right">
-                <h4 class="footer-header">Seguime</h4>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/agustingonzalezlartigue/" target="_blank"
-                        class="social-icon-box">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.instagram.com/agustin_disainer/" target="_blank" class="social-icon-box">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.069-4.85.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.behance.net/agustinglartigue" target="_blank" class="social-icon-box">
-                        <svg width="36" height="36" viewBox="0 0 800 800" fill="currentColor">
-                            <polygon points="590.86,260.32 456.97,260.32 456.97,291.41 590.86,291.41 " />
-                            <path
-                                d="M312.26 491.77c-7.41,3.63 -17.83,5.42 -31.19,5.42l-74.81 0 0 -82.13 75.83 0c13.26,0.14 23.5,1.87 30.8,5.22 13.08,5.98 19.63,16.99 19.63,33.01 0,18.95 -6.75,31.78 -20.26,38.48zm-106 -195.65l67.03 0c14.76,0 26.9,1.6 36.42,4.82 11.04,4.59 16.55,14.06 16.55,28.41 0,12.97 -4.18,22 -12.53,27.07 -8.32,5.09 -19.19,7.63 -32.59,7.63l-74.88 0 0 -67.93zm143.68 89.24c10.34,-5.29 18.18,-11.13 23.5,-17.55 9.5,-11.41 14.28,-26.55 14.28,-45.37 0,-18.24 -4.73,-33.92 -14.16,-47.02 -15.66,-21.31 -42.27,-32.25 -79.83,-32.81l-148.92 0 0 308.09 138.84 0c15.64,0 30.17,-1.39 43.53,-4.18 13.37,-2.77 24.99,-7.93 34.82,-15.46 8.7,-6.55 15.99,-14.62 21.82,-24.23 9.14,-14.52 13.71,-30.87 13.71,-49.15 0,-17.68 -4.01,-32.74 -12,-45.14 -8,-12.4 -19.86,-21.46 -35.59,-27.18z" />
-                            <path
-                                d="M476.39 414.2c2.17,-14.81 7.46,-26.57 15.87,-35.25 8.43,-8.67 20.27,-13.01 35.55,-13.01 14.06,0 25.85,4.1 35.35,12.27 9.49,8.18 14.79,20.2 15.87,35.99l-102.64 0zm162.51 -5.91c-2.76,-17.86 -8.82,-33.58 -18.15,-47.1 -10.34,-15.34 -23.48,-26.59 -39.39,-33.7 -15.86,-7.12 -33.73,-10.66 -53.57,-10.66 -33.37,0 -60.53,10.51 -81.45,31.58 -20.94,21.04 -31.39,51.3 -31.39,90.78 0,42.12 11.59,72.52 34.75,91.22 23.18,18.7 49.93,28.04 80.25,28.04 36.74,0 65.32,-11.07 85.71,-33.25 13.13,-13.94 20.5,-27.67 22.11,-41.17l-60.84 0c-3.54,6.68 -7.62,11.91 -12.26,15.67 -8.48,6.97 -19.52,10.46 -33.08,10.46 -12.8,0 -23.74,-2.85 -32.83,-8.58 -14.96,-9.19 -22.91,-25.22 -23.83,-48.08l165.93 0c0.3,-19.67 -0.36,-34.75 -1.96,-45.21z" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Divider Line -->
-        <div class="container">
-            <hr class="footer-divider" />
-        </div>
-
-        <div class="container"
-            style="text-align: center; color: #000; font-size: 0.75rem; font-weight: 500; position: relative; z-index: 2;">
-            &copy; 2026 Agustín Disainer. Todos los derechos reservados.
-        </div>
-
-        <!-- Huge Background Logo -->
-        <div class="footer-huge-logo">
-            <img src="img/logo_footerfooter_dark.svg" alt="DISAINER" class="logo-footer-dark">
-            <img src="img/logo_footerfooter_white.svg" alt="DISAINER" class="logo-footer-light">
-        </div>
-    </footer>
-
-
-    <!-- Project Modal Lightbox - DAAB -->
-    <div class="project-modal" id="modal-daab">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
+        <!-- Custom Modal for Form Confirmation -->
+        <div id="customModal" class="modal-overlay">
             <div class="modal-content">
-                <img src="img/portfolio_daab.webp" alt="DAAB Portfolio" class="modal-image">
+                <h3>¡Gracias por tu mensaje!</h3>
+                <p>Se abrirá tu cliente de correo para enviar la consulta.</p>
+                <button class="btn-cta" onclick="closeModal()">OK</button>
             </div>
         </div>
+
+        <!-- Back to Top -->
+        <a href="index.html#inicio" id="backToTop" class="back-to-top">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+        </a>
+
+        <script src="scripts.js"></script>
     </div>
-
-    <!-- Project Modal Lightbox - Que Sea Masa -->
-    <div class="project-modal" id="modal-qsm">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/portfolio_qsm.webp" alt="Que Sea Masa Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - El Nuevo Mucamo -->
-    <div class="project-modal" id="modal-enm">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/portfolio_enm.webp" alt="El Nuevo Mucamo Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - KAMALA -->
-    <div class="project-modal" id="modal-kml">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/porfolio_kml.webp" alt="KAMALA - Casa de Té Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - Nico Saya -->
-    <div class="project-modal" id="modal-ns">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/porfolio_ns.webp" alt="Nico Saya Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - Laurel Zapatos -->
-    <div class="project-modal" id="modal-lau">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/portfolio_lau.webp" alt="Laurel Zapatos Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - Hierro Negro -->
-    <div class="project-modal" id="modal-hn">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/portfolio_hn.webp" alt="Hierro Negro Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - ALES Resto -->
-    <div class="project-modal" id="modal-ales">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/portfolio_ales.webp" alt="ALES Restorant Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Modal Lightbox - Wonder English Institute -->
-    <div class="project-modal" id="modal-won">
-        <div class="modal-overlay" onclick="closeProjectModal()"></div>
-        <div class="modal-container">
-            <button class="modal-close" onclick="closeProjectModal()" aria-label="Cerrar modal">
-                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                    <path
-                        d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                </svg>
-            </button>
-            <div class="modal-content">
-                <img src="img/portfolio_won.webp" alt="WONDER - English Institute Portfolio" class="modal-image">
-            </div>
-        </div>
-    </div>
-
-    <!-- Custom Modal for Form Confirmation -->
-    <div id="customModal" class="modal-overlay">
-        <div class="modal-content">
-            <h3>¡Gracias por tu mensaje!</h3>
-            <p>Se abrirá tu cliente de correo para enviar la consulta.</p>
-            <button class="btn-cta" onclick="closeModal()">OK</button>
-        </div>
-    </div>
-
-
-    <!-- Back to Top -->
-    <a href="index.html#inicio" id="backToTop" class="back-to-top">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
-        </svg>
-    </a>
-
-    <script src="scripts.js"></script>
-    <script>
-        // Theme Toggle Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const themeToggle = document.getElementById('themeToggle');
-            if (!themeToggle) return;
-
-            const iconLight = themeToggle.querySelector('.theme-icon-light');
-            const iconDark = themeToggle.querySelector('.theme-icon-dark');
-
-            const heroMobileImg = document.getElementById('heroMobileImg');
-
-            // Check stored preference
-            const currentTheme = localStorage.getItem('theme');
-            if (currentTheme) {
-                document.documentElement.setAttribute('data-theme', currentTheme);
-                if (currentTheme === 'light') {
-                    iconLight.style.display = 'block';
-                    iconDark.style.display = 'none';
-                    if (heroMobileImg) heroMobileImg.src = 'img/headermovilwhite.png';
-                }
-            }
-
-            themeToggle.addEventListener('click', () => {
-                let theme = document.documentElement.getAttribute('data-theme');
-                if (theme === 'light') {
-                    document.documentElement.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'dark');
-                    iconLight.style.display = 'none';
-                    iconDark.style.display = 'block';
-                    if (heroMobileImg) heroMobileImg.src = 'img/headermovildark.png';
-                } else {
-                    document.documentElement.setAttribute('data-theme', 'light');
-                    localStorage.setItem('theme', 'light');
-                    iconLight.style.display = 'block';
-                    iconDark.style.display = 'none';
-                    if (heroMobileImg) heroMobileImg.src = 'img/headermovilwhite.png';
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
