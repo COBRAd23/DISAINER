@@ -496,7 +496,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             delete musicToggle.dataset.listenerAttached;
                         }
                         initGlobalMusic();
-                        window.scrollTo(0, 0);
+
+                        // Scroll to anchor if the destination URL has a hash (e.g. index.html#perfil)
+                        // Otherwise scroll to top
+                        const hash = data.next.url.hash || window.location.hash;
+                        if (hash) {
+                            const targetId = hash.replace('#', '');
+                            const targetEl = document.getElementById(targetId);
+                            if (targetEl) {
+                                setTimeout(() => {
+                                    const headerOffset = 80;
+                                    const offsetPos = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
+                                    window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+                                }, 100);
+                            } else {
+                                window.scrollTo(0, 0);
+                            }
+                        } else {
+                            window.scrollTo(0, 0);
+                        }
                     }
                 }]
             });
