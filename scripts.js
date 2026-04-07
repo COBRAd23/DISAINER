@@ -465,6 +465,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Barba Initialization
     if (typeof barba !== "undefined") {
         barba.init({
+            // When on a project page, let the browser handle navigation normally.
+            // This prevents CSS/layout bleed from project pages onto home/portfolio.
+            // Music state is persisted via sessionStorage so it continues playing.
+            prevent: () => {
+                const container = document.querySelector('[data-barba="container"]');
+                return container?.dataset?.barbaNamespace === 'project';
+            },
             transitions: [{
                 name: 'opacity-transition',
                 leave(data) {
