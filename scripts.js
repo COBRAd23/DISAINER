@@ -2,7 +2,7 @@
 function applyGlobalTheme() {
     const savedTheme = localStorage.getItem('theme');
     const themeToggle = document.getElementById('themeToggle');
-    
+
     if (savedTheme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
         if (themeToggle) {
@@ -299,16 +299,16 @@ function initPage() {
         const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
         window.scrollTo({ top: offsetPos, behavior: 'smooth' });
     }
-    
+
     // Smooth Scroll Listener (updated for SPA/Barba)
     document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href.indexOf('#') === -1) return;
             const linkPath = href.split('#')[0];
             const currentPathName = window.location.pathname.split('/').pop() || 'index.html';
             const targetPathName = linkPath.split('/').pop() || 'index.html';
-            
+
             if (linkPath === '' || targetPathName === currentPathName) {
                 const targetId = href.split('#')[1];
                 if (!targetId) return;
@@ -340,7 +340,7 @@ function initPage() {
                 }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        
+
         bentoElements.forEach(el => bentoObserver.observe(el));
     }
 
@@ -353,13 +353,13 @@ function initPage() {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                
-                const moveX = (x / rect.width) * 6; 
+
+                const moveX = (x / rect.width) * 6;
                 const moveY = (y / rect.height) * 6;
-                
+
                 img.style.transform = `translate(${moveX}px, ${moveY}px)`;
             });
-            
+
             card.addEventListener('mouseleave', () => {
                 img.style.transform = `translate(0px, 0px)`;
             });
@@ -370,15 +370,16 @@ function initPage() {
     applyGlobalTheme();
 }
 
-// Global Music Handlers — only plays/stops on user click
+// Global Music Handlers — persist state via sessionStorage across full reloads
 function initGlobalMusic() {
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
 
     if (!musicToggle || !bgMusic) return;
 
-    // Prevent attaching duplicate listeners during Barba SPA navigation
-    if (musicToggle.dataset.listenerAttached) return;
+    // --- Restore state from sessionStorage ---
+    const wasPlaying = sessionStorage.getItem('musicPlaying') === 'true';
+    const savedTime = parseFloat(sessionStorage.getItem('musicTime') || '0');
 
     function applyMusicUI(playing) {
         if (playing) {
@@ -390,24 +391,40 @@ function initGlobalMusic() {
         }
     }
 
-    // Sync the visual state with actual audio state (no autoplay)
-    applyMusicUI(!bgMusic.paused);
+    if (wasPlaying) {
+        bgMusic.currentTime = savedTime;
+        bgMusic.play().then(() => {
+            applyMusicUI(true);
+        }).catch(() => {
+            // Autoplay blocked — keep UI silent, user can click
+            applyMusicUI(false);
+        });
+    }
 
-    // Toggle button — only way to start/stop music
+    // --- Save state before the page unloads (full navigation) ---
+    window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('musicPlaying', String(!bgMusic.paused));
+        sessionStorage.setItem('musicTime', String(bgMusic.currentTime));
+    });
+
+    // --- Toggle button ---
+    if (musicToggle.dataset.listenerAttached) return;
+
     musicToggle.addEventListener('click', () => {
         if (bgMusic.paused) {
             bgMusic.play().then(() => {
                 applyMusicUI(true);
-            }).catch(() => {});
+                sessionStorage.setItem('musicPlaying', 'true');
+            }).catch(() => { });
         } else {
             bgMusic.pause();
             applyMusicUI(false);
+            sessionStorage.setItem('musicPlaying', 'false');
         }
     });
 
     musicToggle.dataset.listenerAttached = 'true';
 }
-
 
 // Initial Call
 document.addEventListener('DOMContentLoaded', () => {
@@ -424,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const videoLight = document.getElementById('preloader-video-light');
             const savedTheme = localStorage.getItem('theme');
             const activeVideo = savedTheme === 'light' ? videoLight : videoDark;
-            
+
             if (activeVideo) {
                 activeVideo.addEventListener('timeupdate', () => {
                     let percent = Math.round((activeVideo.currentTime / activeVideo.duration) * 100);
@@ -444,52 +461,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initPage();
     initGlobalMusic();
-    
+
     // Barba Initialization
+    // IMPORTANT: Only activate Barba SPA transitions on non-project pages.
+    // Project pages (portfolio-*.html) have fundamentally different CSS/body classes.
+    // Letting Barba swap containers from project→home corrupts the home layout.
+    // Instead, project pages use full browser navigation (music persists via sessionStorage).
     if (typeof barba !== "undefined") {
-        barba.init({
-            // When on a project page, let the browser handle navigation normally.
-            // This prevents CSS/layout bleed from project pages onto home/portfolio.
-            // Music state is persisted via sessionStorage so it continues playing.
-            prevent: () => {
-                const container = document.querySelector('[data-barba="container"]');
-                return container?.dataset?.barbaNamespace === 'project';
-            },
-            transitions: [{
-                name: 'opacity-transition',
-                leave(data) {
-                    return gsap.to(data.current.container, {
-                        opacity: 0,
-                        duration: 0.5
-                    });
-                },
-                enter(data) {
-                    return gsap.from(data.next.container, {
-                        opacity: 0,
-                        duration: 0.5
-                    });
-                },
-                afterEnter(data) {
-                    initPage();
+        const currentContainer = document.querySelector('[data-barba="container"]');
+        const currentNamespace = currentContainer?.dataset?.barbaNamespace;
 
-                    // --- Sync body class with namespace ---
-                    const namespace = data.next.namespace;
-                    if (namespace === 'home' || namespace === 'portfolio' || namespace === 'policy') {
-                        document.body.classList.remove('project-page');
-                    } else if (namespace === 'project') {
-                        document.body.classList.add('project-page');
-                    }
+        if (currentNamespace !== 'project') {
+            barba.init({
+                transitions: [{
+                    name: 'opacity-transition',
+                    leave(data) {
+                        return gsap.to(data.current.container, {
+                            opacity: 0,
+                            duration: 0.5
+                        });
+                    },
+                    enter(data) {
+                        return gsap.from(data.next.container, {
+                            opacity: 0,
+                            duration: 0.5
+                        });
+                    },
+                    afterEnter(data) {
+                        initPage();
 
-                    // Re-sync music toggle button state after Barba swap
-                    const musicToggle = document.getElementById('musicToggle');
-                    if (musicToggle) {
-                        delete musicToggle.dataset.listenerAttached;
+                        // Re-sync music toggle after Barba SPA swap
+                        const musicToggle = document.getElementById('musicToggle');
+                        if (musicToggle) {
+                            delete musicToggle.dataset.listenerAttached;
+                        }
+                        initGlobalMusic();
+                        window.scrollTo(0, 0);
                     }
-                    initGlobalMusic();
-                    window.scrollTo(0, 0);
-                }
-            }]
-        });
+                }]
+            });
+        }
     }
 });
 
@@ -500,7 +511,7 @@ document.addEventListener('click', (e) => {
         const iconLight = toggle.querySelector('.theme-icon-light');
         const iconDark = toggle.querySelector('.theme-icon-dark');
         let theme = document.documentElement.getAttribute('data-theme');
-        
+
         if (theme === 'light') {
             document.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'dark');
