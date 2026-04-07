@@ -463,15 +463,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initGlobalMusic();
 
     // Barba Initialization
-    // IMPORTANT: Only activate Barba SPA transitions on non-project pages.
-    // Project pages (portfolio-*.html) have fundamentally different CSS/body classes.
-    // Letting Barba swap containers from project→home corrupts the home layout.
-    // Instead, project pages use full browser navigation (music persists via sessionStorage).
+    // IMPORTANT: Only activate Barba SPA transitions when on the HOME page.
+    // From any other page (portfolio, project pages, policies), all navigation
+    // uses native browser loads — this guarantees the home always renders correctly,
+    // hash anchors (#perfil, #servicios) work natively, and music persists via sessionStorage.
     if (typeof barba !== "undefined") {
         const currentContainer = document.querySelector('[data-barba="container"]');
         const currentNamespace = currentContainer?.dataset?.barbaNamespace;
 
-        if (currentNamespace !== 'project') {
+        if (currentNamespace === 'home') {
             barba.init({
                 transitions: [{
                     name: 'opacity-transition',
