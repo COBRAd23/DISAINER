@@ -488,6 +488,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     },
                     afterEnter(data) {
+                        // Scroll to top immediately before any re-init
+                        window.scrollTo(0, 0);
+
                         initPage();
 
                         // Re-sync music toggle after Barba SPA swap
@@ -497,23 +500,32 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         initGlobalMusic();
 
-                        // Scroll to anchor if the destination URL has a hash (e.g. index.html#perfil)
-                        // Otherwise scroll to top
-                        const hash = data.next.url.hash || window.location.hash;
+                        // Extract hash from the clicked link (trigger), the destination
+                        // URL href string, or window.location — in that priority order.
+                        // NOTE: Barba v2's data.next.url object does NOT have a .hash
+                        // property, so we must parse the href string manually.
+                        let hash = '';
+                        const triggerHref = data.trigger?.getAttribute?.('href') || '';
+                        const nextHref    = data.next?.url?.href || '';
+
+                        if (triggerHref.includes('#')) {
+                            hash = '#' + triggerHref.split('#')[1];
+                        } else if (nextHref.includes('#')) {
+                            hash = '#' + nextHref.split('#')[1];
+                        } else if (window.location.hash) {
+                            hash = window.location.hash;
+                        }
+
                         if (hash) {
                             const targetId = hash.replace('#', '');
-                            const targetEl = document.getElementById(targetId);
-                            if (targetEl) {
-                                setTimeout(() => {
+                            setTimeout(() => {
+                                const targetEl = document.getElementById(targetId);
+                                if (targetEl) {
                                     const headerOffset = 80;
                                     const offsetPos = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
                                     window.scrollTo({ top: offsetPos, behavior: 'smooth' });
-                                }, 100);
-                            } else {
-                                window.scrollTo(0, 0);
-                            }
-                        } else {
-                            window.scrollTo(0, 0);
+                                }
+                            }, 350); // after initPage's own 300ms hash handler
                         }
                     }
                 }]
