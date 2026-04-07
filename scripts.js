@@ -370,16 +370,15 @@ function initPage() {
     applyGlobalTheme();
 }
 
-// Global Music Handlers — persist state via sessionStorage across full reloads
+// Global Music Handlers — only plays/stops on user click
 function initGlobalMusic() {
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
 
     if (!musicToggle || !bgMusic) return;
 
-    // --- Restore state from sessionStorage ---
-    const wasPlaying = sessionStorage.getItem('musicPlaying') === 'true';
-    const savedTime  = parseFloat(sessionStorage.getItem('musicTime') || '0');
+    // Prevent attaching duplicate listeners during Barba SPA navigation
+    if (musicToggle.dataset.listenerAttached) return;
 
     function applyMusicUI(playing) {
         if (playing) {
@@ -391,40 +390,24 @@ function initGlobalMusic() {
         }
     }
 
-    if (wasPlaying) {
-        bgMusic.currentTime = savedTime;
-        bgMusic.play().then(() => {
-            applyMusicUI(true);
-        }).catch(() => {
-            // Autoplay blocked — keep UI silent, user can click
-            applyMusicUI(false);
-        });
-    }
+    // Sync the visual state with actual audio state (no autoplay)
+    applyMusicUI(!bgMusic.paused);
 
-    // --- Save state before the page unloads (full navigation) ---
-    window.addEventListener('beforeunload', () => {
-        sessionStorage.setItem('musicPlaying', String(!bgMusic.paused));
-        sessionStorage.setItem('musicTime', String(bgMusic.currentTime));
-    });
-
-    // --- Toggle button ---
-    if (musicToggle.dataset.listenerAttached) return;
-
+    // Toggle button — only way to start/stop music
     musicToggle.addEventListener('click', () => {
         if (bgMusic.paused) {
             bgMusic.play().then(() => {
                 applyMusicUI(true);
-                sessionStorage.setItem('musicPlaying', 'true');
             }).catch(() => {});
         } else {
             bgMusic.pause();
             applyMusicUI(false);
-            sessionStorage.setItem('musicPlaying', 'false');
         }
     });
 
     musicToggle.dataset.listenerAttached = 'true';
 }
+
 
 // Initial Call
 document.addEventListener('DOMContentLoaded', () => {
