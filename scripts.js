@@ -370,30 +370,60 @@ function initPage() {
     applyGlobalTheme();
 }
 
-// Global Music Handlers (Persist Outside Barba)
+// Global Music Handlers — persist state via sessionStorage across full reloads
 function initGlobalMusic() {
     const musicToggle = document.getElementById('musicToggle');
     const bgMusic = document.getElementById('bgMusic');
 
-    if (musicToggle && bgMusic) {
-        // Prevent multiple listeners if navigation occurs
-        if (musicToggle.dataset.listenerAttached) return;
-        
-        musicToggle.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    musicToggle.classList.add('is-playing');
-                    musicToggle.setAttribute('aria-label', 'Pausar música de fondo');
-                }).catch(() => {});
-            } else {
-                bgMusic.pause();
-                musicToggle.classList.remove('is-playing');
-                musicToggle.setAttribute('aria-label', 'Activar música de fondo');
-            }
-        });
-        
-        musicToggle.dataset.listenerAttached = "true";
+    if (!musicToggle || !bgMusic) return;
+
+    // --- Restore state from sessionStorage ---
+    const wasPlaying = sessionStorage.getItem('musicPlaying') === 'true';
+    const savedTime  = parseFloat(sessionStorage.getItem('musicTime') || '0');
+
+    function applyMusicUI(playing) {
+        if (playing) {
+            musicToggle.classList.add('is-playing');
+            musicToggle.setAttribute('aria-label', 'Pausar música de fondo');
+        } else {
+            musicToggle.classList.remove('is-playing');
+            musicToggle.setAttribute('aria-label', 'Activar música de fondo');
+        }
     }
+
+    if (wasPlaying) {
+        bgMusic.currentTime = savedTime;
+        bgMusic.play().then(() => {
+            applyMusicUI(true);
+        }).catch(() => {
+            // Autoplay blocked — keep UI silent, user can click
+            applyMusicUI(false);
+        });
+    }
+
+    // --- Save state before the page unloads (full navigation) ---
+    window.addEventListener('beforeunload', () => {
+        sessionStorage.setItem('musicPlaying', String(!bgMusic.paused));
+        sessionStorage.setItem('musicTime', String(bgMusic.currentTime));
+    });
+
+    // --- Toggle button ---
+    if (musicToggle.dataset.listenerAttached) return;
+
+    musicToggle.addEventListener('click', () => {
+        if (bgMusic.paused) {
+            bgMusic.play().then(() => {
+                applyMusicUI(true);
+                sessionStorage.setItem('musicPlaying', 'true');
+            }).catch(() => {});
+        } else {
+            bgMusic.pause();
+            applyMusicUI(false);
+            sessionStorage.setItem('musicPlaying', 'false');
+        }
+    });
+
+    musicToggle.dataset.listenerAttached = 'true';
 }
 
 // Initial Call
@@ -451,7 +481,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 afterEnter(data) {
                     initPage();
-                    window.scrollTo(0,0);
+                    // Re-sync music toggle button state after Barba swap
+                    const musicToggle = document.getElementById('musicToggle');
+                    if (musicToggle) {
+                        delete musicToggle.dataset.listenerAttached;
+                    }
+                    initGlobalMusic();
+                    window.scrollTo(0, 0);
                 }
             }]
         });
