@@ -481,6 +481,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 afterEnter(data) {
                     initPage();
+
+                    // --- Sync body class with namespace ---
+                    const namespace = data.next.namespace;
+                    if (namespace === 'home' || namespace === 'portfolio' || namespace === 'policy') {
+                        document.body.classList.remove('project-page');
+                    } else if (namespace === 'project') {
+                        document.body.classList.add('project-page');
+                    }
+
                     // Re-sync music toggle button state after Barba swap
                     const musicToggle = document.getElementById('musicToggle');
                     if (musicToggle) {
