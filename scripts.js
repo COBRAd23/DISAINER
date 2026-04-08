@@ -249,9 +249,12 @@ function initPage() {
             const targetId = window.location.hash.substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
+                const headerHeight = 80;
+                const topOffset = targetElement.offsetTop - headerHeight;
+
+                window.scrollTo({
+                    top: topOffset,
+                    behavior: "smooth"
                 });
             }
         }
@@ -269,6 +272,7 @@ function initPage() {
     }
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
+    const HEADER_OFFSET = 80;
     function scrollToTarget(el, targetId) {
         // Special case for scrolling to top
         if (targetId === 'inicio') {
@@ -276,10 +280,8 @@ function initPage() {
             return;
         }
 
-        el.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
+        const topOffset = el.offsetTop - HEADER_OFFSET;
+        window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
 
     // Smooth Scroll Listener (updated for SPA/Barba)
@@ -508,13 +510,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             setTimeout(() => {
                                 const targetEl = document.getElementById(targetId);
                                 if (targetEl) {
-                                    targetEl.scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'start'
-                                    });
+                                    const headerHeight = 80;
+                                    const topOffset = targetEl.offsetTop - headerHeight;
+                                    window.scrollTo({ top: topOffset, behavior: 'smooth' });
                                 }
                                 window.__skipHashScrollOnInit = false;
-                            }, 500); // wait a little longer so the new content layout is stable
+                            }, 500);
                         } else {
                             window.__skipHashScrollOnInit = false;
                         }
