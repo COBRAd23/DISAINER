@@ -182,7 +182,6 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
     /* Adjusted offset for flush connection with header */
 }
 
@@ -1180,7 +1179,7 @@ section:not(.hero-v4) {
 /* Section Styling */
 section {
     padding: 8rem 0;
-    scroll-margin-top: 100px;
+    scroll-margin-top: 80px;
 }
 
 .section-tag {
