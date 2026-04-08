@@ -25,6 +25,9 @@ function applyGlobalTheme() {
 // Initial immediate call
 applyGlobalTheme();
 
+// Flag to avoid duplicate hash scrolling during Barba page swaps
+window.__skipHashScrollOnInit = false;
+
 // Add Barba.js library link through CDN: https://unpkg.com/@barba/core
 
 function initPage() {
@@ -258,7 +261,7 @@ function initPage() {
         }
     }
 
-    if (window.location.hash) {
+    if (window.location.hash && !window.__skipHashScrollOnInit) {
         const checkLoaded = () => {
             if (document.body.classList.contains('is-loaded')) {
                 scrollToHash();
@@ -477,6 +480,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Scroll to top immediately before any re-init
                         window.scrollTo(0, 0);
 
+                        // Prevent initPage() from executing the same hash scroll again
+                        window.__skipHashScrollOnInit = true;
                         initPage();
 
                         // Re-sync music toggle after Barba SPA swap
@@ -511,7 +516,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                     const offsetPos = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
                                     window.scrollTo({ top: offsetPos, behavior: 'smooth' });
                                 }
+                                window.__skipHashScrollOnInit = false;
                             }, 350); // after initPage's own 300ms hash handler
+                        } else {
+                            window.__skipHashScrollOnInit = false;
                         }
                     }
                 }]
