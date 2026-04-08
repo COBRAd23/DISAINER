@@ -262,17 +262,6 @@ function initPage() {
         }
     }
 
-    if (window.location.hash) {
-        const checkLoaded = () => {
-            if (document.body.classList.contains('is-loaded')) {
-                scrollToHash();
-            } else {
-                setTimeout(checkLoaded, 100);
-            }
-        };
-        checkLoaded();
-    }
-
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
     function scrollToTarget(el, targetId) {
         // Special case for scrolling to top
