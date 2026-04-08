@@ -241,11 +241,11 @@ function initPage() {
     });
 
     // --- Handle Initial Hash Scroll with Offset ---
-    if (window.location.hash) {
-        const targetId = window.location.hash.substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-            setTimeout(() => {
+    function scrollToHash() {
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
                 const headerOffset = 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
@@ -254,8 +254,19 @@ function initPage() {
                     top: offsetPosition,
                     behavior: "smooth"
                 });
-            }, 300); // Small delay to ensure layout and resources are ready
+            }
         }
+    }
+
+    if (window.location.hash) {
+        const checkLoaded = () => {
+            if (document.body.classList.contains('is-loaded')) {
+                scrollToHash();
+            } else {
+                setTimeout(checkLoaded, 100);
+            }
+        };
+        checkLoaded();
     }
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
@@ -273,23 +284,31 @@ function initPage() {
     }
 
     // Smooth Scroll Listener (updated for SPA/Barba)
-    document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
-        link.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href.indexOf('#') === -1) return;
-            const linkPath = href.split('#')[0];
-            const currentPathName = window.location.pathname.split('/').pop() || 'index.html';
-            const targetPathName = linkPath.split('/').pop() || 'index.html';
+    function handleAnchorClick(e) {
+        const href = this.getAttribute('href');
+        if (href.indexOf('#') === -1) return;
+        const linkPath = href.split('#')[0];
+        const currentPathName = window.location.pathname.split('/').pop() || 'index.html';
+        const targetPathName = linkPath.split('/').pop() || 'index.html';
 
-            if (linkPath === '' || targetPathName === currentPathName) {
-                const targetId = href.split('#')[1];
-                if (!targetId) return;
-                const targetEl = document.getElementById(targetId);
-                if (!targetEl) return;
-                e.preventDefault();
-                scrollToTarget(targetEl, targetId);
-            }
-        });
+        if (linkPath === '' || targetPathName === currentPathName) {
+            const targetId = href.split('#')[1];
+            if (!targetId) return;
+            const targetEl = document.getElementById(targetId);
+            if (!targetEl) return;
+            e.preventDefault();
+            scrollToTarget(targetEl, targetId);
+        }
+    }
+
+    // Remove previous listeners to avoid duplicates
+    document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+        link.removeEventListener('click', handleAnchorClick);
+    });
+
+    // Add new listeners
+    document.querySelectorAll('a[href^="#"], a[href*="#"]').forEach(link => {
+        link.addEventListener('click', handleAnchorClick);
     });
 
     // --- Portfolio Hero Parallax ---
