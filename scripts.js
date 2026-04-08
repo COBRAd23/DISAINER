@@ -360,6 +360,8 @@ function initGlobalMusic() {
 
     if (!musicToggle || !bgMusic) return;
 
+    bgMusic.preload = 'auto';
+
     // --- Restore state from sessionStorage ---
     const wasPlaying = sessionStorage.getItem('musicPlaying') === 'true';
     const savedTime = parseFloat(sessionStorage.getItem('musicTime') || '0');
@@ -374,20 +376,42 @@ function initGlobalMusic() {
         }
     }
 
-    if (wasPlaying) {
-        bgMusic.currentTime = savedTime;
-        bgMusic.play().then(() => {
-            applyMusicUI(true);
-        }).catch(() => {
-            // Autoplay blocked — keep UI silent, user can click
-            applyMusicUI(false);
-        });
+    function saveMusicState() {
+        sessionStorage.setItem('musicPlaying', String(!bgMusic.paused));
+        sessionStorage.setItem('musicTime', String(bgMusic.currentTime || 0));
     }
 
-    // --- Save state before the page unloads (full navigation) ---
-    window.addEventListener('beforeunload', () => {
-        sessionStorage.setItem('musicPlaying', String(!bgMusic.paused));
-        sessionStorage.setItem('musicTime', String(bgMusic.currentTime));
+    function resumeMusic() {
+        if (!wasPlaying) return;
+
+        const playNow = () => {
+            if (savedTime > 0 && bgMusic.readyState > 0) {
+                bgMusic.currentTime = savedTime;
+            }
+            bgMusic.play().then(() => {
+                applyMusicUI(true);
+            }).catch(() => {
+                applyMusicUI(false);
+            });
+        };
+
+        if (bgMusic.readyState > 0) {
+            playNow();
+        } else {
+            bgMusic.addEventListener('loadedmetadata', playNow, { once: true });
+        }
+    }
+
+    if (wasPlaying) {
+        resumeMusic();
+    }
+
+    // --- Save state when the page is hidden or unloaded ---
+    window.addEventListener('pagehide', saveMusicState);
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            saveMusicState();
+        }
     });
 
     // --- Toggle button ---
