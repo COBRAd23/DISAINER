@@ -240,13 +240,18 @@ function initPage() {
         });
     });
 
+    function getHeaderHeight() {
+        const header = document.getElementById('header');
+        return header ? header.offsetHeight : 0;
+    }
+
     // --- Handle Initial Hash Scroll with Offset ---
     function scrollToHash() {
         if (window.location.hash) {
             const targetId = window.location.hash.substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                const headerHeight = 80;
+                const headerHeight = getHeaderHeight();
                 const topOffset = targetElement.offsetTop - headerHeight;
 
                 window.scrollTo({
@@ -269,7 +274,6 @@ function initPage() {
     }
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
-    const HEADER_OFFSET = 80;
     function scrollToTarget(el, targetId) {
         // Special case for scrolling to top
         if (targetId === 'inicio') {
@@ -277,7 +281,8 @@ function initPage() {
             return;
         }
 
-        const topOffset = el.offsetTop - HEADER_OFFSET;
+        const headerHeight = getHeaderHeight();
+        const topOffset = el.offsetTop - headerHeight;
         window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
 
