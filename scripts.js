@@ -25,9 +25,6 @@ function applyGlobalTheme() {
 // Initial immediate call
 applyGlobalTheme();
 
-// Flag to avoid duplicate hash scrolling during Barba page swaps
-window.__skipHashScrollOnInit = false;
-
 // Add Barba.js library link through CDN: https://unpkg.com/@barba/core
 
 function initPage() {
@@ -260,7 +257,7 @@ function initPage() {
         }
     }
 
-    if (window.location.hash && !window.__skipHashScrollOnInit) {
+    if (window.location.hash) {
         const checkLoaded = () => {
             if (document.body.classList.contains('is-loaded')) {
                 scrollToHash();
@@ -453,80 +450,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initPage();
     initGlobalMusic();
-
-    // Barba Initialization - Activate SPA transitions on all pages for consistent navigation
-    if (typeof barba !== "undefined") {
-        const currentContainer = document.querySelector('[data-barba="container"]');
-
-        if (currentContainer) {
-            barba.init({
-                transitions: [{
-                    name: 'opacity-transition',
-                    leave(data) {
-                        return gsap.to(data.current.container, {
-                            opacity: 0,
-                            duration: 0.5
-                        });
-                    },
-                    enter(data) {
-                        return gsap.from(data.next.container, {
-                            opacity: 0,
-                            duration: 0.5
-                        });
-                    },
-                    afterEnter(data) {
-                        // Scroll to top immediately before any re-init
-                        window.scrollTo(0, 0);
-
-                        // Prevent initPage() from executing the same hash scroll again
-                        window.__skipHashScrollOnInit = true;
-                        initPage();
-
-                        // Re-sync music toggle after Barba SPA swap
-                        const musicToggle = document.getElementById('musicToggle');
-                        if (musicToggle) {
-                            delete musicToggle.dataset.listenerAttached;
-                        }
-                        initGlobalMusic();
-
-                        // Extract hash from the clicked link (trigger), the destination
-                        // URL href string, or window.location — in that priority order.
-                        // NOTE: Barba v2's data.next.url object does NOT have a .hash
-                        // property, so we must parse the href string manually.
-                        let hash = '';
-                        const triggerHref = data.trigger?.getAttribute?.('href') || '';
-                        const nextHref    = data.next?.url?.href || '';
-
-                        if (triggerHref.includes('#')) {
-                            hash = '#' + triggerHref.split('#')[1];
-                        } else if (nextHref.includes('#')) {
-                            hash = '#' + nextHref.split('#')[1];
-                        } else if (window.location.hash) {
-                            hash = window.location.hash;
-                        }
-
-                        if (hash) {
-                            const targetId = hash.replace('#', '');
-                            setTimeout(() => {
-                                const targetEl = document.getElementById(targetId);
-                                if (targetEl) {
-                                    const headerHeight = 80;
-                                    const topOffset = targetEl.offsetTop - headerHeight;
-                                    window.scrollTo({ top: topOffset, behavior: 'smooth' });
-                                }
-                                window.__skipHashScrollOnInit = false;
-                            }, 500);
-                        } else {
-                            window.__skipHashScrollOnInit = false;
-                        }
-                    }
-                }]
-            });
-        }
-    }
 });
 
-// Single handle for theme toggle across transitions
+// Single handle for theme toggle
 document.addEventListener('click', (e) => {
     const toggle = e.target.closest('#themeToggle');
     if (toggle) {
