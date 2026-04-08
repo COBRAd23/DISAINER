@@ -453,16 +453,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initPage();
     initGlobalMusic();
 
-    // Barba Initialization
-    // IMPORTANT: Only activate Barba SPA transitions when on the HOME page.
-    // From any other page (portfolio, project pages, policies), all navigation
-    // uses native browser loads — this guarantees the home always renders correctly,
-    // hash anchors (#perfil, #servicios) work natively, and music persists via sessionStorage.
+    // Barba Initialization - Activate SPA transitions on all pages for consistent navigation
     if (typeof barba !== "undefined") {
         const currentContainer = document.querySelector('[data-barba="container"]');
-        const currentNamespace = currentContainer?.dataset?.barbaNamespace;
 
-        if (currentNamespace === 'home') {
+        if (currentContainer) {
             barba.init({
                 transitions: [{
                     name: 'opacity-transition',
