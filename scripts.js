@@ -249,13 +249,9 @@ function initPage() {
             const targetId = window.location.hash.substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
+                targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
                 });
             }
         }
@@ -273,7 +269,6 @@ function initPage() {
     }
 
     // --- Global smooth scroll with offset for ALL in-page anchor links (nav + footer + CTAs) ---
-    const HEADER_OFFSET = 80;
     function scrollToTarget(el, targetId) {
         // Special case for scrolling to top
         if (targetId === 'inicio') {
@@ -281,9 +276,10 @@ function initPage() {
             return;
         }
 
-        const elTop = el.getBoundingClientRect().top;
-        const offsetPos = elTop + window.scrollY - HEADER_OFFSET;
-        window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+        el.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     }
 
     // Smooth Scroll Listener (updated for SPA/Barba)
@@ -512,12 +508,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             setTimeout(() => {
                                 const targetEl = document.getElementById(targetId);
                                 if (targetEl) {
-                                    const headerOffset = 80;
-                                    const offsetPos = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
-                                    window.scrollTo({ top: offsetPos, behavior: 'smooth' });
+                                    targetEl.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
                                 }
                                 window.__skipHashScrollOnInit = false;
-                            }, 350); // after initPage's own 300ms hash handler
+                            }, 500); // wait a little longer so the new content layout is stable
                         } else {
                             window.__skipHashScrollOnInit = false;
                         }
