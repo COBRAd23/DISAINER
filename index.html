@@ -434,6 +434,66 @@
                 </div>
             </section>
 
+            <!-- Institutional Video Section -->
+            <section id="video-institucional" class="video-institucional-section" aria-label="Video institucional">
+                <div class="hero-anim-background"></div>
+                <div class="video-institucional-animation" aria-hidden="true">
+                    <div class="hero-anim-lines">
+                        <div class="hero-anim-line hero-anim-line--top">
+                            <div class="hero-anim-line-track">
+                                <span>DISAINER DESIGN DISEÑO IMD DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                                <span>DISAINER DESIGN DISEÑO IMD DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="hero-anim-line hero-anim-line--middle">
+                            <div class="hero-anim-line-track">
+                                <span>DISAINER DESIGN DISEÑO IMD DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                                <span>DISAINER DESIGN DISEÑO IMD DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="hero-anim-line hero-anim-line--bottom">
+                            <div class="hero-anim-line-track">
+                                <span>DISAINER DESIGN DISEÑO IMD DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                                <span>DISAINER DESIGN DISEÑO IMD DESIGNER STRATEGIST BRANDING&nbsp;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="video-institucional-content reveal">
+                        <div class="video-institucional-player-wrapper">
+                            <div class="video-institucional-player">
+                                <video id="institutionalVideo" autoplay loop muted playsinline preload="metadata">
+                                    <source src="mp4/videohome.mp4" type="video/mp4">
+                                </video>
+                            </div>
+
+                            <div class="video-institucional-controls">
+                                <div class="video-control-group video-control-left">
+                                    <button type="button" class="video-control-btn" id="instPrev" aria-label="Retroceder 10 segundos">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 19V5L3 12L11 19ZM21 19V5L13 12L21 19Z" fill="currentColor"/></svg>
+                                    </button>
+                                    <button type="button" class="video-control-btn" id="instPlayPause" aria-label="Pausar video">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                                    </button>
+                                    <button type="button" class="video-control-btn" id="instNext" aria-label="Adelantar 10 segundos">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5v14l8-7L3 5zm10 0v14l8-7-8-7z" fill="currentColor"/></svg>
+                                    </button>
+                                </div>
+
+                                <div class="video-control-group video-control-center">
+                                    <input id="instProgress" class="video-progress" type="range" min="0" max="100" value="0" step="0.1" aria-label="Barra de progreso del video">
+                                </div>
+
+                                <button type="button" class="video-control-btn video-control-volume" id="instMute" aria-label="Silenciar / activar sonido">
+                                    <img src="img/parlantito.png" alt="Icono volumen" class="video-mute-icon" aria-hidden="true">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
             <!-- Portfolio Premium Cards Section -->
             <section id="portfolio" style="background: var(--bg-secondary);">

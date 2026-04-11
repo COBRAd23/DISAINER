@@ -793,6 +793,249 @@ main {
     /* Ensure text is above animation layers */
 }
 
+.video-institucional-section {
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    padding: 6rem 0 7rem;
+}
+
+.video-institucional-section .hero-anim-background {
+    background-size: 140% !important;
+    background-position: center center !important;
+    filter: brightness(1.05) contrast(1.05);
+}
+
+.video-institucional-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.82) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.video-institucional-content {
+    position: relative;
+    z-index: 2;
+}
+
+.video-institucional-player-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    z-index: 1;
+}
+
+.video-institucional-animation {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    pointer-events: none;
+    opacity: 0.16;
+    overflow: hidden;
+}
+
+.video-institucional-animation .hero-anim-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 1;
+}
+
+.video-institucional-animation .hero-anim-line-track {
+    font-size: clamp(4.5rem, 13vw, 10rem);
+}
+
+.video-institucional-player {
+    position: relative;
+    z-index: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #050505;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.video-institucional-player video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+}
+
+.video-institucional-controls {
+    margin-top: 0.75rem;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 0 0 20px 20px;
+    background: linear-gradient(180deg, rgba(249, 249, 249, 0.96), rgba(236, 236, 236, 0.92));
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.15);
+}
+
+.video-control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.video-institucional-controls > .video-control-volume {
+    justify-self: end;
+}
+
+.video-control-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    border: none;
+    background: rgba(17, 17, 17, 0.07);
+    color: #111;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.video-control-btn:hover,
+.video-control-btn:focus-visible {
+    transform: translateY(-1px);
+    background: rgba(17, 17, 17, 0.14);
+}
+
+.video-control-btn svg,
+.video-control-btn img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    object-fit: contain;
+}
+
+.video-control-volume .video-mute-icon {
+    filter: brightness(0) saturate(100%);
+    transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.video-control-volume.active .video-mute-icon {
+    filter: invert(55%) sepia(90%) saturate(700%) hue-rotate(10deg) brightness(1.1);
+}
+
+.video-progress {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(17, 17, 17, 0.08);
+    border-radius: 999px;
+    outline: none;
+    accent-color: #FFD700;
+}
+
+.video-progress::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FFD700;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.18);
+    cursor: pointer;
+    margin-top: -4px;
+}
+
+.video-progress::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FFD700;
+    border: none;
+    cursor: pointer;
+}
+
+.video-volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FFD700;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.14);
+    cursor: pointer;
+    margin-top: -3px;
+}
+
+.video-volume::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FFD700;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 980px) {
+    .video-institucional-section {
+        padding: 4rem 0 5rem;
+    }
+
+    .video-institucional-player-wrapper {
+        padding: 0 0.75rem;
+    }
+
+    .video-institucional-controls {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.9rem 1rem;
+    }
+
+    .video-control-group {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .video-control-left,
+    .video-control-right {
+        justify-content: center;
+    }
+
+    .video-progress {
+        min-width: 100%;
+    }
+
+    .video-volume {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 640px) {
+    .video-institucional-section {
+        padding: 3rem 0 4rem;
+    }
+
+    .video-institucional-controls {
+        gap: 0.75rem;
+    }
+
+    .video-control-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
 /* Cinematic Animation Layers */
 .is-loaded .hero-anim-background {
     position: absolute;

@@ -433,6 +433,113 @@ function initGlobalMusic() {
     musicToggle.dataset.listenerAttached = 'true';
 }
 
+function initInstitutionalVideo() {
+    const video = document.getElementById('institutionalVideo');
+    if (!video) return;
+
+    const playPauseBtn = document.getElementById('instPlayPause');
+    const stopBtn = document.getElementById('instStop');
+    const prevBtn = document.getElementById('instPrev');
+    const nextBtn = document.getElementById('instNext');
+    const muteBtn = document.getElementById('instMute');
+    const progress = document.getElementById('instProgress');
+    const volume = document.getElementById('instVolume');
+
+    const updatePlayPauseUI = () => {
+        if (!playPauseBtn) return;
+        const icon = playPauseBtn.querySelector('svg path');
+        if (icon) {
+            icon.setAttribute('d', video.paused
+                ? 'M8 5v14l11-7z'
+                : 'M8 5h3v14H8zM13 5h3v14h-3z');
+        }
+        playPauseBtn.setAttribute('aria-label', video.paused ? 'Reproducir video' : 'Pausar video');
+    };
+
+    const updateMuteUI = () => {
+        if (!muteBtn) return;
+        muteBtn.classList.toggle('active', !video.muted && video.volume > 0);
+        muteBtn.setAttribute('aria-label', video.muted ? 'Activar sonido' : 'Silenciar sonido');
+    };
+
+    const scrubTo = (value) => {
+        if (!video.duration || Number.isNaN(video.duration)) return;
+        video.currentTime = (value / 100) * video.duration;
+    };
+
+    if (progress) {
+        progress.addEventListener('input', () => scrubTo(progress.value));
+    }
+
+    if (volume) {
+        volume.addEventListener('input', () => {
+            video.volume = Number(volume.value);
+            video.muted = video.volume === 0;
+            updateMuteUI();
+        });
+    }
+
+    if (playPauseBtn) {
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play().catch(() => { });
+            } else {
+                video.pause();
+            }
+            updatePlayPauseUI();
+        });
+    }
+
+    if (stopBtn) {
+        stopBtn.addEventListener('click', () => {
+            video.pause();
+            video.currentTime = 0;
+            updatePlayPauseUI();
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            video.currentTime = Math.max(0, video.currentTime - 10);
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (video.duration && !Number.isNaN(video.duration)) {
+                video.currentTime = Math.min(video.duration, video.currentTime + 10);
+            }
+        });
+    }
+
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            if (!video.muted && video.volume === 0) {
+                video.volume = 0.5;
+                if (volume) volume.value = '0.5';
+            }
+            updateMuteUI();
+        });
+    }
+
+    video.addEventListener('timeupdate', () => {
+        if (progress && video.duration && !Number.isNaN(video.duration)) {
+            progress.value = (video.currentTime / video.duration) * 100;
+        }
+    });
+
+    video.addEventListener('play', updatePlayPauseUI);
+    video.addEventListener('pause', updatePlayPauseUI);
+    video.addEventListener('loadedmetadata', () => {
+        if (volume) {
+            volume.value = String(video.volume);
+        }
+        updateMuteUI();
+        updatePlayPauseUI();
+    });
+}
+
 // Initial Call
 document.addEventListener('DOMContentLoaded', () => {
     // --- Preloader Logic ---
@@ -468,6 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initPage();
     initGlobalMusic();
+    initInstitutionalVideo();
 });
 
 // Single handle for theme toggle
