@@ -802,7 +802,7 @@ body.menu-open .logo img {
     .stripe-7 {
         padding-left: 0;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end; /* Empuja el footer hacia abajo */
     }
     
     .fullscreen-footer {
@@ -814,7 +814,7 @@ body.menu-open .logo img {
     }
 
     .fullscreen-footer-tag {
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.5rem; /* Un poco más pegadito a los íconos */
         margin-right: 0;
     }
     
@@ -823,7 +823,7 @@ body.menu-open .logo img {
     }
     
     .stripe-6 a.btn-contacto-fullscreen .arrow {
-        font-size: 1.6rem;
+        display: none; /* Oculta la flecha solo en móviles */
     }
     /* Inherit proportional 35vh height for stripe-1 from desktop */
 }
