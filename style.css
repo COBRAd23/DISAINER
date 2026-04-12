@@ -825,7 +825,9 @@ body.menu-open .logo img {
     .stripe-6 a.btn-contacto-fullscreen .arrow {
         display: none; /* Oculta la flecha solo en móviles */
     }
-    /* Inherit proportional 35vh height for stripe-1 from desktop */
+    .stripe-1 {
+        flex: 0 0 22vh; /* Reduce el cabezal amarillo en móvil para empujar items arriba y dar aire al footer */
+    }
 }
 
 /* Hero Section */
