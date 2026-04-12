@@ -92,17 +92,33 @@ function initPage() {
         let scrollX = 0;
         let rafId = null;
         let speed = 0.6;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartScrollX = 0;
+        let hasMoved = false;
+        let justDragged = false;
+        const dragThreshold = 5;
+
+        function normalizeScroll(value) {
+            const maxOffset = portfolioRow.scrollWidth / 2;
+            return ((value % maxOffset) + maxOffset) % maxOffset;
+        }
+
+        function updateTransform() {
+            portfolioRow.style.transform = `translateX(${-scrollX}px)`;
+        }
 
         function animateMarquee() {
-            scrollX += speed;
-            const maxOffset = portfolioRow.scrollWidth / 2;
-            if (scrollX >= maxOffset) scrollX = 0;
-            portfolioRow.style.transform = `translateX(${-scrollX}px)`;
+            if (!isDragging) {
+                scrollX += speed;
+                scrollX = normalizeScroll(scrollX);
+                updateTransform();
+            }
             rafId = requestAnimationFrame(animateMarquee);
         }
 
         function startMarquee() {
-            if (rafId === null) rafId = requestAnimationFrame(animateMarquee);
+            if (rafId === null && !isDragging) rafId = requestAnimationFrame(animateMarquee);
         }
 
         function stopMarquee() {
@@ -112,15 +128,126 @@ function initPage() {
             }
         }
 
+        function beginDrag(clientX) {
+            isDragging = true;
+            hasMoved = false;
+            justDragged = false;
+            dragStartX = clientX;
+            dragStartScrollX = scrollX;
+            stopMarquee();
+            portfolioWrapper.style.cursor = 'grabbing';
+        }
+
+        function doDrag(clientX) {
+            const deltaX = clientX - dragStartX;
+            if (!hasMoved && Math.abs(deltaX) > dragThreshold) {
+                hasMoved = true;
+                portfolioRow.style.pointerEvents = 'none';
+            }
+            if (hasMoved) {
+                scrollX = normalizeScroll(dragStartScrollX - deltaX);
+                updateTransform();
+            }
+        }
+
+        function endDrag() {
+            if (!isDragging) return;
+            isDragging = false;
+            if (hasMoved) {
+                justDragged = true;
+            }
+            scrollX = normalizeScroll(scrollX);
+            portfolioWrapper.style.cursor = 'grab';
+            portfolioRow.style.pointerEvents = 'auto';
+            startMarquee();
+        }
+
         startMarquee();
 
-        // Pause on hover
-        portfolioWrapper.addEventListener('mouseenter', stopMarquee);
-        portfolioWrapper.addEventListener('mouseleave', startMarquee);
+        portfolioWrapper.addEventListener('mousedown', (e) => {
+            if (e.button !== 0) return;
+            beginDrag(e.clientX);
+        });
+
+        portfolioWrapper.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                doDrag(e.clientX);
+            }
+        });
+
+        portfolioWrapper.addEventListener('mouseup', () => {
+            endDrag();
+        });
+
+        portfolioWrapper.addEventListener('mouseleave', () => {
+            endDrag();
+        });
+
+        portfolioWrapper.addEventListener('touchstart', (e) => {
+            beginDrag(e.touches[0].clientX);
+        }, { passive: true });
+
+        portfolioWrapper.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                doDrag(e.touches[0].clientX);
+            }
+        }, { passive: true });
+
+        portfolioWrapper.addEventListener('touchend', () => {
+            endDrag();
+        });
+
+        portfolioWrapper.addEventListener('click', (e) => {
+            if (justDragged) {
+                e.preventDefault();
+                e.stopPropagation();
+                justDragged = false;
+            }
+        }, true);
+
+        // Wheel for speed control
+        portfolioWrapper.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 1 : -1;
+            speed = Math.max(0.1, Math.min(2, speed + delta * 0.1)); // Clamp speed
+        });
+
+        // Pause on hover (but allow drag)
+        portfolioWrapper.addEventListener('mouseenter', () => {
+            if (!isDragging) stopMarquee();
+            portfolioWrapper.style.cursor = 'grab';
+        });
+        portfolioWrapper.addEventListener('mouseleave', () => {
+            if (!isDragging) startMarquee();
+            portfolioWrapper.style.cursor = 'default';
+        });
 
         // Touch support for mobile
-        portfolioWrapper.addEventListener('touchstart', stopMarquee);
-        portfolioWrapper.addEventListener('touchend', startMarquee);
+        portfolioWrapper.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            initialScrollX = scrollX;
+            initialMouseX = e.touches[0].clientX;
+            stopMarquee();
+            portfolioRow.style.pointerEvents = 'none'; // Disable clicks during drag
+        });
+
+        portfolioWrapper.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                const deltaX = e.touches[0].clientX - initialMouseX;
+                scrollX = initialScrollX - deltaX; // Move row following touch
+            }
+        });
+
+        portfolioWrapper.addEventListener('touchend', () => {
+            if (isDragging) {
+                isDragging = false;
+                // Normalize scrollX to prevent jumps
+                const maxOffset = portfolioRow.scrollWidth / 2;
+                scrollX = ((scrollX % maxOffset) + maxOffset) % maxOffset;
+                portfolioRow.style.pointerEvents = 'auto'; // Re-enable clicks
+                startMarquee();
+            }
+        });
     }
 
     // --- Modal Logic ---
