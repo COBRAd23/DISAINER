@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://iamdisainer.com/</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
+    <loc>https://iamdisainer.com/portfolio.html</loc>
+    <lastmod>2026-04-11</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url><loc>https://iamdisainer.com/portfolio-ales.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-daab.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-hierro-negro.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-kamala.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-laurel.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-mucamo.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-nico.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-queseamasa.html</loc></url>
+  <url><loc>https://iamdisainer.com/portfolio-wonder.html</loc></url>
+
+  <url>
+    <loc>https://iamdisainer.com/politicas.html</loc>
+    <priority>0.3</priority>
+  </url>
+</urlset>
