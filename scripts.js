@@ -727,36 +727,37 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Global event delegation for mobile menu to avoid multiple listeners in SPA
+// Global event delegation for fullscreen menu to avoid multiple listeners in SPA
 document.addEventListener('click', (e) => {
     const hamburger = e.target.closest('#hamburgerMenu');
-    const navLinks = document.getElementById('navLinks');
+    const fullscreenMenu = document.getElementById('fullscreenMenu');
 
     if (hamburger) {
         e.stopPropagation();
-        if (navLinks) {
+        if (fullscreenMenu) {
             hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
+            fullscreenMenu.classList.toggle('active');
             document.body.classList.toggle('menu-open');
         }
     }
 
     // Close menu when clicking on a nav link
-    const navLink = e.target.closest('#navLinks a');
+    const navLink = e.target.closest('#fullscreenMenu a');
     if (navLink) {
         const hamburgerEl = document.getElementById('hamburgerMenu');
-        const navLinksEl = document.getElementById('navLinks');
-        if (hamburgerEl && navLinksEl) {
+        const fullscreenMenuEl = document.getElementById('fullscreenMenu');
+        if (hamburgerEl && fullscreenMenuEl) {
             hamburgerEl.classList.remove('active');
-            navLinksEl.classList.remove('active');
-            document.body.classList.remove('menu-open');
+            
+            // Wait slightly for smooth transition before removing overlay
+            setTimeout(() => {
+                fullscreenMenuEl.classList.remove('active');
+                document.body.classList.remove('menu-open');
+            }, 100);
         }
     }
 
-    // Close menu when clicking outside
-    if (navLinks && hamburger && !navLinks.contains(e.target) && !hamburger.contains(e.target)) {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-        document.body.classList.remove('menu-open');
-    }
+    // Close menu when clicking outside (prevent accidental close, only close if clicking explicitly out)
+    /* Since menu is fullscreen, clicking 'outside' doesn't apply the same way, 
+       but if we add a click on the stripe background, it could close it. */
 });

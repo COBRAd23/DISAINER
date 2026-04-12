@@ -283,52 +283,6 @@ main {
     gap: 3rem;
 }
 
-.nav-links-inner {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-white);
-    font-family: 'Satoshi', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: 0.3s;
-}
-
-.nav-links a:hover {
-    color: var(--accent);
-}
-
-.btn-contacto-pill {
-    padding: 0.6rem 1.4rem;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    border-radius: 50px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: 0.3s;
-    text-decoration: none;
-}
-
-.btn-contacto-pill:hover {
-    background: var(--accent);
-    color: #000;
-}
-
-.btn-contacto-pill .arrow {
-    font-size: 14px;
-}
-
-
 @keyframes soundAnim {
     from {
         height: 20%;
@@ -339,50 +293,247 @@ main {
     }
 }
 
-.nav-links a:hover {
-    color: var(--accent);
+/* Header Controls Wrapper */
+.header-controls {
+    position: fixed;
+    top: clamp(1rem, 3vw, 1.5rem);
+    right: 6%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    z-index: 1050; /* Above overlay */
 }
 
-.btn-contacto-mobile,
-.mobile-menu-footer {
-    display: none;
-}
-
-/* Hamburger Menu Button */
+/* Hamburger Menu Button (5 bars) */
 .hamburger-menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     background: none;
     border: none;
     cursor: pointer;
-    gap: 6px;
-    z-index: 1001;
-    width: 44px;
-    height: 44px;
-    align-items: center;
+    gap: 3px;
+    z-index: 1050;
+    width: 32px;
+    height: 32px;
     justify-content: center;
     position: relative;
+    padding: 0;
 }
 
 .hamburger-menu span {
-    width: 25px;
-    height: 2px;
-    background: var(--accent);
+    width: 32px;
+    height: 4px;
     border-radius: 2px;
-    transition: 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
     display: block;
+    transform-origin: center;
 }
 
-.hamburger-menu.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
+/* Colors from Service Accordion */
+.hamburger-menu span:nth-child(1) { background: #d4af37; }
+.hamburger-menu span:nth-child(2) { background: #a68432; }
+.hamburger-menu span:nth-child(3) { background: #7a6125; }
+.hamburger-menu span:nth-child(4) { background: #4a3b16; }
+.hamburger-menu span:nth-child(5) { background: #2d240d; }
+
+/* Active State (X) and Black Filter */
+body.menu-open .hamburger-menu span {
+    background: #111111 !important; /* Dark X on bright bg */
 }
 
-.hamburger-menu.active span:nth-child(2) {
+body.menu-open .hamburger-menu span:nth-child(2),
+body.menu-open .hamburger-menu span:nth-child(3),
+body.menu-open .hamburger-menu span:nth-child(4) {
     opacity: 0;
+    transform: scaleX(0);
 }
 
-.hamburger-menu.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+body.menu-open .hamburger-menu span:nth-child(1) {
+    transform: translateY(14px) rotate(45deg);
+}
+
+body.menu-open .hamburger-menu span:nth-child(5) {
+    transform: translateY(-14px) rotate(-45deg);
+}
+
+body.menu-open #header {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+}
+body.menu-open .theme-icon-light {
+    filter: brightness(0);
+}
+body.menu-open .theme-icon-dark {
+    filter: brightness(0);
+}
+body.menu-open .eq-bar {
+    background-color: #111111 !important;
+}
+body.menu-open .logo img {
+    filter: brightness(0);
+}
+
+/* Fullscreen Menu Overlay */
+.fullscreen-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 990;
+    pointer-events: none;
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s linear 0.9s;
+}
+
+.fullscreen-menu-overlay.active {
+    visibility: visible;
+    pointer-events: auto;
+    transition: visibility 0s;
+}
+
+.menu-bg-blocks {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-stripe {
+    position: relative;
+    width: 100%;
+    transform: translateY(-100vh);
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    display: flex;
+    align-items: center;
+    border: none;
+    padding-left: 6%; /* desktop default padding */
+}
+
+/* Strip 1 forms the logo header */
+.stripe-1 { flex: 0 0 35vh; background: #FFCC00; z-index: 10; transition-delay: 0.3s; padding: 0; }
+.stripe-2 { flex: 0 0 9vh; background: #FFCC00; z-index: 9; transition-delay: 0.25s; } /* INICIO */
+.stripe-3 { flex: 0 0 9vh; background: #d4af37; z-index: 8; transition-delay: 0.2s; } /* FILOSOFIA */
+.stripe-4 { flex: 0 0 9vh; background: #a68432; z-index: 7; transition-delay: 0.15s; } /* SERVICIOS */
+.stripe-5 { flex: 0 0 9vh; background: #7a6125; z-index: 6; transition-delay: 0.1s; } /* PORTFOLIO */
+.stripe-6 { flex: 0 0 9vh; background: #2d240d; z-index: 5; transition-delay: 0.05s; } /* CONTACTO */
+.stripe-7 { flex: 1; min-height: 15vh; background: #000000; z-index: 4; transition-delay: 0s; padding: 0; align-items: flex-end; }
+
+.fullscreen-menu-overlay.active .menu-stripe {
+    transform: translateY(0);
+}
+
+.fullscreen-menu-overlay.active .stripe-1 { transition-delay: 0s; }
+.fullscreen-menu-overlay.active .stripe-2 { transition-delay: 0.05s; }
+.fullscreen-menu-overlay.active .stripe-3 { transition-delay: 0.1s; }
+.fullscreen-menu-overlay.active .stripe-4 { transition-delay: 0.15s; }
+.fullscreen-menu-overlay.active .stripe-5 { transition-delay: 0.2s; }
+.fullscreen-menu-overlay.active .stripe-6 { transition-delay: 0.25s; }
+.fullscreen-menu-overlay.active .stripe-7 { transition-delay: 0.3s; }
+
+.stripe-content {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    font-family: var(--font-heading, 'Montserrat', sans-serif);
+    font-weight: 800;
+}
+
+/* Drop the contents in when open */
+.fullscreen-menu-overlay.active .stripe-content {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Custom transition delays for staggered enter contents */
+.fullscreen-menu-overlay.active .stripe-2 .stripe-content { transition-delay: 0.40s; }
+.fullscreen-menu-overlay.active .stripe-3 .stripe-content { transition-delay: 0.45s; }
+.fullscreen-menu-overlay.active .stripe-4 .stripe-content { transition-delay: 0.50s; }
+.fullscreen-menu-overlay.active .stripe-5 .stripe-content { transition-delay: 0.55s; }
+.fullscreen-menu-overlay.active .stripe-6 .stripe-content { transition-delay: 0.60s; }
+.fullscreen-menu-overlay.active .stripe-7 .stripe-content { transition-delay: 0.65s; }
+
+.menu-stripe a {
+    color: #111111;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: opacity 0.3s;
+}
+
+.menu-stripe a:hover {
+    color: #ffffff;
+}
+
+/* Contacto white on dark background */
+.stripe-6 a.btn-contacto-fullscreen {
+    color: #ffffff;
+}
+
+.stripe-6 a.btn-contacto-fullscreen .arrow {
+    display: inline-block;
+    font-size: clamp(1.4rem, 3.5vw, 2.5rem);
+    margin-left: 10px;
+}
+
+.stripe-6 a.btn-contacto-fullscreen:hover {
+    color: var(--accent);
+}
+
+/* Footer info */
+.fullscreen-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-right: 6%;
+    padding-bottom: 5vh;
+    gap: 1.2rem;
+}
+
+.fullscreen-footer-tag {
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 0;
+    margin-right: 4px;
+}
+
+.fullscreen-social-icons {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.fullscreen-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    color: var(--accent) !important;
+    background: transparent;
+    transition: all 0.3s;
+}
+
+.fullscreen-social-icons a:hover {
+    background: var(--accent);
+    color: #000000 !important;
+}
+
+.fullscreen-social-icons a svg {
+    fill: currentColor;
+    width: 24px;
+    height: 24px;
 }
 
 /* Buttons */
@@ -503,16 +654,11 @@ main {
     background: transparent;
     border: none;
     cursor: pointer;
-    position: fixed;
-    top: clamp(1rem, 3vw, 1.5rem);
-    right: calc(6% + 52px);
-    /* 52px gap from the theme toggle */
     width: 36px;
     height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1010;
     padding: 0;
     border-radius: 4px;
     opacity: 0.65;
@@ -586,16 +732,12 @@ main {
     background: transparent;
     border: none;
     cursor: pointer;
-    position: fixed;
-    top: clamp(1rem, 3vw, 1.5rem);
-    right: 6%;
     width: 35px;
     height: 35px;
     /* Same height as music-toggle for alignment */
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1010;
     transition: transform 0.3s;
 }
 
@@ -628,148 +770,62 @@ main {
         transform: none !important;
     }
 
-    /* Solo burger visible en la barra: ocultar logo y pill CONTACTO (el overlay .nav-links debe seguir en DOM) */
-    .nav-left-content .logo,
-    .nav-left-content .btn-contacto-pill {
+    /* Solo burger visible en móvil, ocultamos música y tema y los demás elementos nav */
+    .nav-left-content .logo {
         display: none !important;
     }
 
-    /* Burger centrado arriba, fijo al viewport: no baja con el scroll, igual que el header */
+    .music-toggle, .theme-toggle {
+        display: none !important;
+    }
+
+    .header-controls {
+        right: 0;
+        top: calc(clamp(1rem, 3vw, 1.5rem) + env(safe-area-inset-top, 0));
+        justify-content: center;
+        width: 100%;
+        left: 0;
+        pointer-events: none; /* Let clicks pass through empty space */
+    }
+
     .hamburger-menu {
-        position: fixed !important;
-        top: calc(clamp(1rem, 3vw, 1.5rem) + env(safe-area-inset-top, 0)) !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        right: auto !important;
-        z-index: 1010 !important;
+        pointer-events: auto; /* Re-enable clicks just for burger */
         display: flex !important;
     }
 
-    .hamburger-menu span {
-        background: var(--accent) !important;
-        transition: transform 0.3s ease, opacity 0.3s ease;
+    /* Change Stripe padding for Mobile (Center Align) */
+    .menu-stripe {
+        padding-left: 0;
+        justify-content: center;
     }
-
-    /* Menú fullscreen amarillo, contenido centrado */
-    .nav-links {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        height: 100dvh;
-        background-color: var(--accent);
-        display: flex;
+    
+    .stripe-7 {
+        padding-left: 0;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .fullscreen-footer {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        transform: translateY(-100%);
-        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: 1001;
-        visibility: hidden;
-        pointer-events: none;
-        padding: 5rem 10% 2rem;
+        padding-right: 0;
+        padding-bottom: 4vh;
     }
 
-    .nav-links.active {
-        transform: translateY(0);
-        visibility: visible;
-        pointer-events: auto;
+    .fullscreen-footer-tag {
+        margin-bottom: 0.8rem;
+        margin-right: 0;
     }
-
-    .nav-links-inner {
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    
+    .menu-stripe a {
+        font-size: 1.8rem;
     }
-
-    .nav-links a {
-        font-size: 1.1rem;
-        color: #000 !important;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        text-decoration: none;
-        padding: 0.5rem 0;
-        font-family: var(--font-heading);
+    
+    .stripe-6 a.btn-contacto-fullscreen .arrow {
+        font-size: 1.6rem;
     }
-
-    /* Botón CONTACTO grande, blanco, con flecha */
-    .btn-contacto-mobile {
-        display: inline-flex !important;
-        background: #fff;
-        color: #000 !important;
-        margin-top: 2.5rem;
-        padding: 1rem 2.5rem;
-        font-family: var(--font-heading);
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        font-size: 1rem;
-        border-radius: 50px;
-        text-align: center;
-        width: auto;
-        min-width: 200px;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-    .btn-contacto-mobile .arrow {
-        font-size: 1rem;
-    }
-
-    /* SIGUEME + iconos abajo del menú */
-    .mobile-menu-footer {
-        position: absolute;
-        bottom: 8vh;
-        width: 100%;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.2rem;
-    }
-
-    .mobile-footer-tag {
-        color: #000;
-        font-weight: 900;
-        font-size: 0.85rem;
-        letter-spacing: 0.15em;
-        margin-bottom: 0;
-    }
-
-    .mobile-social-icons {
-        display: flex;
-        gap: 1rem;
-        justify-content: center;
-    }
-
-    .mobile-social-icons a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 48px;
-        height: 48px;
-        border: 2px solid #000;
-        border-radius: 10px;
-        color: #000 !important;
-        background: transparent;
-    }
-
-    .mobile-social-icons a svg {
-        width: 24px;
-        height: 24px;
-        fill: #000;
-    }
-
-    .hamburger-menu.active span {
-        background: #000 !important;
-    }
+    /* Inherit proportional 35vh height for stripe-1 from desktop */
 }
 
 /* Hero Section */
@@ -3730,9 +3786,9 @@ section {
 
 .policy-hr {
     border: none;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid #ffffff;
     margin: 4rem 0;
-    opacity: 0.25;
+    opacity: 0.7;
 }
 
 [data-theme="light"] .policy-hr {
