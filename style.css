@@ -1202,6 +1202,9 @@ body.menu-open .logo img {
         max-height: 105vh; /* Aumentado a 105vh para compensar el espacio transparente de la imagen y lograr el tamaño deseado */
         object-position: bottom center;
     }
+    .is-loaded .hero-anim-busto {
+        bottom: -3vh; /* Empuja el busto hacia abajo para asentar la sombra */
+    }
 }
 
 .is-loaded .hero-anim-busto {
