@@ -1199,11 +1199,11 @@ body.menu-open .logo img {
 
 @media (min-width: 1025px) and (max-height: 850px) {
     .hero-anim-busto img {
-        max-height: 105vh; /* Aumentado a 105vh para compensar el espacio transparente de la imagen y lograr el tamaño deseado */
+        max-height: 118vh; /* Aumentado para compensar el espacio y lograr el tamaño deseado */
         object-position: bottom center;
     }
     .is-loaded .hero-anim-busto {
-        bottom: -3vh; /* Empuja el busto hacia abajo para asentar la sombra */
+        bottom: -7vh; /* Empuja el busto más hacia abajo para asentar la sombra */
     }
 }
 
@@ -4822,7 +4822,8 @@ section {
     }
 
     .is-loaded .hero-anim-busto {
-        width: clamp(380px, 48vw, 860px);
+        width: clamp(400px, 54vw, 920px);
+        bottom: -5vh;
     }
 }
 
@@ -4880,9 +4881,10 @@ section {
         top: 40%;
     }
 
-    /* Busto algo más contenido para que no se recorte */
+    /* Busto más grande y bajado para que apoye bien en la sombra y llegue más arriba */
     .is-loaded .hero-anim-busto {
-        width: clamp(360px, 52vw, 780px);
+        width: clamp(380px, 58vw, 840px);
+        bottom: -6vh;
     }
 }
 
@@ -4946,7 +4948,8 @@ section {
     }
 
     .is-loaded .hero-anim-busto {
-        width: clamp(320px, 50vw, 720px);
+        width: clamp(340px, 55vw, 780px);
+        bottom: -6vh;
     }
 }
 
