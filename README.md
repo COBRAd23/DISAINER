@@ -23,12 +23,19 @@ Este repositorio contiene el código fuente de **DISAINER**, un sitio web premiu
 
 ```text
 /
-├── index.html        # Página principal
-├── portfolio.html    # Galería extendida de proyectos
-├── style.css         # Estilos globales y responsive
-├── scripts.js        # Lógica de interactividad (acordeones, modales, etc.)
-├── img/              # Recursos visuales y logos
-└── LICENSE           # MIT License
+├── index.html                # Página principal (Home, Experiencia, SEO On-Page)
+├── portfolio.html            # Galería principal de proyectos
+├── portfolio-*.html          # Sub-páginas individuales y detalladas de cada proyecto (Ales, Daab, Kamala, Laurel, etc.)
+├── politicas.html            # Página de políticas y términos del sitio
+├── style.css                 # Sistema central de diseño global, animaciones y diseño responsivo
+├── scripts.js                # Lógica de interactividad, transiciones fluidas (Barba.js) y animaciones (GSAP)
+├── sitemap.xml               # Mapa del sitio web optimizado para indexación rápida en Google
+├── img/                      # Recursos visuales, WebP optimizados y logos del estudio
+├── mp4/                      # Videos funcionales e institucionales
+├── sound/                    # Archivos de audio para la experiencia multimedia
+├── .gitignore                # Archivos ignorados por control de reporsitorio (Git)
+├── README.md                 # Este documento
+└── LICENSE                   # Licencia del código (MIT)
 ```
 
 ## ✒️ Autor
