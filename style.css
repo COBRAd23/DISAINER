@@ -834,6 +834,7 @@ body.menu-open .logo img {
 /* Hero Section v4 */
 .hero-v4 {
     height: 100vh;
+    height: 100dvh;
     display: flex;
     align-items: flex-end;
     padding-bottom: 6vh;
@@ -1194,6 +1195,13 @@ body.menu-open .logo img {
     height: auto;
     object-fit: contain;
     display: block;
+}
+
+@media (min-width: 1025px) and (max-height: 850px) {
+    .hero-anim-busto img {
+        max-height: 85vh; /* Ajuste exclusivo para laptops con pantallas bajas */
+        object-position: bottom center;
+    }
 }
 
 .is-loaded .hero-anim-busto {
