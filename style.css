@@ -1199,7 +1199,7 @@ body.menu-open .logo img {
 
 @media (min-width: 1025px) and (max-height: 850px) {
     .hero-anim-busto img {
-        max-height: 85vh; /* Ajuste exclusivo para laptops con pantallas bajas */
+        max-height: 94vh; /* Ajuste exclusivo para laptops con pantallas bajas: más alto, casi tocando el navbar */
         object-position: bottom center;
     }
 }
