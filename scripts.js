@@ -281,23 +281,34 @@ function initPage() {
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-submit');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = 'Enviando...';
+            submitBtn.disabled = true;
+
             const formData = new FormData(this);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const message = formData.get('message');
+            formData.append('_subject', `Nuevo contacto web de ${formData.get('name')}`);
+            formData.append('_captcha', 'false');
 
-            const subject = encodeURIComponent(`Nuevo contacto de ${name}`);
-            const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`);
-            const mailtoLink = `mailto:agustin.disainer@gmail.com?subject=${subject}&body=${body}`;
-
-            const customModal = document.getElementById('customModal');
-            if (customModal) customModal.classList.add('active');
-
-            setTimeout(() => {
-                window.location.href = mailtoLink;
-            }, 800);
-
-            this.reset();
+            fetch("https://formsubmit.co/ajax/hola@iamdisainer.com", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                const customModal = document.getElementById('customModal');
+                if (customModal) customModal.classList.add('active');
+                this.reset();
+            })
+            .catch(error => {
+                console.error("Error al enviar el formulario:", error);
+                alert("Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            });
         });
     }
 
