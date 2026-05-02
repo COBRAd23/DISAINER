@@ -1,6 +1,6 @@
 # DISAINER - Portfolio de Diseño Estratégico & Tecnología
 
-![Hero Preview](img/logo.png)
+Hero Preview
 
 Este repositorio contiene el código fuente de **DISAINER**, un sitio web premium diseñado para destacar servicios de diseño gráfico, branding y desarrollo tecnológico con una estética minimalista y moderna (glassmorphism).
 
@@ -43,4 +43,5 @@ Este repositorio contiene el código fuente de **DISAINER**, un sitio web premiu
 **Agustín González Lartigue** - *Diseñador Freelance & Estratega Digital*
 
 ---
+
 *Elevando marcas mediante el diseño estratégico y la tecnología. Innovación que genera resultados.*
