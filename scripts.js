@@ -772,3 +772,57 @@ document.addEventListener('click', (e) => {
     /* Since menu is fullscreen, clicking 'outside' doesn't apply the same way, 
        but if we add a click on the stripe background, it could close it. */
 });
+(function () {
+  const img = document.getElementById('bustoImg');
+  if (!img) return;
+
+  const FRAMES = 18;
+  const FOLDER = 'img/girobusto/';
+  const SENS   = 6;
+
+  // Precargar frames
+  const srcs = [];
+  for (let i = 0; i < FRAMES; i++) {
+    srcs.push(FOLDER + 'yo_busto_' + String(i).padStart(2, '0') + '.png');
+    new Image().src = srcs[i];
+  }
+
+  let frame = 0;
+  let dragging = false;
+  let startX = 0;
+  let startFrame = 0;
+
+  function setFrame(n) {
+    const cycle = FRAMES - 1;
+    const mod = ((n % (cycle * 2)) + cycle * 2) % (cycle * 2);
+    frame = mod <= cycle ? mod : cycle * 2 - mod;
+    img.src = srcs[frame];
+  }
+
+  function onStart(e) {
+    dragging   = true;
+    startX     = e.touches ? e.touches[0].clientX : e.clientX;
+    startFrame = frame;
+    img.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+
+  function onMove(e) {
+    if (!dragging) return;
+    const x = e.touches ? e.touches[0].clientX : e.clientX;
+    setFrame(startFrame + Math.round((x - startX) / SENS));
+    e.preventDefault();
+  }
+
+  function onEnd() {
+    dragging = false;
+    img.style.cursor = 'grab';
+  }
+
+  img.addEventListener('mousedown',  onStart, { passive: false });
+  img.addEventListener('touchstart', onStart, { passive: false });
+  window.addEventListener('mousemove',  onMove, { passive: false });
+  window.addEventListener('touchmove',  onMove, { passive: false });
+  window.addEventListener('mouseup',  onEnd);
+  window.addEventListener('touchend', onEnd);
+})();
