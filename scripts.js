@@ -776,9 +776,10 @@ document.addEventListener('click', (e) => {
   const img = document.getElementById('bustoImg');
   if (!img) return;
 
-  const FRAMES = 18;
-  const FOLDER = 'img/girobusto/';
-  const SENS   = 6;
+  const FRAMES    = 90;    // ← correcto, tenés 90
+  const FOLDER    = 'img/girobusto/';
+  const SENS      = 40;    // ← más alto = más lento y controlado
+  const RETURN_MS = 800;   // ← ms para volver al frente al soltar
 
   // Precargar frames
   const srcs = [];
@@ -787,19 +788,40 @@ document.addEventListener('click', (e) => {
     new Image().src = srcs[i];
   }
 
-  let frame = 0;
-  let dragging = false;
-  let startX = 0;
+  let frame      = 0;
+  let dragging   = false;
+  let startX     = 0;
   let startFrame = 0;
+  let returnRAF  = null;
 
   function setFrame(n) {
     const cycle = FRAMES - 1;
-    const mod = ((n % (cycle * 2)) + cycle * 2) % (cycle * 2);
+    const mod   = ((n % (cycle * 2)) + cycle * 2) % (cycle * 2);
     frame = mod <= cycle ? mod : cycle * 2 - mod;
     img.src = srcs[frame];
   }
 
+  function returnToFront() {
+    if (returnRAF) cancelAnimationFrame(returnRAF);
+    if (frame === 0) return;
+
+    const startF   = frame;
+    const duration = RETURN_MS;
+    const startT   = performance.now();
+
+    function tick(now) {
+      const t     = Math.min((now - startT) / duration, 1);
+      const eased = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+      const target = Math.round(startF * (1 - eased));
+      if (target !== frame) setFrame(target);
+      if (t < 1) returnRAF = requestAnimationFrame(tick);
+      else setFrame(0);
+    }
+    returnRAF = requestAnimationFrame(tick);
+  }
+
   function onStart(e) {
+    if (returnRAF) { cancelAnimationFrame(returnRAF); returnRAF = null; }
     dragging   = true;
     startX     = e.touches ? e.touches[0].clientX : e.clientX;
     startFrame = frame;
@@ -815,8 +837,10 @@ document.addEventListener('click', (e) => {
   }
 
   function onEnd() {
+    if (!dragging) return;
     dragging = false;
     img.style.cursor = 'grab';
+    returnToFront();
   }
 
   img.addEventListener('mousedown',  onStart, { passive: false });
