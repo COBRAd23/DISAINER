@@ -5885,3 +5885,11 @@ body.portfolio-page {
         width: clamp(350px, 45vw, 700px);
     }
 }
+/* BUSTOS VERSIONES */
+.hero-anim-busto img {
+  transition: opacity 0.6s ease;
+}
+
+.hero-anim-busto img.busto-changing {
+  opacity: 0;
+}

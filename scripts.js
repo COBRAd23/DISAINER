@@ -784,3 +784,71 @@ function raf(time) {
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
+
+/* =============================================
+   BUSTOS INTERVENIDOS — Click + Scroll Zoom
+   ============================================= */
+(function () {
+  const img = document.getElementById('bustoImg');
+  const hero = document.querySelector('.hero-v4');
+  if (!img || !hero) return;
+
+  const versiones = [
+    'img/bustosversiones/amarillo-chorrea.webp',
+    'img/bustosversiones/amarillo.webp',
+    'img/bustosversiones/collage.webp',
+    'img/bustosversiones/grafiti.webp',
+    'img/bustosversiones/marmol-doradas.webp',
+    'img/bustosversiones/negro-doradas.webp',
+    'img/bustosversiones/oleo.webp',
+  ];
+
+  // Precargar todas las versiones
+  versiones.forEach(src => { new Image().src = src; });
+
+  const original = 'img/yo_busto.png';
+  let currentVersion = null;
+  let lastIndex = -1;
+
+  // Click en el busto — cambia a versión aleatoria
+  img.addEventListener('click', () => {
+    img.classList.add('busto-changing');
+
+    setTimeout(() => {
+      let idx;
+      do { idx = Math.floor(Math.random() * versiones.length); }
+      while (idx === lastIndex);
+      lastIndex = idx;
+
+      // Alternar entre versión intervenida y original
+      if (currentVersion === versiones[idx]) {
+        img.src = original;
+        currentVersion = null;
+        lastIndex = -1;
+      } else {
+        img.src = versiones[idx];
+        currentVersion = versiones[idx];
+      }
+
+      img.classList.remove('busto-changing');
+    }, 300);
+  });
+
+  img.style.cursor = 'pointer';
+
+  // ── Scroll Zoom con GSAP ScrollTrigger ──────
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.to('.hero-anim-busto', {
+    scale: 2.2,
+    y: '-15%',
+    ease: 'none',
+    scrollTrigger: {
+      trigger: hero,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true,
+    }
+  });
+
+})();
