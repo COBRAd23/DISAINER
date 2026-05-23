@@ -832,11 +832,11 @@ requestAnimationFrame(raf);
     const maxGlitch = 6;
     const glitchInterval = setInterval(() => {
       if (glitchCount % 2 === 0) {
-        img.style.transform += ' skewX(8deg) translateX(6px)';
+        img.style.transform += ' skewX(0deg) translateX(0px)';
         img.style.filter = 'brightness(1.8) contrast(1.4) saturate(0)';
         img.style.opacity = '0.7';
       } else {
-        img.style.transform = img.style.transform.replace(' skewX(8deg) translateX(6px)', '');
+        img.style.transform = img.style.transform.replace(' skewX(0deg) translateX(0px)', '');
         img.style.filter = '';
         img.style.opacity = '1';
       }
