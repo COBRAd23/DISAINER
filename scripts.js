@@ -794,7 +794,6 @@ requestAnimationFrame(raf);
   if (!img || !hero) return;
 
   const versiones = [
-    'img/bustosversiones/amarillo-chorrea.webp',
     'img/bustosversiones/amarillo.webp',
     'img/bustosversiones/collage.webp',
     'img/bustosversiones/grafiti.webp',
