@@ -843,7 +843,7 @@ requestAnimationFrame(raf);
 gsap.to(img, {
     scale: 2.8,
     x: '65%',
-    y: '10%',
+    y: '5%',
     rotation: -8,
     rotationY: 25,
     ease: 'none',
