@@ -5885,14 +5885,7 @@ body.portfolio-page {
         width: clamp(350px, 45vw, 700px);
     }
 }
-/* BUSTO DRAG */
-#bustoImg { cursor: grab; user-select: none; -webkit-user-select: none; }
-#bustoImg:active { cursor: grabbing; }
-
-.hero-anim-busto {
-  pointer-events: auto !important;
-}
-
 .hero-anim-busto img {
-  pointer-events: auto !important;
+  object-fit: contain;
+  object-position: bottom center;
 }

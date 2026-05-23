@@ -776,44 +776,79 @@ document.addEventListener('click', (e) => {
   const img = document.getElementById('bustoImg');
   if (!img) return;
 
-  const FRAMES    = 90;    // ← correcto, tenés 90
+  const FRAMES    = 90;
   const FOLDER    = 'img/girobusto/';
-  const SENS      = 40;    // ← más alto = más lento y controlado
-  const RETURN_MS = 800;   // ← ms para volver al frente al soltar
+  const SENS      = 40;
+  const DELAY_MS  = 2000;
+  const RETURN_MS = 800;
 
-  // Precargar frames
   const srcs = [];
   for (let i = 0; i < FRAMES; i++) {
-    srcs.push(FOLDER + 'yo_busto_' + String(i).padStart(2, '0') + '.png');
+    srcs.push(FOLDER + 'yo_busto_' + String(i).padStart(2, '0') + '.webp');
     new Image().src = srcs[i];
   }
 
-  let frame      = 0;
-  let dragging   = false;
-  let startX     = 0;
-  let startFrame = 0;
-  let returnRAF  = null;
+  // Crear hitArea en el body, fuera de toda animación
+  const hitArea = document.createElement('div');
+  hitArea.style.cssText = `
+    position: fixed;
+    cursor: grab;
+    z-index: 9999;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: auto;
+  `;
+  document.body.appendChild(hitArea);
+
+  // Sincronizar posición del hitArea con el img
+  function syncHitArea() {
+    const r = img.getBoundingClientRect();
+    hitArea.style.left   = r.left   + 'px';
+    hitArea.style.top    = r.top    + 'px';
+    hitArea.style.width  = r.width  + 'px';
+    hitArea.style.height = r.height + 'px';
+  }
+
+  // Sincronizar continuamente durante 4s (cubre toda la animación de entrada)
+  let syncEnd = Date.now() + 4000;
+  function syncLoop() {
+    syncHitArea();
+    if (Date.now() < syncEnd) requestAnimationFrame(syncLoop);
+  }
+  syncLoop();
+
+  // Re-sincronizar en scroll y resize
+  window.addEventListener('scroll', syncHitArea, { passive: true });
+  window.addEventListener('resize', syncHitArea);
+
+  let frame       = 0;
+  let dragging    = false;
+  let startX      = 0;
+  let startFrame  = 0;
+  let returnTimer = null;
+  let returnRAF   = null;
 
   function setFrame(n) {
-    const cycle = FRAMES - 1;
-    const mod   = ((n % (cycle * 2)) + cycle * 2) % (cycle * 2);
-    frame = mod <= cycle ? mod : cycle * 2 - mod;
+    frame = ((n % FRAMES) + FRAMES) % FRAMES;
     img.src = srcs[frame];
   }
 
+  function cancelReturn() {
+    if (returnTimer) { clearTimeout(returnTimer); returnTimer = null; }
+    if (returnRAF)   { cancelAnimationFrame(returnRAF); returnRAF = null; }
+  }
+
   function returnToFront() {
-    if (returnRAF) cancelAnimationFrame(returnRAF);
+    cancelReturn();
     if (frame === 0) return;
-
-    const startF   = frame;
-    const duration = RETURN_MS;
-    const startT   = performance.now();
-
+    const half   = FRAMES / 2;
+    const dist   = frame <= half ? -frame : FRAMES - frame;
+    const startF = frame;
+    const startT = performance.now();
     function tick(now) {
-      const t     = Math.min((now - startT) / duration, 1);
-      const eased = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
-      const target = Math.round(startF * (1 - eased));
-      if (target !== frame) setFrame(target);
+      const t      = Math.min((now - startT) / RETURN_MS, 1);
+      const eased  = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+      setFrame(Math.round(startF + dist * eased));
       if (t < 1) returnRAF = requestAnimationFrame(tick);
       else setFrame(0);
     }
@@ -821,32 +856,31 @@ document.addEventListener('click', (e) => {
   }
 
   function onStart(e) {
-    if (returnRAF) { cancelAnimationFrame(returnRAF); returnRAF = null; }
+    cancelReturn();
     dragging   = true;
     startX     = e.touches ? e.touches[0].clientX : e.clientX;
     startFrame = frame;
-    img.style.cursor = 'grabbing';
-    e.preventDefault();
+    hitArea.style.cursor = 'grabbing';
   }
 
   function onMove(e) {
     if (!dragging) return;
     const x = e.touches ? e.touches[0].clientX : e.clientX;
-    setFrame(startFrame + Math.round((x - startX) / SENS));
-    e.preventDefault();
+    setFrame(startFrame - Math.round((x - startX) / SENS));
   }
 
   function onEnd() {
     if (!dragging) return;
     dragging = false;
-    img.style.cursor = 'grab';
-    returnToFront();
+    hitArea.style.cursor = 'grab';
+    returnTimer = setTimeout(returnToFront, DELAY_MS);
   }
 
-  img.addEventListener('mousedown',  onStart, { passive: false });
-  img.addEventListener('touchstart', onStart, { passive: false });
-  window.addEventListener('mousemove',  onMove, { passive: false });
-  window.addEventListener('touchmove',  onMove, { passive: false });
-  window.addEventListener('mouseup',  onEnd);
-  window.addEventListener('touchend', onEnd);
+  hitArea.addEventListener('mousedown',  onStart);
+  hitArea.addEventListener('touchstart', onStart, { passive: true });
+  window.addEventListener('mousemove',   onMove);
+  window.addEventListener('touchmove',   onMove, { passive: true });
+  window.addEventListener('mouseup',     onEnd);
+  window.addEventListener('touchend',    onEnd);
+
 })();
