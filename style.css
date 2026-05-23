@@ -5885,7 +5885,3 @@ body.portfolio-page {
         width: clamp(350px, 45vw, 700px);
     }
 }
-.hero-anim-busto img {
-  object-fit: contain;
-  object-position: bottom center;
-}
