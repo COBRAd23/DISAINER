@@ -789,7 +789,7 @@ requestAnimationFrame(raf);
    BUSTOS INTERVENIDOS — Click + Scroll Zoom
    ============================================= */
 (function () {
-  const img = document.getElementById('bustoImg');
+  const img  = document.getElementById('bustoImg');
   const hero = document.querySelector('.hero-v4');
   if (!img || !hero) return;
 
@@ -803,16 +803,20 @@ requestAnimationFrame(raf);
     'img/bustosversiones/oleo.webp',
   ];
 
-  // Precargar todas las versiones
   versiones.forEach(src => { new Image().src = src; });
 
   const original = 'img/yo_busto.png';
   let currentVersion = null;
   let lastIndex = -1;
 
-  // Click en el busto — cambia a versión aleatoria
-  img.addEventListener('click', () => {
-    img.classList.add('busto-changing');
+  // Click directo en el img — funciona sin importar pointer-events del padre
+  img.style.pointerEvents = 'auto';
+  img.style.cursor = 'pointer';
+
+  img.addEventListener('click', (e) => {
+    e.stopPropagation();
+    img.style.opacity = '0';
+    img.style.transition = 'opacity 0.3s ease';
 
     setTimeout(() => {
       let idx;
@@ -820,7 +824,6 @@ requestAnimationFrame(raf);
       while (idx === lastIndex);
       lastIndex = idx;
 
-      // Alternar entre versión intervenida y original
       if (currentVersion === versiones[idx]) {
         img.src = original;
         currentVersion = null;
@@ -830,24 +833,26 @@ requestAnimationFrame(raf);
         currentVersion = versiones[idx];
       }
 
-      img.classList.remove('busto-changing');
+      img.style.opacity = '1';
     }, 300);
   });
 
-  img.style.cursor = 'pointer';
-
-  // ── Scroll Zoom con GSAP ScrollTrigger ──────
+  // Scroll Zoom — sobre el IMG directamente, no el div animado
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.to('.hero-anim-busto', {
-    scale: 2.2,
-    y: '-15%',
+gsap.to(img, {
+    scale: 2.8,
+    x: '65%',
+    y: '10%',
+    rotation: -8,
+    rotationY: 25,
     ease: 'none',
+    transformOrigin: 'center center',
     scrollTrigger: {
       trigger: hero,
       start: 'top top',
       end: 'bottom top',
-      scrub: true,
+      scrub: 1,
     }
   });
 
