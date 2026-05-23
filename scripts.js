@@ -814,49 +814,46 @@ requestAnimationFrame(raf);
 
   img.addEventListener('click', (e) => {
     e.stopPropagation();
-    if (img.dataset.changing === 'true') return; // evita clicks durante transición
+    if (img.dataset.changing === 'true') return;
     img.dataset.changing = 'true';
 
-    // Shuffle que nunca repite hasta recorrer todos
     if (usados.length === versiones.length) usados = [];
     let idx;
     do { idx = Math.floor(Math.random() * versiones.length); }
     while (usados.includes(idx));
     usados.push(idx);
-
     const siguiente = versiones[idx];
     currentVersion = siguiente;
 
-    // Glitch transition
-    let glitchCount = 0;
-    const maxGlitch = 6;
-    const glitchInterval = setInterval(() => {
-      if (glitchCount % 2 === 0) {
-        img.style.transform += ' skewX(0deg) translateX(0px)';
-        img.style.filter = 'brightness(1.8) contrast(1.4) saturate(0)';
-        img.style.opacity = '0.7';
-      } else {
-        img.style.transform = img.style.transform.replace(' skewX(0deg) translateX(0px)', '');
+    // Glitch usando solo opacity y filter, sin tocar transform
+    let step = 0;
+    const steps = [
+      { opacity: '0.6', filter: 'brightness(2) saturate(0) contrast(2)' },
+      { opacity: '1',   filter: '' },
+      { opacity: '0.4', filter: 'hue-rotate(90deg) brightness(1.5)' },
+      { opacity: '1',   filter: '' },
+      { opacity: '0.2', filter: 'brightness(3) saturate(0)' },
+      { opacity: '0',   filter: '' },
+    ];
+
+    const glitch = setInterval(() => {
+      img.style.opacity = steps[step].opacity;
+      img.style.filter  = steps[step].filter;
+      step++;
+      if (step >= steps.length) {
+        clearInterval(glitch);
+        img.src = siguiente;
+        img.style.transition = 'opacity 0.3s ease';
         img.style.filter = '';
         img.style.opacity = '1';
-      }
-      glitchCount++;
-
-      if (glitchCount >= maxGlitch) {
-        clearInterval(glitchInterval);
-        // Reset y cambio limpio
-        img.style.filter = '';
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.25s ease';
-
         setTimeout(() => {
-          img.src = siguiente;
-          img.style.opacity = '1';
+          img.style.transition = '';
           img.dataset.changing = 'false';
-        }, 250);
+        }, 300);
       }
-    }, 60);
+    }, 55);
   });
+
 
   // Scroll Zoom — sobre el IMG directamente, no el div animado
   gsap.registerPlugin(ScrollTrigger);
