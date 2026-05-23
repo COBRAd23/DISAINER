@@ -680,35 +680,51 @@ function initInstitutionalVideo() {
 
 // Initial Call
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Preloader Logic ---
     const preloader = document.getElementById('preloader');
-    const percentSpan = document.getElementById('preloader-percent');
-    if (preloader && percentSpan) {
-        if (sessionStorage.getItem('preloaderPlayed') === 'true') {
-            preloader.classList.add('hidden');
-            document.body.style.overflow = '';
-            document.body.classList.add('is-loaded');
-        } else {
-            const videoDark = document.getElementById('preloader-video-dark');
-            const videoLight = document.getElementById('preloader-video-light');
-            const savedTheme = localStorage.getItem('theme');
-            const activeVideo = savedTheme === 'light' ? videoLight : videoDark;
+    const preloaderBar = document.getElementById('preloaderBar');
 
-            if (activeVideo) {
-                activeVideo.addEventListener('timeupdate', () => {
-                    let percent = Math.round((activeVideo.currentTime / activeVideo.duration) * 100);
-                    percentSpan.textContent = percent;
-                });
-                activeVideo.addEventListener('ended', () => {
-                    preloader.classList.add('hidden');
-                    document.body.style.overflow = '';
-                    document.body.classList.add('is-loaded');
-                    sessionStorage.setItem('preloaderPlayed', 'true');
-                });
-            } else {
-                preloader.classList.add('hidden');
-            }
+    if (preloader && preloaderBar) {
+      if (sessionStorage.getItem('preloaderPlayed') === 'true') {
+        preloader.classList.add('hidden');
+        document.body.style.overflow = '';
+        document.body.classList.add('is-loaded');
+      } else {
+        const videoDark  = document.getElementById('preloader-video-dark');
+        const videoLight = document.getElementById('preloader-video-light');
+        const savedTheme = localStorage.getItem('theme');
+        const activeVideo = savedTheme === 'light' ? videoLight : videoDark;
+
+        if (activeVideo) {
+          activeVideo.addEventListener('timeupdate', () => {
+            const percent = (activeVideo.currentTime / activeVideo.duration) * 100;
+            preloaderBar.style.width = percent + '%';
+          });
+
+          activeVideo.addEventListener('ended', () => {
+            // Completar la barra al 100%
+            preloaderBar.style.width = '100%';
+            preloaderBar.style.transition = 'width 0.2s linear';
+
+            // Parpadeo y salida
+            setTimeout(() => {
+              let blinks = 0;
+              const blink = setInterval(() => {
+                preloaderBar.style.opacity = preloaderBar.style.opacity === '0' ? '1' : '0';
+                blinks++;
+                if (blinks >= 6) {
+                  clearInterval(blink);
+                  preloader.classList.add('hidden');
+                  document.body.style.overflow = '';
+                  document.body.classList.add('is-loaded');
+                  sessionStorage.setItem('preloaderPlayed', 'true');
+                }
+              }, 120);
+            }, 200);
+          });
+        } else {
+          preloader.classList.add('hidden');
         }
+      }
     }
 
     initPage();

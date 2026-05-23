@@ -5893,3 +5893,24 @@ body.portfolio-page {
 .hero-anim-busto img.busto-changing {
   opacity: 0;
 }
+
+/* PRELOADER BAR */
+.preloader-bar-wrap {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.preloader-bar {
+  height: 100%;
+  width: 0%;
+  background: #FFCC00;
+  border-radius: 999px;
+  transition: width 0.1s linear;
+}
