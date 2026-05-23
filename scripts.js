@@ -806,7 +806,7 @@ requestAnimationFrame(raf);
 
   const original = 'img/yo_busto.png';
   let currentVersion = null;
-  let lastIndex = -1;
+  let usados = [];
 
   // Click directo en el img — funciona sin importar pointer-events del padre
   img.style.pointerEvents = 'auto';
@@ -814,26 +814,32 @@ requestAnimationFrame(raf);
 
   img.addEventListener('click', (e) => {
     e.stopPropagation();
+    
+    // Fade out suave
+    img.style.transition = 'opacity 0.4s ease';
     img.style.opacity = '0';
-    img.style.transition = 'opacity 0.3s ease';
 
     setTimeout(() => {
+      // Shuffle que nunca repite hasta recorrer todos
+      if (usados.length === versiones.length) usados = [];
+      
       let idx;
       do { idx = Math.floor(Math.random() * versiones.length); }
-      while (idx === lastIndex);
-      lastIndex = idx;
+      while (usados.includes(idx));
+      
+      usados.push(idx);
 
       if (currentVersion === versiones[idx]) {
         img.src = original;
         currentVersion = null;
-        lastIndex = -1;
       } else {
         img.src = versiones[idx];
         currentVersion = versiones[idx];
       }
 
+      // Fade in suave
       img.style.opacity = '1';
-    }, 300);
+    }, 400);
   });
 
   // Scroll Zoom — sobre el IMG directamente, no el div animado
