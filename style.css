@@ -181,7 +181,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     /* Adjusted offset for flush connection with header */
 }
 
