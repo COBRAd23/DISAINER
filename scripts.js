@@ -814,32 +814,48 @@ requestAnimationFrame(raf);
 
   img.addEventListener('click', (e) => {
     e.stopPropagation();
-    
-    // Fade out suave
-    img.style.transition = 'opacity 0.4s ease';
-    img.style.opacity = '0';
+    if (img.dataset.changing === 'true') return; // evita clicks durante transición
+    img.dataset.changing = 'true';
 
-    setTimeout(() => {
-      // Shuffle que nunca repite hasta recorrer todos
-      if (usados.length === versiones.length) usados = [];
-      
-      let idx;
-      do { idx = Math.floor(Math.random() * versiones.length); }
-      while (usados.includes(idx));
-      
-      usados.push(idx);
+    // Shuffle que nunca repite hasta recorrer todos
+    if (usados.length === versiones.length) usados = [];
+    let idx;
+    do { idx = Math.floor(Math.random() * versiones.length); }
+    while (usados.includes(idx));
+    usados.push(idx);
 
-      if (currentVersion === versiones[idx]) {
-        img.src = original;
-        currentVersion = null;
+    const siguiente = versiones[idx];
+    currentVersion = siguiente;
+
+    // Glitch transition
+    let glitchCount = 0;
+    const maxGlitch = 6;
+    const glitchInterval = setInterval(() => {
+      if (glitchCount % 2 === 0) {
+        img.style.transform += ' skewX(8deg) translateX(6px)';
+        img.style.filter = 'brightness(1.8) contrast(1.4) saturate(0)';
+        img.style.opacity = '0.7';
       } else {
-        img.src = versiones[idx];
-        currentVersion = versiones[idx];
+        img.style.transform = img.style.transform.replace(' skewX(8deg) translateX(6px)', '');
+        img.style.filter = '';
+        img.style.opacity = '1';
       }
+      glitchCount++;
 
-      // Fade in suave
-      img.style.opacity = '1';
-    }, 400);
+      if (glitchCount >= maxGlitch) {
+        clearInterval(glitchInterval);
+        // Reset y cambio limpio
+        img.style.filter = '';
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.25s ease';
+
+        setTimeout(() => {
+          img.src = siguiente;
+          img.style.opacity = '1';
+          img.dataset.changing = 'false';
+        }, 250);
+      }
+    }, 60);
   });
 
   // Scroll Zoom — sobre el IMG directamente, no el div animado
@@ -848,7 +864,7 @@ requestAnimationFrame(raf);
 gsap.to(img, {
     scale: 2.8,
     x: '65%',
-    y: '15%',
+    y: '25%',
     rotation: -8,
     rotationY: 25,
     ease: 'none',
