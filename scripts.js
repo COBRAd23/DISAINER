@@ -891,3 +891,152 @@ gsap.to(img, {
   });
 
 })();
+
+/* =============================================
+   CURSOR — Estela de tinta mixta
+   ============================================= */
+(function () {
+
+  // Ocultar cursor nativo
+  document.body.style.cursor = 'none';
+
+  // Canvas de tinta — cubre toda la página
+  const cv = document.createElement('canvas');
+  cv.style.cssText = `
+    position: fixed;
+    inset: 0;
+    z-index: 99990;
+    pointer-events: none;
+  `;
+  document.body.appendChild(cv);
+  const ctx = cv.getContext('2d');
+
+  function resize() {
+    cv.width  = window.innerWidth;
+    cv.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Cursor visual
+  const cursor = document.createElement('div');
+  cursor.style.cssText = `
+    position: fixed;
+    z-index: 99991;
+    pointer-events: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FFCC00;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: difference;
+  `;
+  document.body.appendChild(cursor);
+
+  let mouseX = -100, mouseY = -100;
+  let isHover = false;
+  let drops = [];
+
+  // Seguir mouse
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top  = mouseY + 'px';
+
+    // Crear gota de tinta
+    drops.push({
+      x:     mouseX,
+      y:     mouseY,
+      r:     Math.random() * (isHover ? 8 : 4) + (isHover ? 4 : 2),
+      alpha: isHover ? 0.7 : 0.4,
+      color: isHover ? '#FFCC00' : 'rgba(255,255,255,',
+      life:  1,
+      decay: Math.random() * 0.03 + 0.02,
+      vx:    (Math.random() - 0.5) * (isHover ? 2.5 : 1),
+      vy:    Math.random() * (isHover ? 3 : 1.5) + 0.5,
+      isHover,
+    });
+
+    // Limitar cantidad de gotas
+    if (drops.length > 120) drops.shift();
+  });
+
+  // Detectar hover sobre elementos interactivos
+  const interactivos = 'a, button, .overlay-card, .accordion-item, #bustoImg, .btn-cta, .portfolio-btn';
+
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest(interactivos)) {
+      isHover = true;
+      cursor.style.width      = '28px';
+      cursor.style.height     = '28px';
+      cursor.style.background = '#FFCC00';
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest(interactivos)) {
+      isHover = false;
+      cursor.style.width      = '12px';
+      cursor.style.height     = '12px';
+      cursor.style.background = '#FFCC00';
+    }
+  });
+
+  // Animación
+  function animate() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+
+    drops = drops.filter(d => d.life > 0);
+
+    drops.forEach(d => {
+      ctx.save();
+      ctx.globalAlpha = d.alpha * d.life;
+
+      if (d.isHover) {
+        // Gota amarilla — más grande y con blur
+        ctx.shadowColor = '#FFCC00';
+        ctx.shadowBlur  = 10;
+        ctx.fillStyle   = '#FFCC00';
+      } else {
+        // Gota blanca — más pequeña y sutil
+        ctx.shadowColor = 'rgba(255,255,255,0.3)';
+        ctx.shadowBlur  = 4;
+        ctx.fillStyle   = 'rgba(255,255,255,0.9)';
+      }
+
+      // Forma de gota irregular (tinta)
+      ctx.beginPath();
+      ctx.ellipse(
+        d.x, d.y,
+        d.r * (0.8 + Math.random() * 0.4),
+        d.r * (1.2 + Math.random() * 0.6),
+        Math.random() * Math.PI,
+        0, Math.PI * 2
+      );
+      ctx.fill();
+      ctx.restore();
+
+      // Física
+      d.x    += d.vx;
+      d.y    += d.vy;
+      d.vy   += 0.08; // gravedad suave
+      d.life -= d.decay;
+      d.r    *= 0.98;
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Ocultar cursor al salir de la ventana
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+  });
+
+})();
