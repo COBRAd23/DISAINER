@@ -893,150 +893,124 @@ gsap.to(img, {
 })();
 
 /* =============================================
-   CURSOR — Estela de tinta mixta
+   CURSOR — Estela orgánica que difumina el fondo
    ============================================= */
 (function () {
 
-  // Ocultar cursor nativo
   document.body.style.cursor = 'none';
 
-  // Canvas de tinta — cubre toda la página
-  const cv = document.createElement('canvas');
-  cv.style.cssText = `
-    position: fixed;
-    inset: 0;
-    z-index: 99990;
-    pointer-events: none;
-  `;
-  document.body.appendChild(cv);
-  const ctx = cv.getContext('2d');
-
-  function resize() {
-    cv.width  = window.innerWidth;
-    cv.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  // Cursor visual
   const cursor = document.createElement('div');
   cursor.style.cssText = `
     position: fixed;
     z-index: 99991;
     pointer-events: none;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background: #FFCC00;
+    box-shadow: 0 0 8px 2px rgba(255, 204, 0, 0.6);
     transform: translate(-50%, -50%);
-    transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
-    mix-blend-mode: difference;
+    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
   `;
   document.body.appendChild(cursor);
 
-  let mouseX = -100, mouseY = -100;
-  let isHover = false;
-  let drops = [];
+  const trailContainer = document.createElement('div');
+  trailContainer.style.cssText = `
+    position: fixed;
+    inset: 0;
+    z-index: 99989;
+    pointer-events: none;
+    overflow: hidden;
+  `;
+  document.body.appendChild(trailContainer);
 
-  // Seguir mouse
+  let mouseX = -100, mouseY = -100;
+  let lastX = -100, lastY = -100;
+  let isHover = false;
+  let lastSpawn = 0;
+
   window.addEventListener('mousemove', e => {
     mouseX = e.clientX;
     mouseY = e.clientY;
     cursor.style.left = mouseX + 'px';
     cursor.style.top  = mouseY + 'px';
 
-    // Crear gota de tinta
-    drops.push({
-      x:     mouseX,
-      y:     mouseY,
-      r:     Math.random() * (isHover ? 8 : 4) + (isHover ? 4 : 2),
-      alpha: isHover ? 0.7 : 0.4,
-      color: isHover ? '#FFCC00' : 'rgba(255,255,255,',
-      life:  1,
-      decay: Math.random() * 0.03 + 0.02,
-      vx:    (Math.random() - 0.5) * (isHover ? 2.5 : 1),
-      vy:    Math.random() * (isHover ? 3 : 1.5) + 0.5,
-      isHover,
-    });
+    const now  = performance.now();
+    const dist = Math.hypot(mouseX - lastX, mouseY - lastY);
 
-    // Limitar cantidad de gotas
-    if (drops.length > 120) drops.shift();
+    if (now - lastSpawn > 30 || dist > 18) {
+      spawnWisp(mouseX, mouseY, isHover);
+      lastSpawn = now;
+      lastX = mouseX;
+      lastY = mouseY;
+    }
   });
 
-  // Detectar hover sobre elementos interactivos
   const interactivos = 'a, button, .overlay-card, .accordion-item, #bustoImg, .btn-cta, .portfolio-btn';
 
   document.addEventListener('mouseover', e => {
     if (e.target.closest(interactivos)) {
       isHover = true;
-      cursor.style.width      = '28px';
-      cursor.style.height     = '28px';
-      cursor.style.background = '#FFCC00';
+      cursor.style.width      = '24px';
+      cursor.style.height     = '24px';
+      cursor.style.boxShadow  = '0 0 22px 6px rgba(255, 204, 0, 0.85)';
     }
   });
 
   document.addEventListener('mouseout', e => {
     if (e.target.closest(interactivos)) {
       isHover = false;
-      cursor.style.width      = '12px';
-      cursor.style.height     = '12px';
-      cursor.style.background = '#FFCC00';
+      cursor.style.width      = '10px';
+      cursor.style.height     = '10px';
+      cursor.style.boxShadow  = '0 0 8px 2px rgba(255, 204, 0, 0.6)';
     }
   });
 
-  // Animación
-  function animate() {
-    ctx.clearRect(0, 0, cv.width, cv.height);
+  function spawnWisp(x, y, hover) {
+    const size = hover ? (60 + Math.random() * 30) : (30 + Math.random() * 18);
+    const blur = hover ? (22 + Math.random() * 8) : (10 + Math.random() * 4);
+    const glow = hover ? 0.30 : 0.12;
 
-    drops = drops.filter(d => d.life > 0);
+    const wisp = document.createElement('div');
 
-    drops.forEach(d => {
-      ctx.save();
-      ctx.globalAlpha = d.alpha * d.life;
+    const r1 = 40 + Math.random() * 20;
+    const r2 = 40 + Math.random() * 20;
+    const r3 = 40 + Math.random() * 20;
+    const r4 = 40 + Math.random() * 20;
 
-      if (d.isHover) {
-        // Gota amarilla — más grande y con blur
-        ctx.shadowColor = '#FFCC00';
-        ctx.shadowBlur  = 10;
-        ctx.fillStyle   = '#FFCC00';
-      } else {
-        // Gota blanca — más pequeña y sutil
-        ctx.shadowColor = 'rgba(255,255,255,0.3)';
-        ctx.shadowBlur  = 4;
-        ctx.fillStyle   = 'rgba(255,255,255,0.9)';
-      }
+    // Estado inicial (invisible, chico)
+    wisp.style.cssText = `
+      position: absolute;
+      left: ${x}px;
+      top: ${y}px;
+      width: ${size}px;
+      height: ${size}px;
+      transform: translate(-50%, -50%) scale(0.3) rotate(${Math.random() * 40 - 20}deg);
+      border-radius: ${r1}% ${100 - r1}% ${r2}% ${100 - r2}% / ${r3}% ${r4}% ${100 - r4}% ${100 - r3}%;
+      backdrop-filter: blur(${blur}px) saturate(1.3);
+      -webkit-backdrop-filter: blur(${blur}px) saturate(1.3);
+      background: radial-gradient(circle, rgba(255,204,0,${glow}) 0%, rgba(255,204,0,0) 70%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.4s ease-out;
+    `;
 
-      // Forma de gota irregular (tinta)
-      ctx.beginPath();
-      ctx.ellipse(
-        d.x, d.y,
-        d.r * (0.8 + Math.random() * 0.4),
-        d.r * (1.2 + Math.random() * 0.6),
-        Math.random() * Math.PI,
-        0, Math.PI * 2
-      );
-      ctx.fill();
-      ctx.restore();
+    trailContainer.appendChild(wisp);
 
-      // Física
-      d.x    += d.vx;
-      d.y    += d.vy;
-      d.vy   += 0.08; // gravedad suave
-      d.life -= d.decay;
-      d.r    *= 0.98;
+    // Forzar reflow ANTES de animar — sin esto la transición no dispara
+    void wisp.offsetWidth;
+
+    requestAnimationFrame(() => {
+      wisp.style.opacity   = '1';
+      wisp.style.transform = `translate(-50%, -50%) scale(1.9) rotate(${Math.random() * 40 - 20}deg) translateY(-${12 + Math.random() * 16}px)`;
     });
 
-    requestAnimationFrame(animate);
+    setTimeout(() => { wisp.style.opacity = '0'; }, 250);
+    setTimeout(() => { wisp.remove(); }, 1600);
   }
 
-  animate();
-
-  // Ocultar cursor al salir de la ventana
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-  });
-  document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1';
-  });
+  document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
 
 })();
