@@ -1,25 +1,8 @@
 // Global Theme Logic - Execute immediately to prevent FOUC (Flash of Unstyled Content)
 function applyGlobalTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    const themeToggle = document.getElementById('themeToggle');
-
-    if (savedTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        if (themeToggle) {
-            const iconLight = themeToggle.querySelector('.theme-icon-light');
-            const iconDark = themeToggle.querySelector('.theme-icon-dark');
-            if (iconLight) iconLight.style.display = 'block';
-            if (iconDark) iconDark.style.display = 'none';
-        }
-    } else {
-        document.documentElement.removeAttribute('data-theme');
-        if (themeToggle) {
-            const iconLight = themeToggle.querySelector('.theme-icon-light');
-            const iconDark = themeToggle.querySelector('.theme-icon-dark');
-            if (iconLight) iconLight.style.display = 'none';
-            if (iconDark) iconDark.style.display = 'block';
-        }
-    }
+    // Versión clara desactivada: el sitio queda fijo en modo oscuro
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.removeItem('theme');
 }
 
 // Initial immediate call
@@ -818,75 +801,107 @@ requestAnimationFrame(raf);
     'img/bustosversiones/oleo.webp',
   ];
 
+  // Un título + descripción breve por cada versión del busto (mismo orden que "versiones")
+  const titulos = [
+    'BRANDING ESTRATÉGICO',
+    'DESARROLLO WEB',
+    'DISEÑO UX/UI',
+    'E-COMMERCE',
+    'SOCIAL MEDIA',
+    'CONSULTORÍA DE DISEÑO',
+  ];
+
+  const descripciones = [
+    'Identidades visuales que transforman ideas en marcas con carácter.',
+    'Sitios web modernos, rápidos y funcionales para tu marca.',
+    'Experiencias digitales intuitivas, centradas en el usuario.',
+    'Tiendas online pensadas para vender y convertir.',
+    'Contenido visual que fortalece tu presencia en redes.',
+    'Visión estratégica para ordenar, potenciar y escalar tu marca.',
+  ];
+
   versiones.forEach(src => { new Image().src = src; });
 
-  const original = 'img/yo_busto.png';
-  let currentVersion = null;
-  let usados = [];
+  const original  = 'img/yo_busto.png';
+  const tituloEl  = document.getElementById('bustoTitle');
+  const descEl    = document.getElementById('bustoDesc');
 
-  // Click directo en el img — funciona sin importar pointer-events del padre
-  img.style.pointerEvents = 'auto';
-  img.style.cursor = 'pointer';
+  // Glitch usando solo opacity y filter, sin tocar transform
+  const steps = [
+    { opacity: '0.6', filter: 'brightness(2) saturate(0) contrast(2)' },
+    { opacity: '1',   filter: '' },
+    { opacity: '0.4', filter: 'hue-rotate(90deg) brightness(1.5)' },
+    { opacity: '1',   filter: '' },
+    { opacity: '0.2', filter: 'brightness(3) saturate(0)' },
+    { opacity: '0',   filter: '' },
+  ];
 
-  img.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (img.dataset.changing === 'true') return;
+  function cambiarBusto(nuevoSrc, nuevoTitulo, nuevaDesc) {
+    if (img.dataset.changing === 'true' || img.src.endsWith(nuevoSrc)) return;
     img.dataset.changing = 'true';
 
-    if (usados.length === versiones.length) usados = [];
-    let idx;
-    do { idx = Math.floor(Math.random() * versiones.length); }
-    while (usados.includes(idx));
-    usados.push(idx);
-    const siguiente = versiones[idx];
-    currentVersion = siguiente;
+    if (tituloEl) tituloEl.classList.remove('visible');
+    if (descEl)   descEl.classList.remove('visible');
 
-    // Glitch usando solo opacity y filter, sin tocar transform
     let step = 0;
-    const steps = [
-      { opacity: '0.6', filter: 'brightness(2) saturate(0) contrast(2)' },
-      { opacity: '1',   filter: '' },
-      { opacity: '0.4', filter: 'hue-rotate(90deg) brightness(1.5)' },
-      { opacity: '1',   filter: '' },
-      { opacity: '0.2', filter: 'brightness(3) saturate(0)' },
-      { opacity: '0',   filter: '' },
-    ];
-
     const glitch = setInterval(() => {
       img.style.opacity = steps[step].opacity;
       img.style.filter  = steps[step].filter;
       step++;
       if (step >= steps.length) {
         clearInterval(glitch);
-        img.src = siguiente;
+        img.src = nuevoSrc;
         img.style.transition = 'opacity 0.3s ease';
         img.style.filter = '';
         img.style.opacity = '1';
+
+        if (tituloEl) {
+          tituloEl.textContent = nuevoTitulo || '';
+          if (nuevoTitulo) tituloEl.classList.add('visible');
+        }
+        if (descEl) {
+          descEl.textContent = nuevaDesc || '';
+          if (nuevaDesc) descEl.classList.add('visible');
+        }
+
         setTimeout(() => {
           img.style.transition = '';
           img.dataset.changing = 'false';
         }, 300);
       }
     }, 55);
-  });
+  }
 
-
-  // Scroll Zoom — sobre el IMG directamente, no el div animado
+  // El scroll del hero queda "fijo" (pin) hasta terminar el ciclo completo de bustos —
+  // recién ahí se libera y avanza a la siguiente sección.
   gsap.registerPlugin(ScrollTrigger);
 
-gsap.to(img, {
-    scale: 2.8,
-    x: '65%',
-    y: '25%',
-    rotation: -8,
-    rotationY: 25,
-    ease: 'none',
-    transformOrigin: 'center center',
-    scrollTrigger: {
-      trigger: hero,
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1,
+  let ultimoSegmento = 0;
+
+  ScrollTrigger.create({
+    trigger: hero,
+    start: 'top top',
+    end: () => '+=' + Math.round(window.innerHeight * 3),
+    scrub: 1,
+    pin: true,
+    pinSpacing: true,
+    anticipatePin: 1,
+    onUpdate: (self) => {
+      // Reparte el progreso 0→1 en 7 tramos: original + 6 versiones
+      const totalTramos = versiones.length + 1;
+      const segmento = Math.min(
+        totalTramos - 1,
+        Math.floor(self.progress * totalTramos)
+      );
+
+      if (segmento !== ultimoSegmento) {
+        ultimoSegmento = segmento;
+        if (segmento === 0) {
+          cambiarBusto(original, '', '');
+        } else {
+          cambiarBusto(versiones[segmento - 1], titulos[segmento - 1], descripciones[segmento - 1]);
+        }
+      }
     }
   });
 
@@ -897,8 +912,14 @@ gsap.to(img, {
    ============================================= */
 (function () {
 
+  // En mobile/táctil no hay cursor real: no lo activamos para no tapar el texto
+  const tieneMousePreciso = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (!tieneMousePreciso) return;
+
+  // Ocultar cursor nativo
   document.body.style.cursor = 'none';
 
+  // Punto central del cursor
   const cursor = document.createElement('div');
   cursor.style.cssText = `
     position: fixed;
@@ -908,12 +929,13 @@ gsap.to(img, {
     height: 10px;
     border-radius: 50%;
     background: #FFCC00;
-    box-shadow: 0 0 8px 2px rgba(255, 204, 0, 0.6);
     transform: translate(-50%, -50%);
-    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease, box-shadow 0.25s ease;
+    transition: width 0.25s ease, height 0.25s ease, opacity 0.25s ease;
+    mix-blend-mode: difference;
   `;
   document.body.appendChild(cursor);
 
+  // Contenedor de la estela de humo
   const trailContainer = document.createElement('div');
   trailContainer.style.cssText = `
     position: fixed;
@@ -938,7 +960,8 @@ gsap.to(img, {
     const now  = performance.now();
     const dist = Math.hypot(mouseX - lastX, mouseY - lastY);
 
-    if (now - lastSpawn > 30 || dist > 18) {
+    // Genera una nueva voluta solo cada cierto tiempo/distancia (evita saturar el DOM)
+    if (now - lastSpawn > 40 || dist > 24) {
       spawnWisp(mouseX, mouseY, isHover);
       lastSpawn = now;
       lastX = mouseX;
@@ -946,71 +969,116 @@ gsap.to(img, {
     }
   });
 
+  // Detectar hover sobre elementos interactivos
   const interactivos = 'a, button, .overlay-card, .accordion-item, #bustoImg, .btn-cta, .portfolio-btn';
 
   document.addEventListener('mouseover', e => {
     if (e.target.closest(interactivos)) {
       isHover = true;
-      cursor.style.width      = '24px';
-      cursor.style.height     = '24px';
-      cursor.style.boxShadow  = '0 0 22px 6px rgba(255, 204, 0, 0.85)';
+      cursor.style.width  = '22px';
+      cursor.style.height = '22px';
     }
   });
 
   document.addEventListener('mouseout', e => {
     if (e.target.closest(interactivos)) {
       isHover = false;
-      cursor.style.width      = '10px';
-      cursor.style.height     = '10px';
-      cursor.style.boxShadow  = '0 0 8px 2px rgba(255, 204, 0, 0.6)';
+      cursor.style.width  = '10px';
+      cursor.style.height = '10px';
     }
   });
 
   function spawnWisp(x, y, hover) {
-    const size = hover ? (60 + Math.random() * 30) : (30 + Math.random() * 18);
-    const blur = hover ? (22 + Math.random() * 8) : (10 + Math.random() * 4);
-    const glow = hover ? 0.30 : 0.12;
-
+    const size = hover ? (40 + Math.random() * 20) : (24 + Math.random() * 16);
     const wisp = document.createElement('div');
 
+    // Border-radius asimétrico = mancha orgánica, no un círculo perfecto
     const r1 = 40 + Math.random() * 20;
     const r2 = 40 + Math.random() * 20;
     const r3 = 40 + Math.random() * 20;
     const r4 = 40 + Math.random() * 20;
 
-    // Estado inicial (invisible, chico)
     wisp.style.cssText = `
       position: absolute;
       left: ${x}px;
       top: ${y}px;
       width: ${size}px;
       height: ${size}px;
-      transform: translate(-50%, -50%) scale(0.3) rotate(${Math.random() * 40 - 20}deg);
+      transform: translate(-50%, -50%) scale(0.4) rotate(${Math.random() * 40 - 20}deg);
       border-radius: ${r1}% ${100 - r1}% ${r2}% ${100 - r2}% / ${r3}% ${r4}% ${100 - r4}% ${100 - r3}%;
-      backdrop-filter: blur(${blur}px) saturate(1.3);
-      -webkit-backdrop-filter: blur(${blur}px) saturate(1.3);
-      background: radial-gradient(circle, rgba(255,204,0,${glow}) 0%, rgba(255,204,0,0) 70%);
-      mix-blend-mode: screen;
+      backdrop-filter: blur(6px) saturate(1.15);
+      -webkit-backdrop-filter: blur(6px) saturate(1.15);
+      background: rgba(255,255,255,0.02);
       opacity: 0;
       pointer-events: none;
-      transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.4s ease-out;
+      transition: transform 1.6s cubic-bezier(0.19, 1, 0.22, 1), opacity 1.6s ease-out;
     `;
 
     trailContainer.appendChild(wisp);
 
-    // Forzar reflow ANTES de animar — sin esto la transición no dispara
-    void wisp.offsetWidth;
-
+    // Frame siguiente: crece y aparece (fuerza el reflow para que la transición corra)
     requestAnimationFrame(() => {
-      wisp.style.opacity   = '1';
-      wisp.style.transform = `translate(-50%, -50%) scale(1.9) rotate(${Math.random() * 40 - 20}deg) translateY(-${12 + Math.random() * 16}px)`;
+      wisp.style.opacity   = hover ? '0.85' : '0.55';
+      wisp.style.transform = `translate(-50%, -50%) scale(1.8) rotate(${Math.random() * 40 - 20}deg) translateY(-${10 + Math.random() * 14}px)`;
     });
 
-    setTimeout(() => { wisp.style.opacity = '0'; }, 250);
-    setTimeout(() => { wisp.remove(); }, 1600);
+    // Se desvanece y luego se elimina del DOM
+    setTimeout(() => { wisp.style.opacity = '0'; }, 200);
+    setTimeout(() => { wisp.remove(); }, 1800);
   }
 
+  // Ocultar cursor al salir de la ventana
   document.addEventListener('mouseleave', () => { cursor.style.opacity = '0'; });
   document.addEventListener('mouseenter', () => { cursor.style.opacity = '1'; });
 
+})();
+
+/* =============================================
+   SCROLL CREMOSO — Caja de texto "Mi Filosofía"
+   ============================================= */
+(function () {
+  const box = document.querySelector('.scroll-box');
+  if (!box) return;
+
+  let target  = box.scrollTop;
+  let current = box.scrollTop;
+  let animando = false;
+
+  // Cuanto más chico este número, más lento y "cremoso" se siente el scroll
+  const SUAVIDAD = 0.09;
+  // Cuanto más chico, menos brusco el salto por cada "click" de la rueda del mouse
+  const INTENSIDAD_RUEDA = 0.5;
+
+  function animar() {
+    current += (target - current) * SUAVIDAD;
+
+    if (Math.abs(target - current) < 0.5) {
+      current = target;
+      box.scrollTop = current;
+      animando = false;
+      return;
+    }
+
+    box.scrollTop = current;
+    requestAnimationFrame(animar);
+  }
+
+  box.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    target += e.deltaY * INTENSIDAD_RUEDA;
+    target = Math.max(0, Math.min(target, box.scrollHeight - box.clientHeight));
+
+    if (!animando) {
+      animando = true;
+      requestAnimationFrame(animar);
+    }
+  }, { passive: false });
+
+  // Si el usuario arrastra la barra nativa, sincronizamos el objetivo para que no "pelee" con el mouse
+  box.addEventListener('scroll', () => {
+    if (!animando) {
+      target  = box.scrollTop;
+      current = box.scrollTop;
+    }
+  });
 })();
