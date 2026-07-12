@@ -778,11 +778,16 @@ const lenis = new Lenis({
   smooth: true,
 });
 
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
+// Sincronización con GSAP ScrollTrigger — sin esto, ScrollTrigger nunca se entera
+// de los cambios de scroll que aplica Lenis, y funciones como "pin" no se sostienen.
+gsap.registerPlugin(ScrollTrigger);
+
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
+gsap.ticker.lagSmoothing(0);
 
 /* =============================================
    BUSTOS INTERVENIDOS — Click + Scroll Zoom
@@ -872,20 +877,18 @@ requestAnimationFrame(raf);
     }, 55);
   }
 
-  // El scroll del hero queda "fijo" (pin) hasta terminar el ciclo completo de bustos —
-  // recién ahí se libera y avanza a la siguiente sección.
+  // El hero queda quieto por CSS (sticky, dentro de .hero-sticky-wrapper). Acá solo medimos
+  // el progreso de scroll de ese wrapper para saber cuándo toca cambiar cada busto.
   gsap.registerPlugin(ScrollTrigger);
 
+  const heroWrapper = document.querySelector('.hero-sticky-wrapper');
   let ultimoSegmento = 0;
 
   ScrollTrigger.create({
-    trigger: hero,
+    trigger: heroWrapper || hero,
     start: 'top top',
-    end: () => '+=' + Math.round(window.innerHeight * 3),
+    end: 'bottom top',
     scrub: 1,
-    pin: true,
-    pinSpacing: true,
-    anticipatePin: 1,
     onUpdate: (self) => {
       // Reparte el progreso 0→1 en 7 tramos: original + 6 versiones
       const totalTramos = versiones.length + 1;
@@ -904,6 +907,9 @@ requestAnimationFrame(raf);
       }
     }
   });
+
+  // Por si algún recurso (imágenes) carga después y desajusta las medidas del scroll
+  window.addEventListener('load', () => ScrollTrigger.refresh());
 
 })();
 

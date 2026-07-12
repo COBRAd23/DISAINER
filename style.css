@@ -260,9 +260,8 @@ header {
 }
 
 header.scrolled {
-    background: rgba(8, 8, 8, 0.9);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    border-bottom: none;
 }
 
 main {
@@ -833,13 +832,19 @@ body.menu-open .logo img {
 
 /* Hero Section */
 /* Hero Section v4 */
+.hero-sticky-wrapper {
+    position: relative;
+    height: 400vh;
+}
+
 .hero-v4 {
     height: 100vh;
     height: 100dvh;
     display: flex;
     align-items: flex-end;
     padding-bottom: 6vh;
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 1;
     overflow: hidden;
 }
