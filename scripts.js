@@ -877,18 +877,21 @@ gsap.ticker.lagSmoothing(0);
     }, 55);
   }
 
-  // El hero queda quieto por CSS (sticky, dentro de .hero-sticky-wrapper). Acá solo medimos
-  // el progreso de scroll de ese wrapper para saber cuándo toca cambiar cada busto.
+  // El hero queda fijo (pin de GSAP) durante todo el ciclo de bustos. Al terminar, se libera
+  // solo y la sección siguiente (que ya tiene mayor z-index) sube y lo tapa de forma natural.
   gsap.registerPlugin(ScrollTrigger);
 
-  const heroWrapper = document.querySelector('.hero-sticky-wrapper');
   let ultimoSegmento = 0;
 
   ScrollTrigger.create({
-    trigger: heroWrapper || hero,
+    trigger: hero,
     start: 'top top',
-    end: 'bottom top',
+    end: () => '+=' + Math.round(window.innerHeight * 3),
     scrub: 1,
+    pin: true,
+    pinType: 'fixed',
+    pinSpacing: true,
+    anticipatePin: 1,
     onUpdate: (self) => {
       // Reparte el progreso 0→1 en 7 tramos: original + 6 versiones
       const totalTramos = versiones.length + 1;
