@@ -807,13 +807,14 @@ gsap.ticker.lagSmoothing(0);
   ];
 
   // Un título + descripción breve por cada versión del busto (mismo orden que "versiones")
+  // Cada título se separa en dos partes: "amarillo" (concepto) y "blanco" (complemento)
   const titulos = [
-    'BRANDING ESTRATÉGICO',
-    'DESARROLLO WEB',
-    'DISEÑO UX/UI',
-    'E-COMMERCE',
-    'SOCIAL MEDIA',
-    'CONSULTORÍA DE DISEÑO',
+    { amarillo: 'BRANDING',      blanco: 'ESTRATÉGICO' },
+    { amarillo: 'DESARROLLO',    blanco: 'WEB' },
+    { amarillo: 'DISEÑO',        blanco: 'UX/UI' },
+    { amarillo: 'E-COMMERCE',    blanco: '' },
+    { amarillo: 'SOCIAL',        blanco: 'MEDIA' },
+    { amarillo: 'CONSULTORÍA',   blanco: 'DE DISEÑO' },
   ];
 
   const descripciones = [
@@ -861,8 +862,17 @@ gsap.ticker.lagSmoothing(0);
         img.style.opacity = '1';
 
         if (tituloEl) {
-          tituloEl.textContent = nuevoTitulo || '';
-          if (nuevoTitulo) tituloEl.classList.add('visible');
+          if (nuevoTitulo && typeof nuevoTitulo === 'object') {
+            const partes = [`<span class="titulo-amarillo">${nuevoTitulo.amarillo}</span>`];
+            if (nuevoTitulo.blanco) {
+              partes.push(`<span class="titulo-blanco">${nuevoTitulo.blanco}</span>`);
+            }
+            tituloEl.innerHTML = partes.join('');
+            tituloEl.classList.add('visible');
+          } else {
+            tituloEl.innerHTML = '';
+            tituloEl.classList.remove('visible');
+          }
         }
         if (descEl) {
           descEl.textContent = nuevaDesc || '';
