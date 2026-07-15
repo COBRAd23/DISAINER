@@ -5976,3 +5976,138 @@ body.portfolio-page {
   border-radius: 999px;
   transition: width 0.1s linear;
 }
+
+/* ============================================================
+   HERO FLEX FIX — evitar overflow en pantallas intermedias
+   El problema: hero-bottom-left y hero-bottom-right tienen
+   max-width fijos y no tienen min-width:0, así que se desbordan
+   en pantallas de 1280px–1366px donde no caben los dos columnas.
+   ============================================================ */
+
+/* Fix base: hacer que los items del hero sean flex items que se comprimen */
+.hero-bottom-content {
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+}
+
+.hero-bottom-left,
+.hero-bottom-right {
+    min-width: 0;  /* clave para que flex-shrink funcione */
+    flex-shrink: 1;
+}
+
+.hero-bottom-left {
+    flex: 1 1 auto;
+}
+
+.hero-bottom-right {
+    flex: 0 1 auto;
+}
+
+/* Evitar que el texto del lado derecho se salga */
+.hero-description-v4 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* ============================================================
+   BREAKPOINT: 769px – 1100px
+   En esta franja (laptops chicas, monitores de baja resolución)
+   ocultamos el panel derecho igual que en mobile, ya que no hay
+   espacio horizontal suficiente para los dos columnas.
+   Mobile (≤768px) ya tiene su propia lógica — no se toca.
+   ============================================================ */
+@media screen and (min-width: 769px) and (max-width: 1100px) {
+    /* Ocultar columna derecha del hero */
+    .hero-bottom-right {
+        display: none !important;
+    }
+
+    /* El lado izquierdo ocupa todo el ancho */
+    .hero-bottom-left {
+        max-width: 100%;
+        flex: 1 1 100%;
+    }
+
+    /* Ajustar padding y tamaño de fuente */
+    .hero-container-v4 {
+        padding: 0 5%;
+    }
+
+    .hero-title-v4 {
+        font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+        line-height: 1.05;
+    }
+
+    .hero-subtitle-yellow {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-bottom: 1.8rem;
+    }
+
+    /* Busto: centrado y con buen tamaño */
+    .is-loaded .hero-anim-busto {
+        width: clamp(320px, 60vw, 640px);
+        bottom: -4vh;
+    }
+
+    /* Logo de fondo: escalar para que llene bien */
+    .is-loaded .hero-anim-logo {
+        width: 115vw;
+        top: 38%;
+    }
+}
+
+/* ============================================================
+   BREAKPOINT: 1101px – 1280px
+   Pantallas intermedias: reducir tamaños pero mantener ambas
+   columnas visibles, con menor max-width para evitar overflow.
+   ============================================================ */
+@media screen and (min-width: 1101px) and (max-width: 1280px) {
+    .hero-container-v4 {
+        padding: 0 4%;
+    }
+
+    .hero-bottom-left {
+        max-width: 520px;
+        flex: 1 1 auto;
+    }
+
+    .hero-bottom-right {
+        max-width: 360px;
+        flex: 0 1 360px;
+    }
+
+    .hero-title-v4 {
+        font-size: clamp(1.7rem, 3vw, 2.3rem);
+    }
+
+    .hero-subtitle-yellow {
+        font-size: 0.82rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-description-v4 {
+        font-size: 13.5px;
+        line-height: 1.25;
+    }
+
+    .hero-busto-title {
+        font-size: 28px;
+    }
+
+    .hero-busto-desc {
+        font-size: 13px;
+        max-width: 300px;
+    }
+
+    .is-loaded .hero-anim-busto {
+        width: clamp(320px, 50vw, 700px);
+        bottom: -5vh;
+    }
+
+    .is-loaded .hero-anim-logo {
+        width: 108vw;
+        top: 38%;
+    }
+}
