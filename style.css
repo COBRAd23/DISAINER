@@ -1512,11 +1512,11 @@ body.menu-open .logo img {
 .hero-busto-title {
     font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: clamp(28px, 3vw, 42px);
-    line-height: 1.05;
+    font-size: clamp(34px, 3.8vw, 56px);
+    line-height: 0.92;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    margin: 0 0 8px 0;
+    margin: 0 0 10px 0;
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.45s ease, transform 0.45s ease;
@@ -1548,10 +1548,11 @@ body.menu-open .logo img {
     font-family: 'Satoshi', sans-serif;
     font-weight: 500;
     font-size: 16px;
-    line-height: 1.35;
+    line-height: 1.18;
     color: var(--text-gray);
-    max-width: 420px;
+    max-width: 300px;
     margin: 0 0 18px 0;
+    margin-left: auto;
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.45s ease 0.05s, transform 0.45s ease 0.05s;
@@ -5921,11 +5922,13 @@ body.portfolio-page {
         font-size: 15px;
     }
     .hero-busto-title {
-        font-size: 32px;
+        font-size: 40px;
+        line-height: 0.95;
     }
     .hero-busto-desc {
         font-size: 14px;
-        max-width: 350px;
+        line-height: 1.18;
+        max-width: 260px;
     }
     
     .menu-stripe a {
@@ -6093,12 +6096,14 @@ body.portfolio-page {
     }
 
     .hero-busto-title {
-        font-size: 28px;
+        font-size: 36px;
+        line-height: 0.95;
     }
 
     .hero-busto-desc {
         font-size: 13px;
-        max-width: 300px;
+        line-height: 1.18;
+        max-width: 240px;
     }
 
     .is-loaded .hero-anim-busto {
